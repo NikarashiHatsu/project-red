@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'form-order', 'as' => 'form-order.'], function() {
-    Route::resource('/', 'App\Http\Controllers\Web\FormOrder');
+    Route::resource('/', FormOrderController::class);
+    Route::get('/check_information/{user_id}', [FormOrderController::class, 'check_information'])->name('check_information');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
