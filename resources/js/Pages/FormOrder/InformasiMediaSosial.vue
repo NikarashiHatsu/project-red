@@ -75,22 +75,14 @@
 
         data() {
             return {
-                produk: [],
-                
                 form: this.$inertia.form({
                     '_method': 'PUT',
                     // Media sosial
-                    youtubeLink: null,
                     facebookLink: null,
                     instagramLink: null,
                     twitterLink: null,
+                    youtubeLink: null,
                     whatsappNumber: null,
-
-                    // Produk
-                    namaProduk: null,
-                    hargaProduk: null,
-                    deskripsiProduk: null,
-                    fotoProduk: null,
                 }, {
                     bag: 'updateProfileInformation',
                     resetOnSuccess: false,

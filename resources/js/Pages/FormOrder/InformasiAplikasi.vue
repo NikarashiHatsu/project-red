@@ -68,8 +68,6 @@
 
         data() {
             return {
-                produk: [],
-                
                 form: this.$inertia.form({
                     '_method': 'PUT',
                     // Informasi Aplikasi
