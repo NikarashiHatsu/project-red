@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'form-order', 'as' => 'form-order.'], function() {
+    Route::resource('/', 'App\Http\Controllers\Web\FormOrder');
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
