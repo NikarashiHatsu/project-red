@@ -3602,7 +3602,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      produk: [],
       form: this.$inertia.form({
         '_method': 'PUT',
         // Informasi Aplikasi
@@ -3713,20 +3712,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      produk: [],
       form: this.$inertia.form({
         '_method': 'PUT',
         // Media sosial
-        youtubeLink: null,
         facebookLink: null,
         instagramLink: null,
         twitterLink: null,
-        whatsappNumber: null,
-        // Produk
-        namaProduk: null,
-        hargaProduk: null,
-        deskripsiProduk: null,
-        fotoProduk: null
+        youtubeLink: null,
+        whatsappNumber: null
       }, {
         bag: 'updateProfileInformation',
         resetOnSuccess: false
@@ -3912,6 +3905,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3920,6 +3957,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  // Daftarkan komponen-komponen yang digunakan
   components: {
     JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_0__["default"],
     JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3929,23 +3967,91 @@ __webpack_require__.r(__webpack_exports__);
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
+  // Ambil data ketika elemen ini dibuat
+  created: function created() {
+    this.fetchData();
+  },
+  // Set data
   data: function data() {
     return {
-      produk: [],
+      // Digunakan untuk preview
+      logoTokoPreview: null,
+      bannerTokoPreview: null,
+      // Digunakan untuk logo toko dan banner toko agar gambar tidak hilang ketika diupdate
+      informasi: {},
+      // Form untuk PUT atau STORE
       form: this.$inertia.form({
-        '_method': 'PUT',
-        namaPemilik: null,
-        namaToko: null,
-        logoToko: null,
-        bannerToko: null
+        _method: 'PUT',
+        id: null,
+        nama_pemilik: this.$page.user.name,
+        nama_toko: null,
+        logo_toko_path: null,
+        banner_toko_path: null
       }, {
-        bag: 'updateProfileInformation',
         resetOnSuccess: false
       })
     };
   },
+  // Daftarkan metode-metode
   methods: {
-    submitInformasiToko: function submitInformasiToko() {}
+    // Mengambil data awal
+    fetchData: function fetchData() {
+      var vm = this;
+      axios.get(route('form-order.check_information', this.$page.user.id)).then(function (response) {
+        vm.form.id = response.data.data.id;
+        vm.form.nama_toko = response.data.data.nama_toko;
+        vm.informasi = response.data.data;
+      });
+    },
+    // Submit informasi toko
+    submitInformasiToko: function submitInformasiToko() {
+      // Masukkan logo toko ke form
+      if (this.$refs.logoToko) {
+        this.form.logo_toko_path = this.$refs.logoToko.files[0];
+      } // Masukkan banner toko ke form
+
+
+      if (this.$refs.bannerToko) {
+        this.form.banner_toko_path = this.$refs.bannerToko.files[0];
+      } // Lakukan transaksi
+
+
+      this.form.post(route('form-order.update'), {
+        preserveScroll: true
+      });
+    },
+    // Buka file manager untuk logo
+    selectNewLogoToko: function selectNewLogoToko() {
+      this.$refs.logoToko.click();
+    },
+    // Buka file manager untuk banner
+    selectNewBannerToko: function selectNewBannerToko() {
+      this.$refs.bannerToko.click();
+    },
+    // Mengupdate logo (hanya sebagai preview)
+    updateLogoTokoPreview: function updateLogoTokoPreview() {
+      var _this = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.logoTokoPreview = e.target.result;
+      };
+
+      reader.readAsDataURL(this.$refs.logoToko.files[0]);
+    },
+    // Mengupdate banner (hanya sebagai preview)
+    updateBannerTokoPreview: function updateBannerTokoPreview() {
+      var _this2 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this2.bannerTokoPreview = e.target.result;
+      };
+
+      reader.readAsDataURL(this.$refs.bannerToko.files[0]);
+    }
   }
 });
 
@@ -48899,29 +49005,88 @@ var render = function() {
               "div",
               { staticClass: "col-span-6 sm:col-span-4" },
               [
-                _c("jet-label", {
-                  attrs: { for: "namaPemilik", value: "Nama Pemilik" }
+                _c("input", {
+                  ref: "bannerToko",
+                  staticClass: "hidden",
+                  attrs: { type: "file" },
+                  on: { change: _vm.updateBannerTokoPreview }
                 }),
                 _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
+                _c("jet-label", {
                   attrs: {
-                    id: "namaPemilik",
-                    type: "text",
-                    autocomplete: "namaPemilik"
-                  },
-                  model: {
-                    value: _vm.form.namaPemilik,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "namaPemilik", $$v)
-                    },
-                    expression: "form.namaPemilik"
+                    for: "bannerToko",
+                    value: "Banner Toko (ratio 16:5)"
                   }
                 }),
                 _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.bannerTokoPreview,
+                        expression: "!bannerTokoPreview"
+                      }
+                    ],
+                    staticClass: "mt-2"
+                  },
+                  [
+                    _c("div", {
+                      staticClass:
+                        "block rounded-md aspect-w-16 aspect-h-5 border",
+                      style:
+                        "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
+                        _vm.informasi.banner_toko_path +
+                        "');"
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.bannerTokoPreview,
+                        expression: "bannerTokoPreview"
+                      }
+                    ],
+                    staticClass: "mt-2"
+                  },
+                  [
+                    _c("span", {
+                      staticClass:
+                        "block rounded-md aspect-w-16 aspect-h-5 border",
+                      style:
+                        "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
+                        _vm.bannerTokoPreview +
+                        "');"
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-secondary-button",
+                  {
+                    staticClass: "mt-2 mr-2",
+                    attrs: { type: "button" },
+                    nativeOn: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.selectNewBannerToko($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Pilih Banner Toko\n            ")]
+                ),
+                _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("namaPemilik") }
+                  attrs: { message: _vm.form.error("banner_toko_path") }
                 })
               ],
               1
@@ -48931,61 +49096,80 @@ var render = function() {
               "div",
               { staticClass: "col-span-6 sm:col-span-4" },
               [
-                _c("jet-label", {
-                  attrs: { for: "namaToko", value: "Nama Toko" }
+                _c("input", {
+                  ref: "logoToko",
+                  staticClass: "hidden",
+                  attrs: { type: "file" },
+                  on: { change: _vm.updateLogoTokoPreview }
                 }),
                 _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "namaToko",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
-                  model: {
-                    value: _vm.form.namaToko,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "namaToko", $$v)
-                    },
-                    expression: "form.namaToko"
-                  }
-                }),
-                _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("namaToko") }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-span-6 sm:col-span-4" },
-              [
                 _c("jet-label", {
                   attrs: { for: "logoToko", value: "Logo Toko" }
                 }),
                 _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "logoToko",
-                    type: "text",
-                    autocomplete: "namaToko"
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.logoTokoPreview,
+                        expression: "!logoTokoPreview"
+                      }
+                    ],
+                    staticClass: "mt-2"
                   },
-                  model: {
-                    value: _vm.form.logoToko,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "logoToko", $$v)
-                    },
-                    expression: "form.logoToko"
-                  }
-                }),
+                  [
+                    _c("img", {
+                      staticClass: "rounded-full h-20 w-20 object-cover border",
+                      attrs: { src: _vm.informasi.logo_toko_path, alt: " " }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.logoTokoPreview,
+                        expression: "logoTokoPreview"
+                      }
+                    ],
+                    staticClass: "mt-2"
+                  },
+                  [
+                    _c("span", {
+                      staticClass: "block rounded-full w-20 h-20 border",
+                      style:
+                        "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
+                        _vm.logoTokoPreview +
+                        "');"
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-secondary-button",
+                  {
+                    staticClass: "mt-2 mr-2",
+                    attrs: { type: "button" },
+                    nativeOn: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.selectNewLogoToko($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Pilih Logo Toko\n            ")]
+                ),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("logoToko") }
+                  attrs: { message: _vm.form.error("logo_toko_path") }
                 })
               ],
               1
@@ -48996,28 +49180,61 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "bannerToko", value: "Banner Toko" }
+                  attrs: { for: "nama_pemilik", value: "Nama Pemilik" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
+                  staticClass: "mt-1 block w-full bg-gray-100",
                   attrs: {
-                    id: "bannerToko",
+                    id: "nama_pemilik",
                     type: "text",
-                    autocomplete: "namaToko"
+                    autocomplete: "nama_pemilik",
+                    readonly: ""
                   },
                   model: {
-                    value: _vm.form.bannerToko,
+                    value: _vm.form.nama_pemilik,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "bannerToko", $$v)
+                      _vm.$set(_vm.form, "nama_pemilik", $$v)
                     },
-                    expression: "form.bannerToko"
+                    expression: "form.nama_pemilik"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("bannerToko") }
+                  attrs: { message: _vm.form.error("nama_pemilik") }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-span-6 sm:col-span-4" },
+              [
+                _c("jet-label", {
+                  attrs: { for: "nama_toko", value: "Nama Toko" }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "nama_toko",
+                    type: "text",
+                    autocomplete: "nama_toko"
+                  },
+                  model: {
+                    value: _vm.form.nama_toko,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "nama_toko", $$v)
+                    },
+                    expression: "form.nama_toko"
+                  }
+                }),
+                _vm._v(" "),
+                _c("jet-input-error", {
+                  staticClass: "mt-2",
+                  attrs: { message: _vm.form.error("nama_toko") }
                 })
               ],
               1
@@ -49030,6 +49247,15 @@ var render = function() {
         key: "actions",
         fn: function() {
           return [
+            _c(
+              "jet-action-message",
+              {
+                staticClass: "mr-3",
+                attrs: { on: _vm.form.recentlySuccessful }
+              },
+              [_vm._v("\n            Tersimpan\n        ")]
+            ),
+            _vm._v(" "),
             _c(
               "jet-button",
               {
