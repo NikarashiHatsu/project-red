@@ -93,6 +93,14 @@ class FormOrderController extends Controller
         // Cari formOrder
         $formOrder = FormOrder::find($request->id);
 
+        // Jika user request
+        if($request->has('requested')) {
+            // Ubah status
+            $formOrder->update([
+                'requested' => $request->requested,
+            ]);
+        }
+
         // Upload file jika logo toko ada
         if($request->hasFile('logo_toko_path')) {
             // Validasi

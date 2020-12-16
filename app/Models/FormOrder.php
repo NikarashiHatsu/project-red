@@ -9,6 +9,12 @@ class FormOrder extends Model
 {
     use HasFactory;
 
+    // Set the casts
+    protected $casts = [
+        'confirmed' => 'boolean',
+        'requested' => 'boolean',
+    ];
+
     // Set the mass-assignable columns
     protected $fillable = [
         'nama_pemilik',
@@ -24,5 +30,7 @@ class FormOrder extends Model
         'twitter_link',
         'youtube_link',
         'whatsapp_number',
+        'confirmed',
+        'requested',
     ];
 }
