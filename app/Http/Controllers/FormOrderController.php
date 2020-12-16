@@ -79,12 +79,15 @@ class FormOrderController extends Controller
         $request->validate([
             'nama_pemilik' => ['string'],
             'nama_toko' => ['string'],
-            'logo_toko_path' => ['sometimes', 'nullable', 'image', 'max:1024'],
-            'banner_toko_path' => ['somtimes', 'nullable', 'image', 'max:1024'],
             'nama_aplikasi' => ['string'],
             'deskripsi_aplikasi' => ['string'],
             'url_website_perusahaan' => ['string'],
             'alamat_perusahaan' => ['string'],
+            'facebook_link' => ['string'],
+            'instagram_link' => ['string'],
+            'twitter_link' => ['string'],
+            'youtube_link' => ['string'],
+            'whatsapp_number' => ['string'],
         ]);
 
         // Cari formOrder
@@ -92,6 +95,10 @@ class FormOrderController extends Controller
 
         // Upload file jika logo toko ada
         if($request->hasFile('logo_toko_path')) {
+            // Validasi
+            $request->validate([
+                'logo_toko_path' => ['image', 'max:1024', 'mimes:jpeg,jpg,png,bmp', 'dimensions:ratio=1/1'],
+            ]);
             
             // Cek jika file ada di database
             if($formOrder->logo_toko_path != null) {
@@ -109,6 +116,10 @@ class FormOrderController extends Controller
 
         // Upload file jika banner toko ada
         if($request->hasFile('banner_toko_path')) {
+            // Validasi
+            $request->validate([
+                'banner_toko_path' => ['image', 'max:2048', 'mimes:jpeg,jpg,png,bmp', 'dimensions:ratio=16/5'],
+            ]);
             
             // Cek jika file ada di database
             if($formOrder->banner_toko_path != null) {
