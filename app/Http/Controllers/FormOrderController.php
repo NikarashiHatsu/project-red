@@ -77,17 +77,17 @@ class FormOrderController extends Controller
     {
         // Validasi request
         $request->validate([
-            'nama_pemilik' => ['string'],
-            'nama_toko' => ['string'],
-            'nama_aplikasi' => ['string'],
-            'deskripsi_aplikasi' => ['string'],
-            'url_website_perusahaan' => ['string'],
-            'alamat_perusahaan' => ['string'],
-            'facebook_link' => ['string'],
-            'instagram_link' => ['string'],
-            'twitter_link' => ['string'],
-            'youtube_link' => ['string'],
-            'whatsapp_number' => ['string'],
+            'nama_pemilik' => ['nullable', 'string'],
+            'nama_toko' => ['nullable', 'string'],
+            'nama_aplikasi' => ['nullable', 'string'],
+            'deskripsi_aplikasi' => ['nullable', 'string'],
+            'url_website_perusahaan' => ['nullable', 'string'],
+            'alamat_perusahaan' => ['nullable', 'string'],
+            'facebook_link' => ['nullable', 'string'],
+            'instagram_link' => ['nullable', 'string'],
+            'twitter_link' => ['nullable', 'string'],
+            'youtube_link' => ['nullable', 'string'],
+            'whatsapp_number' => ['nullable', 'string'],
         ]);
 
         // Cari formOrder
