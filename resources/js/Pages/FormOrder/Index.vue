@@ -7,21 +7,19 @@
         </template>
 
         <div>
-            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" v-if="informasi">
                 <div>
                     <informasi-toko />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <div v-if="informasi">
-                        <informasi-aplikasi :informasi="informasi" />
-                    </div>
+                    <informasi-aplikasi :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-media-sosial />
+                    <informasi-media-sosial :informasi="informasi" />
                     <jet-section-border />
                 </div>
 

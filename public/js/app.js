@@ -3500,8 +3500,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -3722,6 +3720,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3739,16 +3741,18 @@ __webpack_require__.r(__webpack_exports__);
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
+  props: ['informasi'],
   data: function data() {
     return {
       form: this.$inertia.form({
         '_method': 'PUT',
         // Media sosial
-        facebookLink: null,
-        instagramLink: null,
-        twitterLink: null,
-        youtubeLink: null,
-        whatsappNumber: null
+        id: this.informasi.id,
+        facebook_link: this.informasi.facebook_link,
+        instagram_link: this.informasi.instagram_link,
+        twitter_link: this.informasi.twitter_link,
+        youtube_link: this.informasi.youtube_link,
+        whatsapp_number: this.informasi.whatsapp_number
       }, {
         bag: 'updateProfileInformation',
         resetOnSuccess: false
@@ -3756,7 +3760,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    submitInformasiMediaSosial: function submitInformasiMediaSosial() {}
+    submitInformasiMediaSosial: function submitInformasiMediaSosial() {
+      this.form.post(route('form-order.update'), {
+        preserveScroll: true
+      });
+    }
   }
 });
 
@@ -48303,45 +48311,45 @@ var render = function() {
     [
       _vm._v(" "),
       _c("div", [
-        _c("div", { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" }, [
-          _c(
-            "div",
-            [_c("informasi-toko"), _vm._v(" "), _c("jet-section-border")],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            [
-              _vm.informasi
-                ? _c(
-                    "div",
-                    [
-                      _c("informasi-aplikasi", {
-                        attrs: { informasi: _vm.informasi }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("jet-section-border")
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            [
-              _c("informasi-media-sosial"),
-              _vm._v(" "),
-              _c("jet-section-border")
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", [_c("informasi-produk")], 1)
-        ])
+        _vm.informasi
+          ? _c(
+              "div",
+              { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
+              [
+                _c(
+                  "div",
+                  [_c("informasi-toko"), _vm._v(" "), _c("jet-section-border")],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("informasi-aplikasi", {
+                      attrs: { informasi: _vm.informasi }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-section-border")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("informasi-media-sosial", {
+                      attrs: { informasi: _vm.informasi }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-section-border")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", [_c("informasi-produk")], 1)
+              ]
+            )
+          : _vm._e()
       ])
     ]
   )
@@ -48600,28 +48608,24 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "youtubeLink", value: "Link YouTube" }
+                  attrs: { for: "youtube_link", value: "Link YouTube" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "youtubeLink",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
+                  attrs: { id: "youtube_link", type: "text" },
                   model: {
-                    value: _vm.form.youtubeLink,
+                    value: _vm.form.youtube_link,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "youtubeLink", $$v)
+                      _vm.$set(_vm.form, "youtube_link", $$v)
                     },
-                    expression: "form.youtubeLink"
+                    expression: "form.youtube_link"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("youtubeLink") }
+                  attrs: { message: _vm.form.error("youtube_link") }
                 })
               ],
               1
@@ -48632,28 +48636,24 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "facebookLink", value: "Link Facebook" }
+                  attrs: { for: "facebook_link", value: "Link Facebook" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "facebookLink",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
+                  attrs: { id: "facebook_link", type: "text" },
                   model: {
-                    value: _vm.form.facebookLink,
+                    value: _vm.form.facebook_link,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "facebookLink", $$v)
+                      _vm.$set(_vm.form, "facebook_link", $$v)
                     },
-                    expression: "form.facebookLink"
+                    expression: "form.facebook_link"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("facebookLink") }
+                  attrs: { message: _vm.form.error("facebook_link") }
                 })
               ],
               1
@@ -48664,28 +48664,24 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "instagramLink", value: "Link Instagram" }
+                  attrs: { for: "instagram_link", value: "Link Instagram" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "instagramLink",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
+                  attrs: { id: "instagram_link", type: "text" },
                   model: {
-                    value: _vm.form.instagramLink,
+                    value: _vm.form.instagram_link,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "instagramLink", $$v)
+                      _vm.$set(_vm.form, "instagram_link", $$v)
                     },
-                    expression: "form.instagramLink"
+                    expression: "form.instagram_link"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("instagramLink") }
+                  attrs: { message: _vm.form.error("instagram_link") }
                 })
               ],
               1
@@ -48696,28 +48692,24 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "twitterLink", value: "Link Twitter" }
+                  attrs: { for: "twitter_link", value: "Link Twitter" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "twitterLink",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
+                  attrs: { id: "twitter_link", type: "text" },
                   model: {
-                    value: _vm.form.twitterLink,
+                    value: _vm.form.twitter_link,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "twitterLink", $$v)
+                      _vm.$set(_vm.form, "twitter_link", $$v)
                     },
-                    expression: "form.twitterLink"
+                    expression: "form.twitter_link"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("twitterLink") }
+                  attrs: { message: _vm.form.error("twitter_link") }
                 })
               ],
               1
@@ -48728,28 +48720,24 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "whatsappNumber", value: "Nomor WhatsApp" }
+                  attrs: { for: "whatsapp_number", value: "Nomor WhatsApp" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "whatsappNumber",
-                    type: "number",
-                    autocomplete: "namaToko"
-                  },
+                  attrs: { id: "whatsapp_number", type: "number" },
                   model: {
-                    value: _vm.form.whatsappNumber,
+                    value: _vm.form.whatsapp_number,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "whatsappNumber", $$v)
+                      _vm.$set(_vm.form, "whatsapp_number", $$v)
                     },
-                    expression: "form.whatsappNumber"
+                    expression: "form.whatsapp_number"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("whatsappNumber") }
+                  attrs: { message: _vm.form.error("whatsapp_number") }
                 })
               ],
               1
@@ -48762,6 +48750,15 @@ var render = function() {
         key: "actions",
         fn: function() {
           return [
+            _c(
+              "jet-action-message",
+              {
+                staticClass: "mr-3",
+                attrs: { on: _vm.form.recentlySuccessful }
+              },
+              [_vm._v("\n            Tersimpan\n        ")]
+            ),
+            _vm._v(" "),
             _c(
               "jet-button",
               {
