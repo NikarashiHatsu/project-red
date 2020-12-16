@@ -1,5 +1,5 @@
 <template>
-    <jet-form-section>
+    <jet-form-section @submitted="ajukanAplikasi">
         <template #title>
             Ajukan Permintaan Aplikasi
         </template>
@@ -12,6 +12,7 @@
             <!-- Banner Toko -->
             <div class="col-span-6 sm:col-span-4">
                 <p class="mb-4">Catatan: Pengajuan permintaan aplikasi akan dilaksanakan dengan jangka waktu 2-14 hari. Anda tidak bisa mengedit form apapun pada halaman ini setelah tombol dibawah ditekan. Pastikan semua informasi dan produk-produk diisi dengan sempurna.</p>
+                <p class="mb-4">Dibawah ini adalah persyaratan yang telah Anda penuhi:</p>
                 <ol>
                     <li class="mb-2">
                         <p class="italic">Informasi Toko</p>
@@ -50,23 +51,64 @@
                 </ol>
             </div>
         </template>
+
+        <template #actions>
+            <jet-action-message :on="form.recentlySuccessful" class="mr-3">
+                Tersimpan
+            </jet-action-message>
+            
+            <jet-button @type="'submit'" :class="{ 'opacity-25': bisaRequest }" :disabled="bisaRequest">
+                Ajukan Permintaan
+            </jet-button>
+        </template>
     </jet-form-section>
 </template>
 
 <script>
-import JetButton from '@/Jetstream/Button';
-import JetSecondaryButton from '@/Jetstream/SecondaryButton';
-import JetFormSection from '@/Jetstream/FormSection';
-import ShiroyukiFulfilled from '@/Shiroyuki/Fulfilled';
+    import JetActionMessage from '@/Jetstream/ActionMessage';
+    import JetButton from '@/Jetstream/Button';
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton';
+    import JetFormSection from '@/Jetstream/FormSection';
+    import ShiroyukiFulfilled from '@/Shiroyuki/Fulfilled';
 
-export default {
-    components: {
-        JetButton,
-        JetSecondaryButton,
-        JetFormSection,
-        ShiroyukiFulfilled,
-    },
+    export default {
+        components: {
+            JetActionMessage,
+            JetButton,
+            JetSecondaryButton,
+            JetFormSection,
+            ShiroyukiFulfilled,
+        },
 
-    props: ['informasi'],
-}
+        props: {
+            informasi: {
+                type: Object
+            },
+            bisaRequest: {
+                type: Boolean
+            }
+        },
+
+        data() {
+            return {
+                form: this.$inertia.form({
+                    '_method': 'PUT',
+                    // Informasi Aplikasi
+                    id: this.informasi.id,
+                    requested: true,
+                }, {
+                    bag: 'updateProfileInformation',
+                    resetOnSuccess: false,
+                }),
+            }
+        },
+
+        methods: {
+            ajukanAplikasi() {
+                this.form.post(route('form-order.update'), {
+                    preserveScroll: true,
+                });
+            },
+        }
+    }
 </script>

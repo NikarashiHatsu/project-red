@@ -8273,6 +8273,17 @@ __webpack_require__.r(__webpack_exports__);
       Object.assign(this.informasi, updatedInformasi);
       this.requestPanelKey += 1;
     }
+  },
+  computed: {
+    bisaRequest: function bisaRequest() {
+      if (this.informasi.logo_toko_path == null || this.informasi.banner_toko_path == null || this.informasi.nama_pemilik == null || this.informasi.nama_toko == null || this.informasi.nama_aplikasi == null || this.informasi.deskripsi_aplikasi == null || this.informasi.alamat_perusahaan == null || this.informasi.whatsapp_number == null) {
+        // disabled = true
+        return true;
+      } else {
+        // disabled = false
+        return false;
+      }
+    }
   }
 });
 
@@ -8850,10 +8861,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
-/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
-/* harmony import */ var _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/FormSection */ "./resources/js/Jetstream/FormSection.vue");
-/* harmony import */ var _Shiroyuki_Fulfilled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Shiroyuki/Fulfilled */ "./resources/js/Shiroyuki/Fulfilled.vue");
+/* harmony import */ var _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/ActionMessage */ "./resources/js/Jetstream/ActionMessage.vue");
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/FormSection */ "./resources/js/Jetstream/FormSection.vue");
+/* harmony import */ var _Shiroyuki_Fulfilled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Shiroyuki/Fulfilled */ "./resources/js/Shiroyuki/Fulfilled.vue");
 //
 //
 //
@@ -8909,18 +8921,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_0__["default"],
-    JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_1__["default"],
-    JetFormSection: _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ShiroyukiFulfilled: _Shiroyuki_Fulfilled__WEBPACK_IMPORTED_MODULE_3__["default"]
+    JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_0__["default"],
+    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__["default"],
+    JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__["default"],
+    JetFormSection: _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ShiroyukiFulfilled: _Shiroyuki_Fulfilled__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  props: ['informasi']
+  props: {
+    informasi: {
+      type: Object
+    },
+    bisaRequest: {
+      type: Boolean
+    }
+  },
+  data: function data() {
+    return {
+      form: this.$inertia.form({
+        '_method': 'PUT',
+        // Informasi Aplikasi
+        id: this.informasi.id,
+        requested: true
+      }, {
+        bag: 'updateProfileInformation',
+        resetOnSuccess: false
+      })
+    };
+  },
+  methods: {
+    ajukanAplikasi: function ajukanAplikasi() {
+      this.form.post(route('form-order.update'), {
+        preserveScroll: true
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -53888,7 +53940,12 @@ var render = function() {
                   "div",
                   { key: _vm.requestPanelKey },
                   [
-                    _c("request-panel", { attrs: { informasi: _vm.informasi } })
+                    _c("request-panel", {
+                      attrs: {
+                        bisaRequest: _vm.bisaRequest,
+                        informasi: _vm.informasi
+                      }
+                    })
                   ],
                   1
                 )
@@ -54921,6 +54978,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("jet-form-section", {
+    on: { submitted: _vm.ajukanAplikasi },
     scopedSlots: _vm._u([
       {
         key: "title",
@@ -54949,6 +55007,10 @@ var render = function() {
                 _vm._v(
                   "Catatan: Pengajuan permintaan aplikasi akan dilaksanakan dengan jangka waktu 2-14 hari. Anda tidak bisa mengedit form apapun pada halaman ini setelah tombol dibawah ditekan. Pastikan semua informasi dan produk-produk diisi dengan sempurna."
                 )
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "mb-4" }, [
+                _vm._v("Dibawah ini adalah persyaratan yang telah Anda penuhi:")
               ]),
               _vm._v(" "),
               _c("ol", [
@@ -55091,6 +55153,36 @@ var render = function() {
                 ])
               ])
             ])
+          ]
+        },
+        proxy: true
+      },
+      {
+        key: "actions",
+        fn: function() {
+          return [
+            _c(
+              "jet-action-message",
+              {
+                staticClass: "mr-3",
+                attrs: { on: _vm.form.recentlySuccessful }
+              },
+              [_vm._v("\n            Tersimpan\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "jet-button",
+              {
+                class: { "opacity-25": _vm.bisaRequest },
+                attrs: { disabled: _vm.bisaRequest },
+                on: {
+                  type: function($event) {
+                    "submit"
+                  }
+                }
+              },
+              [_vm._v("\n            Ajukan Permintaan\n        ")]
+            )
           ]
         },
         proxy: true

@@ -29,8 +29,8 @@
                 </div>
 
                 <div :key="requestPanelKey">
-                    <request-panel :informasi="informasi" />
-                </div>                
+                    <request-panel :bisaRequest="bisaRequest" :informasi="informasi" />
+                </div>
             </div>
         </div>
     </app-layout>
@@ -83,7 +83,26 @@ export default {
         updateInformasi(updatedInformasi) {
             Object.assign(this.informasi, updatedInformasi);
             this.requestPanelKey += 1;
-        }
+        },
     },
+
+    computed: {
+        bisaRequest() {
+            if(this.informasi.logo_toko_path == null ||
+                this.informasi.banner_toko_path == null ||
+                this.informasi.nama_pemilik == null ||
+                this.informasi.nama_toko == null ||
+                this.informasi.nama_aplikasi == null ||
+                this.informasi.deskripsi_aplikasi == null ||
+                this.informasi.alamat_perusahaan == null ||
+                this.informasi.whatsapp_number == null) {
+                // disabled = true
+                return true;
+            } else {
+                // disabled = false
+                return false;
+            }
+        }
+    }
 }
 </script>
