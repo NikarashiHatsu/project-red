@@ -77,10 +77,14 @@ class FormOrderController extends Controller
     {
         // Validasi request
         $request->validate([
-            'nama_pemilik' => ['required', 'string'],
+            'nama_pemilik' => ['string'],
             'nama_toko' => ['string'],
-            // 'logo_toko_path' => ['nullable', 'image', 'max:1024'],
-            // 'banner_toko_path' => ['nullable', 'image', 'max:1024'],
+            'logo_toko_path' => ['sometimes', 'nullable', 'image', 'max:1024'],
+            'banner_toko_path' => ['somtimes', 'nullable', 'image', 'max:1024'],
+            'nama_aplikasi' => ['string'],
+            'deskripsi_aplikasi' => ['string'],
+            'url_website_perusahaan' => ['string'],
+            'alamat_perusahaan' => ['string'],
         ]);
 
         // Cari formOrder

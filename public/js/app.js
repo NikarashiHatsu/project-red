@@ -3500,6 +3500,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -3514,6 +3516,23 @@ __webpack_require__.r(__webpack_exports__);
     InformasiMediaSosial: _InformasiMediaSosial__WEBPACK_IMPORTED_MODULE_3__["default"],
     InformasiProduk: _InformasiProduk__WEBPACK_IMPORTED_MODULE_4__["default"],
     InformasiToko: _InformasiToko__WEBPACK_IMPORTED_MODULE_5__["default"]
+  },
+  created: function created() {
+    this.fetchData();
+  },
+  data: function data() {
+    return {
+      informasi: null
+    };
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var vm = this;
+      axios.get(route('form-order.check_information', this.$page.user.id)).then(function (response) {
+        var data = response.data.data;
+        vm.informasi = data;
+      });
+    }
   }
 });
 
@@ -3583,6 +3602,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3600,15 +3623,17 @@ __webpack_require__.r(__webpack_exports__);
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
+  props: ['informasi'],
   data: function data() {
     return {
       form: this.$inertia.form({
         '_method': 'PUT',
         // Informasi Aplikasi
-        namaAplikasi: null,
-        deskripsiAplikasi: null,
-        urlWebsitePerusahaan: null,
-        alamatPerusahaan: null
+        id: this.informasi.id,
+        nama_aplikasi: this.informasi.nama_aplikasi,
+        deskripsi_aplikasi: this.informasi.deskripsi_aplikasi,
+        url_website_perusahaan: this.informasi.url_website_perusahaan,
+        alamat_perusahaan: this.informasi.alamat_perusahaan
       }, {
         bag: 'updateProfileInformation',
         resetOnSuccess: false
@@ -3616,7 +3641,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    submitInformasiAplikasi: function submitInformasiAplikasi() {}
+    submitInformasiAplikasi: function submitInformasiAplikasi() {
+      this.form.post(route('form-order.update'), {
+        preserveScroll: true
+      });
+    }
   }
 });
 
@@ -48283,7 +48312,21 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            [_c("informasi-aplikasi"), _vm._v(" "), _c("jet-section-border")],
+            [
+              _vm.informasi
+                ? _c(
+                    "div",
+                    [
+                      _c("informasi-aplikasi", {
+                        attrs: { informasi: _vm.informasi }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("jet-section-border")
+            ],
             1
           ),
           _vm._v(" "),
@@ -48355,28 +48398,24 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "namaAplikasi", value: "Nama Aplikasi" }
+                  attrs: { for: "nama_aplikasi", value: "Nama Aplikasi" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "namaAplikasi",
-                    type: "text",
-                    autocomplete: "namaAplikasi"
-                  },
+                  attrs: { id: "nama_aplikasi", type: "text" },
                   model: {
-                    value: _vm.form.namaAplikasi,
+                    value: _vm.form.nama_aplikasi,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "namaAplikasi", $$v)
+                      _vm.$set(_vm.form, "nama_aplikasi", $$v)
                     },
-                    expression: "form.namaAplikasi"
+                    expression: "form.nama_aplikasi"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("namaAplikasi") }
+                  attrs: { message: _vm.form.error("nama_aplikasi") }
                 })
               ],
               1
@@ -48388,30 +48427,26 @@ var render = function() {
               [
                 _c("jet-label", {
                   attrs: {
-                    for: "deskripsiAplikasi",
+                    for: "deskripsi_aplikasi",
                     value: "Deskripsi Aplikasi"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "deskripsiAplikasi",
-                    type: "text",
-                    autocomplete: "deskripsiAplikasi"
-                  },
+                  attrs: { id: "deskripsi_aplikasi", type: "text" },
                   model: {
-                    value: _vm.form.deskripsiAplikasi,
+                    value: _vm.form.deskripsi_aplikasi,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "deskripsiAplikasi", $$v)
+                      _vm.$set(_vm.form, "deskripsi_aplikasi", $$v)
                     },
-                    expression: "form.deskripsiAplikasi"
+                    expression: "form.deskripsi_aplikasi"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("namaPemilik") }
+                  attrs: { message: _vm.form.error("deskripsi_aplikasi") }
                 })
               ],
               1
@@ -48423,30 +48458,26 @@ var render = function() {
               [
                 _c("jet-label", {
                   attrs: {
-                    for: "urlWebsitePerusahaan",
+                    for: "url_website_perusahaan",
                     value: "URL Website Perusahaan"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "urlWebsitePerusahaan",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
+                  attrs: { id: "url_website_perusahaan", type: "text" },
                   model: {
-                    value: _vm.form.urlWebsitePerusahaan,
+                    value: _vm.form.url_website_perusahaan,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "urlWebsitePerusahaan", $$v)
+                      _vm.$set(_vm.form, "url_website_perusahaan", $$v)
                     },
-                    expression: "form.urlWebsitePerusahaan"
+                    expression: "form.url_website_perusahaan"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("urlWebsitePerusahaan") }
+                  attrs: { message: _vm.form.error("url_website_perusahaan") }
                 })
               ],
               1
@@ -48457,28 +48488,27 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "alamatPerusahaan", value: "Alamat Perusahaan" }
+                  attrs: {
+                    for: "alamat_perusahaan",
+                    value: "Alamat Perusahaan"
+                  }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "alamatPerusahaan",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
+                  attrs: { id: "alamat_perusahaan", type: "text" },
                   model: {
-                    value: _vm.form.alamatPerusahaan,
+                    value: _vm.form.alamat_perusahaan,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "alamatPerusahaan", $$v)
+                      _vm.$set(_vm.form, "alamat_perusahaan", $$v)
                     },
-                    expression: "form.alamatPerusahaan"
+                    expression: "form.alamat_perusahaan"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("alamatPerusahaan") }
+                  attrs: { message: _vm.form.error("alamat_perusahaan") }
                 })
               ],
               1
@@ -48491,6 +48521,15 @@ var render = function() {
         key: "actions",
         fn: function() {
           return [
+            _c(
+              "jet-action-message",
+              {
+                staticClass: "mr-3",
+                attrs: { on: _vm.form.recentlySuccessful }
+              },
+              [_vm._v("\n            Tersimpan\n        ")]
+            ),
+            _vm._v(" "),
             _c(
               "jet-button",
               {

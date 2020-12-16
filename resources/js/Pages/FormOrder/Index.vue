@@ -14,7 +14,9 @@
                 </div>
 
                 <div>
-                    <informasi-aplikasi />
+                    <div v-if="informasi">
+                        <informasi-aplikasi :informasi="informasi" />
+                    </div>
                     <jet-section-border />
                 </div>
 
@@ -48,6 +50,30 @@ export default {
         InformasiMediaSosial,
         InformasiProduk,
         InformasiToko,
-    }
+    },
+
+    created() {
+        this.fetchData();
+    },
+
+    data() {
+        return {
+            informasi: null,
+        }
+    },
+
+    methods: {
+        fetchData() {
+            var vm = this;
+
+            axios
+                .get(route('form-order.check_information', this.$page.user.id))
+                .then(function(response) {
+                    var data = response.data.data;
+
+                    vm.informasi = data;
+                });
+        }
+    },
 }
 </script>

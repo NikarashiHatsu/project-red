@@ -11,34 +11,38 @@
         <template #form>
             <!-- Nama Aplikasi -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-label for="namaAplikasi" value="Nama Aplikasi" />
-                <jet-input id="namaAplikasi" type="text" class="mt-1 block w-full" v-model="form.namaAplikasi" autocomplete="namaAplikasi" />
-                <jet-input-error :message="form.error('namaAplikasi')" class="mt-2" />
+                <jet-label for="nama_aplikasi" value="Nama Aplikasi" />
+                <jet-input id="nama_aplikasi" type="text" class="mt-1 block w-full" v-model="form.nama_aplikasi" />
+                <jet-input-error :message="form.error('nama_aplikasi')" class="mt-2" />
             </div>
             
             <!-- Deskripsi Aplikasi -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-label for="deskripsiAplikasi" value="Deskripsi Aplikasi" />
-                <jet-input id="deskripsiAplikasi" type="text" class="mt-1 block w-full" v-model="form.deskripsiAplikasi" autocomplete="deskripsiAplikasi" />
-                <jet-input-error :message="form.error('namaPemilik')" class="mt-2" />
+                <jet-label for="deskripsi_aplikasi" value="Deskripsi Aplikasi" />
+                <jet-input id="deskripsi_aplikasi" type="text" class="mt-1 block w-full" v-model="form.deskripsi_aplikasi" />
+                <jet-input-error :message="form.error('deskripsi_aplikasi')" class="mt-2" />
             </div>
             
             <!-- URL Website Perusahaan (Opsional) -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-label for="urlWebsitePerusahaan" value="URL Website Perusahaan" />
-                <jet-input id="urlWebsitePerusahaan" type="text" class="mt-1 block w-full" v-model="form.urlWebsitePerusahaan" autocomplete="namaToko" />
-                <jet-input-error :message="form.error('urlWebsitePerusahaan')" class="mt-2" />
+                <jet-label for="url_website_perusahaan" value="URL Website Perusahaan" />
+                <jet-input id="url_website_perusahaan" type="text" class="mt-1 block w-full" v-model="form.url_website_perusahaan" />
+                <jet-input-error :message="form.error('url_website_perusahaan')" class="mt-2" />
             </div>
             
             <!-- Alamat Perusahaan -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-label for="alamatPerusahaan" value="Alamat Perusahaan" />
-                <jet-input id="alamatPerusahaan" type="text" class="mt-1 block w-full" v-model="form.alamatPerusahaan" autocomplete="namaToko" />
-                <jet-input-error :message="form.error('alamatPerusahaan')" class="mt-2" />
+                <jet-label for="alamat_perusahaan" value="Alamat Perusahaan" />
+                <jet-input id="alamat_perusahaan" type="text" class="mt-1 block w-full" v-model="form.alamat_perusahaan" />
+                <jet-input-error :message="form.error('alamat_perusahaan')" class="mt-2" />
             </div>
         </template>
 
         <template #actions>
+            <jet-action-message :on="form.recentlySuccessful" class="mr-3">
+                Tersimpan
+            </jet-action-message>
+            
             <jet-button @type="'submit'">
                 Simpan
             </jet-button>
@@ -66,15 +70,18 @@
             JetInputError,
         },
 
+        props: ['informasi'],
+
         data() {
             return {
                 form: this.$inertia.form({
                     '_method': 'PUT',
                     // Informasi Aplikasi
-                    namaAplikasi: null,
-                    deskripsiAplikasi: null,
-                    urlWebsitePerusahaan: null,
-                    alamatPerusahaan: null,
+                    id: this.informasi.id,
+                    nama_aplikasi: this.informasi.nama_aplikasi,
+                    deskripsi_aplikasi: this.informasi.deskripsi_aplikasi,
+                    url_website_perusahaan: this.informasi.url_website_perusahaan,
+                    alamat_perusahaan: this.informasi.alamat_perusahaan,
                 }, {
                     bag: 'updateProfileInformation',
                     resetOnSuccess: false,
@@ -84,7 +91,9 @@
 
         methods: {
             submitInformasiAplikasi() {
-
+                this.form.post(route('form-order.update'), {
+                    preserveScroll: true,
+                });
             }
         }
     }
