@@ -97,7 +97,7 @@ class FormOrderController extends Controller
         if($request->hasFile('logo_toko_path')) {
             // Validasi
             $request->validate([
-                'logo_toko_path' => ['image', 'max:1024', 'mimes:jpeg,jpg,png,bmp', 'dimensions:ratio=1/1'],
+                'logo_toko_path' => ['image', 'max:1024', 'mimes:jpeg,jpg,png,bmp'],
             ]);
             
             // Cek jika file ada di database
@@ -118,7 +118,7 @@ class FormOrderController extends Controller
         if($request->hasFile('banner_toko_path')) {
             // Validasi
             $request->validate([
-                'banner_toko_path' => ['image', 'max:2048', 'mimes:jpeg,jpg,png,bmp', 'dimensions:ratio=16/5'],
+                'banner_toko_path' => ['image', 'max:2048', 'mimes:jpeg,jpg,png,bmp'],
             ]);
             
             // Cek jika file ada di database
