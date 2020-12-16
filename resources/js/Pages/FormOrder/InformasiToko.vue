@@ -13,7 +13,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <!-- File input banner toko -->
                 <input type="file" ref="bannerToko" class="hidden" @change="updateBannerTokoPreview">
-                <jet-label for="bannerToko" value="Banner Toko (ratio 16:5)" />
+                <jet-label for="bannerToko" value="Banner Toko (Ratio 16:5, Max 2MB)" />
 
                 <!-- Banner toko sekarang -->
                 <div class="mt-2" v-show="!bannerTokoPreview">
@@ -40,7 +40,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <!-- File input logo toko -->
                 <input type="file" class="hidden" ref="logoToko" @change="updateLogoTokoPreview" />
-                <jet-label for="logoToko" value="Logo Toko" />
+                <jet-label for="logoToko" value="Logo Toko (Ratio 1:1, Max 1MB)" />
 
                 <!-- Logo toko sekarang -->
                 <div class="mt-2" v-show="!logoTokoPreview">
@@ -111,10 +111,7 @@
             JetInputError,
         },
 
-        // Ambil data ketika elemen ini dibuat
-        created() {
-            this.fetchData();
-        },
+        props: ['informasi'],
 
         // Set data
         data() {
@@ -129,9 +126,9 @@
                 // Form untuk PUT atau STORE
                 form: this.$inertia.form({
                     _method: 'PUT',
-                    id: null,
+                    id: this.informasi.id,
                     nama_pemilik: this.$page.user.name,
-                    nama_toko: null,
+                    nama_toko: this.informasi.nama_toko,
                     logo_toko_path: null,
                     banner_toko_path: null,
                 }, {
@@ -142,19 +139,6 @@
 
         // Daftarkan metode-metode
         methods: {
-            // Mengambil data awal
-            fetchData() {
-                var vm = this;
-
-                axios
-                    .get(route('form-order.check_information', this.$page.user.id))
-                    .then(function(response) {
-                        vm.form.id = response.data.data.id;
-                        vm.form.nama_toko = response.data.data.nama_toko;
-                        vm.informasi = response.data.data;
-                    });
-            },
-            
             // Submit informasi toko
             submitInformasiToko() {
                 // Masukkan logo toko ke form

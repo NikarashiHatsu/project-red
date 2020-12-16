@@ -4004,10 +4004,7 @@ __webpack_require__.r(__webpack_exports__);
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  // Ambil data ketika elemen ini dibuat
-  created: function created() {
-    this.fetchData();
-  },
+  props: ['informasi'],
   // Set data
   data: function data() {
     return {
@@ -4019,9 +4016,9 @@ __webpack_require__.r(__webpack_exports__);
       // Form untuk PUT atau STORE
       form: this.$inertia.form({
         _method: 'PUT',
-        id: null,
+        id: this.informasi.id,
         nama_pemilik: this.$page.user.name,
-        nama_toko: null,
+        nama_toko: this.informasi.nama_toko,
         logo_toko_path: null,
         banner_toko_path: null
       }, {
@@ -4031,15 +4028,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   // Daftarkan metode-metode
   methods: {
-    // Mengambil data awal
-    fetchData: function fetchData() {
-      var vm = this;
-      axios.get(route('form-order.check_information', this.$page.user.id)).then(function (response) {
-        vm.form.id = response.data.data.id;
-        vm.form.nama_toko = response.data.data.nama_toko;
-        vm.informasi = response.data.data;
-      });
-    },
     // Submit informasi toko
     submitInformasiToko: function submitInformasiToko() {
       // Masukkan logo toko ke form
@@ -48318,7 +48306,13 @@ var render = function() {
               [
                 _c(
                   "div",
-                  [_c("informasi-toko"), _vm._v(" "), _c("jet-section-border")],
+                  [
+                    _c("informasi-toko", {
+                      attrs: { informasi: _vm.informasi }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-section-border")
+                  ],
                   1
                 ),
                 _vm._v(" "),
@@ -49051,7 +49045,7 @@ var render = function() {
                 _c("jet-label", {
                   attrs: {
                     for: "bannerToko",
-                    value: "Banner Toko (ratio 16:5)"
+                    value: "Banner Toko (Ratio 16:5, Max 2MB)"
                   }
                 }),
                 _vm._v(" "),
@@ -49140,7 +49134,10 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("jet-label", {
-                  attrs: { for: "logoToko", value: "Logo Toko" }
+                  attrs: {
+                    for: "logoToko",
+                    value: "Logo Toko (Ratio 1:1, Max 1MB)"
+                  }
                 }),
                 _vm._v(" "),
                 _c(
