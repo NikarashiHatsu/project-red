@@ -119,9 +119,6 @@
                 // Digunakan untuk preview
                 logoTokoPreview: null,
                 bannerTokoPreview: null,
-
-                // Digunakan untuk logo toko dan banner toko agar gambar tidak hilang ketika diupdate
-                informasi: {},
                 
                 // Form untuk PUT atau STORE
                 form: this.$inertia.form({

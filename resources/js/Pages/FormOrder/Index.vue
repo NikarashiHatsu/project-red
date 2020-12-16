@@ -25,8 +25,12 @@
 
                 <div>
                     <informasi-produk />
+                    <jet-section-border />
                 </div>
-                
+
+                <div>
+                    <request-panel :informasi="informasi" />
+                </div>                
             </div>
         </div>
     </app-layout>
@@ -39,6 +43,7 @@ import InformasiAplikasi from './InformasiAplikasi';
 import InformasiMediaSosial from './InformasiMediaSosial';
 import InformasiProduk from './InformasiProduk';
 import InformasiToko from './InformasiToko';
+import RequestPanel from './RequestPanel.vue';
 
 export default {
     components: {
@@ -48,6 +53,7 @@ export default {
         InformasiMediaSosial,
         InformasiProduk,
         InformasiToko,
+        RequestPanel,
     },
 
     created() {
