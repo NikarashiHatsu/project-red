@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormOrderController;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'form-order', 'as' => 'form-order.'], function() {
-    Route::resource('/', FormOrderController::class);
-    Route::get('/check_information/{user_id}', [FormOrderController::class, 'check_information'])->name('check_information');
-});
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
+    // Dashboard
+    Route::get('/dashboard', function() {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
-})->name('dashboard');
+    // Form Order
+    Route::group(['prefix' => 'form-order', 'as' => 'form-order.'], function() {
+        Route::resource('/', FormOrderController::class)->except(['create', 'edit', 'show', 'destroy']);
+        Route::get('/check_information/{user_id}', [FormOrderController::class, 'check_information'])->name('check_information');
+    });
+});
