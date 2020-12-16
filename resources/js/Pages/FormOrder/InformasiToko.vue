@@ -12,7 +12,7 @@
             <!-- Banner Toko -->
             <div class="col-span-6 sm:col-span-4">
                 <!-- File input banner toko -->
-                <input type="file" ref="bannerToko" class="hidden" @change="updateBannerTokoPreview">
+                <input type="file" :disabled="sudahDiajukan" ref="bannerToko" class="hidden" @change="updateBannerTokoPreview">
                 <jet-label for="bannerToko" value="Banner Toko (Ratio 16:5, Max 2MB)" />
 
                 <!-- Banner toko sekarang -->
@@ -28,7 +28,7 @@
                 </div>
                 
                 <!-- Buttons -->
-                <jet-secondary-button class="mt-2 mr-2" type="button" @click.native.prevent="selectNewBannerToko">
+                <jet-secondary-button :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-2 mr-2" type="button" @click.native.prevent="selectNewBannerToko">
                     Pilih Banner Toko
                 </jet-secondary-button>
 
@@ -39,7 +39,7 @@
             <!-- Logo Toko -->
             <div class="col-span-6 sm:col-span-4">
                 <!-- File input logo toko -->
-                <input type="file" class="hidden" ref="logoToko" @change="updateLogoTokoPreview" />
+                <input type="file" :disabled="sudahDiajukan" class="hidden" ref="logoToko" @change="updateLogoTokoPreview" />
                 <jet-label for="logoToko" value="Logo Toko (Ratio 1:1, Max 1MB)" />
 
                 <!-- Logo toko sekarang -->
@@ -55,7 +55,7 @@
                 </div>
                 
                 <!-- Buttons -->
-                <jet-secondary-button class="mt-2 mr-2" type="button" @click.native.prevent="selectNewLogoToko">
+                <jet-secondary-button :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-2 mr-2" type="button" @click.native.prevent="selectNewLogoToko">
                     Pilih Logo Toko
                 </jet-secondary-button>
 
@@ -66,14 +66,14 @@
             <!-- Nama -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="nama_pemilik" value="Nama Pemilik" />
-                <jet-input id="nama_pemilik" type="text" class="mt-1 block w-full bg-gray-100" v-model="form.nama_pemilik" autocomplete="nama_pemilik" readonly />
+                <jet-input id="nama_pemilik" :disabled="sudahDiajukan" type="text" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-1 block w-full bg-gray-100" v-model="form.nama_pemilik" autocomplete="nama_pemilik" readonly />
                 <jet-input-error :message="form.error('nama_pemilik')" class="mt-2" />
             </div>
 
             <!-- Nama Toko -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="nama_toko" value="Nama Toko" />
-                <jet-input id="nama_toko" type="text" class="mt-1 block w-full" v-model="form.nama_toko" autocomplete="nama_toko" />
+                <jet-input id="nama_toko" :disabled="sudahDiajukan" type="text" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-1 block w-full" v-model="form.nama_toko" autocomplete="nama_toko" />
                 <jet-input-error :message="form.error('nama_toko')" class="mt-2" />
             </div>
         </template>
@@ -83,7 +83,7 @@
                 Tersimpan
             </jet-action-message>
             
-            <jet-button @type="'submit'">
+            <jet-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @type="'submit'">
                 Simpan
             </jet-button>
         </template>
@@ -111,7 +111,7 @@
             JetInputError,
         },
 
-        props: ['informasi'],
+        props: ['informasi', 'sudahDiajukan'],
 
         // Set data
         data() {

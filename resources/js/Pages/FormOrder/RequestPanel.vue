@@ -57,7 +57,7 @@
                 Tersimpan
             </jet-action-message>
             
-            <jet-button @type="'submit'" :class="{ 'opacity-25': bisaRequest }" :disabled="bisaRequest">
+            <jet-button @type="'submit'" :class="{ 'opacity-25': (bisaRequest || sudahDiajukan) }" :disabled="(bisaRequest || sudahDiajukan)">
                 Ajukan Permintaan
             </jet-button>
         </template>
@@ -85,6 +85,9 @@
                 type: Object
             },
             bisaRequest: {
+                type: Boolean
+            },
+            sudahDiajukan: {
                 type: Boolean
             }
         },

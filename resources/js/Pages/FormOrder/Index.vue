@@ -9,17 +9,17 @@
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" v-if="informasi">
                 <div>
-                    <informasi-toko @submitted="updateInformasi" :informasi="informasi" />
+                    <informasi-toko @submitted="updateInformasi" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-aplikasi @submitted="updateInformasi" :informasi="informasi" />
+                    <informasi-aplikasi @submitted="updateInformasi" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-media-sosial @submitted="updateInformasi" :informasi="informasi" />
+                    <informasi-media-sosial @submitted="updateInformasi" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
@@ -29,7 +29,7 @@
                 </div>
 
                 <div :key="requestPanelKey">
-                    <request-panel :bisaRequest="bisaRequest" :informasi="informasi" />
+                    <request-panel :bisaRequest="bisaRequest" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
                 </div>
             </div>
         </div>
@@ -102,6 +102,10 @@ export default {
                 // disabled = false
                 return false;
             }
+        },
+
+        sudahDiajukan() {
+            return this.informasi.requested;
         }
     }
 }

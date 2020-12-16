@@ -12,35 +12,35 @@
             <!-- Nomor WhatsApp -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="whatsapp_number" value="Nomor WhatsApp (Gunakan awalan +62)" />
-                <jet-input id="whatsapp_number" type="number" class="mt-1 block w-full" v-model="form.whatsapp_number" placeholder="+62" />
+                <jet-input id="whatsapp_number" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="number" class="mt-1 block w-full" v-model="form.whatsapp_number" placeholder="+62" />
                 <jet-input-error :message="form.error('whatsapp_number')" class="mt-2" />
             </div>
 
             <!-- YouTube Link -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="youtube_link" value="Link YouTube (Opsional)" />
-                <jet-input id="youtube_link" type="text" class="mt-1 block w-full" v-model="form.youtube_link" placeholder="https://www.youtube.com/channel/id_channel_anda" />
+                <jet-input id="youtube_link" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.youtube_link" placeholder="https://www.youtube.com/channel/id_channel_anda" />
                 <jet-input-error :message="form.error('youtube_link')" class="mt-2" />
             </div>
 
             <!-- Facebook Link -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="facebook_link" value="Link Facebook (Opsional)" />
-                <jet-input id="facebook_link" type="text" class="mt-1 block w-full" v-model="form.facebook_link" placeholder="https://facebook.com/id_facebook_anda" />
+                <jet-input id="facebook_link" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.facebook_link" placeholder="https://facebook.com/id_facebook_anda" />
                 <jet-input-error :message="form.error('facebook_link')" class="mt-2" />
             </div>
 
             <!-- Instagram Link -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="instagram_link" value="Link Instagram (Opsional)" />
-                <jet-input id="instagram_link" type="text" class="mt-1 block w-full" v-model="form.instagram_link" placeholder="https://instagram.com/id_instagram_anda" />
+                <jet-input id="instagram_link" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.instagram_link" placeholder="https://instagram.com/id_instagram_anda" />
                 <jet-input-error :message="form.error('instagram_link')" class="mt-2" />
             </div>
 
             <!-- Twitter Link -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="twitter_link" value="Link Twitter (Opsional)" />
-                <jet-input id="twitter_link" type="text" class="mt-1 block w-full" v-model="form.twitter_link" placeholder="https://twitter.com/id_twitter_anda" />
+                <jet-input id="twitter_link" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.twitter_link" placeholder="https://twitter.com/id_twitter_anda" />
                 <jet-input-error :message="form.error('twitter_link')" class="mt-2" />
             </div>
         </template>
@@ -50,7 +50,7 @@
                 Tersimpan
             </jet-action-message>
 
-            <jet-button @type="'submit'">
+            <jet-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @type="'submit'">
                 Simpan
             </jet-button>
         </template>
@@ -77,7 +77,7 @@
             JetInputError,
         },
 
-        props: ['informasi'],
+        props: ['informasi', 'sudahDiajukan'],
 
         data() {
             return {

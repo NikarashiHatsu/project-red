@@ -8283,6 +8283,9 @@ __webpack_require__.r(__webpack_exports__);
         // disabled = false
         return false;
       }
+    },
+    sudahDiajukan: function sudahDiajukan() {
+      return this.informasi.requested;
     }
   }
 });
@@ -8374,7 +8377,7 @@ __webpack_require__.r(__webpack_exports__);
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  props: ['informasi'],
+  props: ['informasi', 'sudahDiajukan'],
   data: function data() {
     return {
       form: this.$inertia.form({
@@ -8500,7 +8503,7 @@ __webpack_require__.r(__webpack_exports__);
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  props: ['informasi'],
+  props: ['informasi', 'sudahDiajukan'],
   data: function data() {
     return {
       form: this.$inertia.form({
@@ -8770,7 +8773,7 @@ __webpack_require__.r(__webpack_exports__);
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  props: ['informasi'],
+  props: ['informasi', 'sudahDiajukan'],
   // Set data
   data: function data() {
     return {
@@ -8950,6 +8953,9 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     bisaRequest: {
+      type: Boolean
+    },
+    sudahDiajukan: {
       type: Boolean
     }
   },
@@ -53891,7 +53897,10 @@ var render = function() {
                   "div",
                   [
                     _c("informasi-toko", {
-                      attrs: { informasi: _vm.informasi },
+                      attrs: {
+                        sudahDiajukan: _vm.sudahDiajukan,
+                        informasi: _vm.informasi
+                      },
                       on: { submitted: _vm.updateInformasi }
                     }),
                     _vm._v(" "),
@@ -53904,7 +53913,10 @@ var render = function() {
                   "div",
                   [
                     _c("informasi-aplikasi", {
-                      attrs: { informasi: _vm.informasi },
+                      attrs: {
+                        sudahDiajukan: _vm.sudahDiajukan,
+                        informasi: _vm.informasi
+                      },
                       on: { submitted: _vm.updateInformasi }
                     }),
                     _vm._v(" "),
@@ -53917,7 +53929,10 @@ var render = function() {
                   "div",
                   [
                     _c("informasi-media-sosial", {
-                      attrs: { informasi: _vm.informasi },
+                      attrs: {
+                        sudahDiajukan: _vm.sudahDiajukan,
+                        informasi: _vm.informasi
+                      },
                       on: { submitted: _vm.updateInformasi }
                     }),
                     _vm._v(" "),
@@ -53943,6 +53958,7 @@ var render = function() {
                     _c("request-panel", {
                       attrs: {
                         bisaRequest: _vm.bisaRequest,
+                        sudahDiajukan: _vm.sudahDiajukan,
                         informasi: _vm.informasi
                       }
                     })
@@ -54013,7 +54029,12 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: { id: "nama_aplikasi", type: "text" },
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
+                  attrs: {
+                    id: "nama_aplikasi",
+                    disabled: _vm.sudahDiajukan,
+                    type: "text"
+                  },
                   model: {
                     value: _vm.form.nama_aplikasi,
                     callback: function($$v) {
@@ -54044,7 +54065,12 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: { id: "deskripsi_aplikasi", type: "text" },
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
+                  attrs: {
+                    id: "deskripsi_aplikasi",
+                    disabled: _vm.sudahDiajukan,
+                    type: "text"
+                  },
                   model: {
                     value: _vm.form.deskripsi_aplikasi,
                     callback: function($$v) {
@@ -54075,7 +54101,12 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: { id: "alamat_perusahaan", type: "text" },
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
+                  attrs: {
+                    id: "alamat_perusahaan",
+                    disabled: _vm.sudahDiajukan,
+                    type: "text"
+                  },
                   model: {
                     value: _vm.form.alamat_perusahaan,
                     callback: function($$v) {
@@ -54106,8 +54137,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "url_website_perusahaan",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     placeholder: "https://www.websiteanda.com"
                   },
@@ -54147,6 +54180,8 @@ var render = function() {
             _c(
               "jet-button",
               {
+                class: { "opacity-25": _vm.sudahDiajukan },
+                attrs: { disabled: _vm.sudahDiajukan },
                 on: {
                   type: function($event) {
                     "submit"
@@ -54222,8 +54257,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "whatsapp_number",
+                    disabled: _vm.sudahDiajukan,
                     type: "number",
                     placeholder: "+62"
                   },
@@ -54257,8 +54294,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "youtube_link",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     placeholder:
                       "https://www.youtube.com/channel/id_channel_anda"
@@ -54293,8 +54332,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "facebook_link",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     placeholder: "https://facebook.com/id_facebook_anda"
                   },
@@ -54328,8 +54369,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "instagram_link",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     placeholder: "https://instagram.com/id_instagram_anda"
                   },
@@ -54363,8 +54406,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "twitter_link",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     placeholder: "https://twitter.com/id_twitter_anda"
                   },
@@ -54404,6 +54449,8 @@ var render = function() {
             _c(
               "jet-button",
               {
+                class: { "opacity-25": _vm.sudahDiajukan },
+                attrs: { disabled: _vm.sudahDiajukan },
                 on: {
                   type: function($event) {
                     "submit"
@@ -54686,7 +54733,7 @@ var render = function() {
                 _c("input", {
                   ref: "bannerToko",
                   staticClass: "hidden",
-                  attrs: { type: "file" },
+                  attrs: { type: "file", disabled: _vm.sudahDiajukan },
                   on: { change: _vm.updateBannerTokoPreview }
                 }),
                 _vm._v(" "),
@@ -54751,7 +54798,8 @@ var render = function() {
                   "jet-secondary-button",
                   {
                     staticClass: "mt-2 mr-2",
-                    attrs: { type: "button" },
+                    class: { "bg-gray-100": _vm.sudahDiajukan },
+                    attrs: { disabled: _vm.sudahDiajukan, type: "button" },
                     nativeOn: {
                       click: function($event) {
                         $event.preventDefault()
@@ -54777,7 +54825,7 @@ var render = function() {
                 _c("input", {
                   ref: "logoToko",
                   staticClass: "hidden",
-                  attrs: { type: "file" },
+                  attrs: { type: "file", disabled: _vm.sudahDiajukan },
                   on: { change: _vm.updateLogoTokoPreview }
                 }),
                 _vm._v(" "),
@@ -54837,7 +54885,8 @@ var render = function() {
                   "jet-secondary-button",
                   {
                     staticClass: "mt-2 mr-2",
-                    attrs: { type: "button" },
+                    class: { "bg-gray-100": _vm.sudahDiajukan },
+                    attrs: { disabled: _vm.sudahDiajukan, type: "button" },
                     nativeOn: {
                       click: function($event) {
                         $event.preventDefault()
@@ -54866,8 +54915,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full bg-gray-100",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "nama_pemilik",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     autocomplete: "nama_pemilik",
                     readonly: ""
@@ -54899,8 +54950,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "nama_toko",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     autocomplete: "nama_toko"
                   },
@@ -54940,6 +54993,8 @@ var render = function() {
             _c(
               "jet-button",
               {
+                class: { "opacity-25": _vm.sudahDiajukan },
+                attrs: { disabled: _vm.sudahDiajukan },
                 on: {
                   type: function($event) {
                     "submit"
@@ -55173,8 +55228,8 @@ var render = function() {
             _c(
               "jet-button",
               {
-                class: { "opacity-25": _vm.bisaRequest },
-                attrs: { disabled: _vm.bisaRequest },
+                class: { "opacity-25": _vm.bisaRequest || _vm.sudahDiajukan },
+                attrs: { disabled: _vm.bisaRequest || _vm.sudahDiajukan },
                 on: {
                   type: function($event) {
                     "submit"

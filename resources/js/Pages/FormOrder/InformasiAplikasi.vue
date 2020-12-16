@@ -12,28 +12,28 @@
             <!-- Nama Aplikasi -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="nama_aplikasi" value="Nama Aplikasi" />
-                <jet-input id="nama_aplikasi" type="text" class="mt-1 block w-full" v-model="form.nama_aplikasi" />
+                <jet-input id="nama_aplikasi" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.nama_aplikasi" />
                 <jet-input-error :message="form.error('nama_aplikasi')" class="mt-2" />
             </div>
             
             <!-- Deskripsi Aplikasi -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="deskripsi_aplikasi" value="Deskripsi Aplikasi" />
-                <jet-input id="deskripsi_aplikasi" type="text" class="mt-1 block w-full" v-model="form.deskripsi_aplikasi" />
+                <jet-input id="deskripsi_aplikasi" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.deskripsi_aplikasi" />
                 <jet-input-error :message="form.error('deskripsi_aplikasi')" class="mt-2" />
             </div>
             
             <!-- Alamat Perusahaan -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="alamat_perusahaan" value="Alamat Perusahaan" />
-                <jet-input id="alamat_perusahaan" type="text" class="mt-1 block w-full" v-model="form.alamat_perusahaan" />
+                <jet-input id="alamat_perusahaan" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.alamat_perusahaan" />
                 <jet-input-error :message="form.error('alamat_perusahaan')" class="mt-2" />
             </div>
             
             <!-- URL Website Perusahaan (Opsional) -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="url_website_perusahaan" value="URL Website Perusahaan (Opsional)" />
-                <jet-input id="url_website_perusahaan" type="text" class="mt-1 block w-full" v-model="form.url_website_perusahaan" placeholder="https://www.websiteanda.com" />
+                <jet-input id="url_website_perusahaan" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.url_website_perusahaan" placeholder="https://www.websiteanda.com" />
                 <jet-input-error :message="form.error('url_website_perusahaan')" class="mt-2" />
             </div>
         </template>
@@ -43,7 +43,7 @@
                 Tersimpan
             </jet-action-message>
             
-            <jet-button @type="'submit'">
+            <jet-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @type="'submit'">
                 Simpan
             </jet-button>
         </template>
@@ -70,7 +70,7 @@
             JetInputError,
         },
 
-        props: ['informasi'],
+        props: ['informasi', 'sudahDiajukan'],
 
         data() {
             return {
