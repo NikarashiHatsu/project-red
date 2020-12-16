@@ -30,8 +30,8 @@
                             <li>
                                 <shiroyuki-fulfilled :info="'Nama Aplikasi'" :value="informasi.nama_aplikasi" />
                                 <shiroyuki-fulfilled :info="'Deskripsi Aplikasi'" :value="informasi.deskripsi_aplikasi" />
-                                <shiroyuki-fulfilled :info="'URL Website Perusahaan'" :value="informasi.url_website_perusahaan" />
                                 <shiroyuki-fulfilled :info="'Alamat Perusahaan'" :value="informasi.alamat_perusahaan" />
+                                <shiroyuki-fulfilled :optional="true" :info="'URL Website Perusahaan (Opsional)'" :value="informasi.url_website_perusahaan" />
                             </li>
                         </ol>
                     </li>
@@ -39,11 +39,11 @@
                         <p class="italic">Informasi Media Sosial</p>
                         <ol>
                             <li>
-                                <shiroyuki-fulfilled :info="'Link YouTube'" :value="informasi.youtube_link" />
-                                <shiroyuki-fulfilled :info="'Link Facebook'" :value="informasi.facebook_link" />
-                                <shiroyuki-fulfilled :info="'Link Instagram'" :value="informasi.instagram_link" />
-                                <shiroyuki-fulfilled :info="'Link Twitter'" :value="informasi.twitter_link" />
                                 <shiroyuki-fulfilled :info="'Nomor WhatsApp'" :value="informasi.whatsapp_number" />
+                                <shiroyuki-fulfilled :optional="true" :info="'Link Facebook (Opsional)'" :value="informasi.facebook_link" />
+                                <shiroyuki-fulfilled :optional="true" :info="'Link Instagram (Opsional)'" :value="informasi.instagram_link" />
+                                <shiroyuki-fulfilled :optional="true" :info="'Link Twitter (Opsional)'" :value="informasi.twitter_link" />
+                                <shiroyuki-fulfilled :optional="true" :info="'Link YouTube (Opsional)'" :value="informasi.youtube_link" />
                             </li>
                         </ol>
                     </li>

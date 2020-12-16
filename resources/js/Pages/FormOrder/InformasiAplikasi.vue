@@ -23,18 +23,18 @@
                 <jet-input-error :message="form.error('deskripsi_aplikasi')" class="mt-2" />
             </div>
             
-            <!-- URL Website Perusahaan (Opsional) -->
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="url_website_perusahaan" value="URL Website Perusahaan" />
-                <jet-input id="url_website_perusahaan" type="text" class="mt-1 block w-full" v-model="form.url_website_perusahaan" />
-                <jet-input-error :message="form.error('url_website_perusahaan')" class="mt-2" />
-            </div>
-            
             <!-- Alamat Perusahaan -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="alamat_perusahaan" value="Alamat Perusahaan" />
                 <jet-input id="alamat_perusahaan" type="text" class="mt-1 block w-full" v-model="form.alamat_perusahaan" />
                 <jet-input-error :message="form.error('alamat_perusahaan')" class="mt-2" />
+            </div>
+            
+            <!-- URL Website Perusahaan (Opsional) -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="url_website_perusahaan" value="URL Website Perusahaan (Opsional)" />
+                <jet-input id="url_website_perusahaan" type="text" class="mt-1 block w-full" v-model="form.url_website_perusahaan" placeholder="https://www.websiteanda.com" />
+                <jet-input-error :message="form.error('url_website_perusahaan')" class="mt-2" />
             </div>
         </template>
 

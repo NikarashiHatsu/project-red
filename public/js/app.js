@@ -9734,8 +9734,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['info', 'value']
+  props: {
+    info: {
+      type: String
+    },
+    value: {
+      type: String
+    },
+    optional: {
+      type: Boolean,
+      "default": false
+    }
+  }
 });
 
 /***/ }),
@@ -53994,37 +54011,6 @@ var render = function() {
               [
                 _c("jet-label", {
                   attrs: {
-                    for: "url_website_perusahaan",
-                    value: "URL Website Perusahaan"
-                  }
-                }),
-                _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
-                  attrs: { id: "url_website_perusahaan", type: "text" },
-                  model: {
-                    value: _vm.form.url_website_perusahaan,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "url_website_perusahaan", $$v)
-                    },
-                    expression: "form.url_website_perusahaan"
-                  }
-                }),
-                _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("url_website_perusahaan") }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-span-6 sm:col-span-4" },
-              [
-                _c("jet-label", {
-                  attrs: {
                     for: "alamat_perusahaan",
                     value: "Alamat Perusahaan"
                   }
@@ -54045,6 +54031,41 @@ var render = function() {
                 _c("jet-input-error", {
                   staticClass: "mt-2",
                   attrs: { message: _vm.form.error("alamat_perusahaan") }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-span-6 sm:col-span-4" },
+              [
+                _c("jet-label", {
+                  attrs: {
+                    for: "url_website_perusahaan",
+                    value: "URL Website Perusahaan (Opsional)"
+                  }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "url_website_perusahaan",
+                    type: "text",
+                    placeholder: "https://www.websiteanda.com"
+                  },
+                  model: {
+                    value: _vm.form.url_website_perusahaan,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "url_website_perusahaan", $$v)
+                    },
+                    expression: "form.url_website_perusahaan"
+                  }
+                }),
+                _vm._v(" "),
+                _c("jet-input-error", {
+                  staticClass: "mt-2",
+                  attrs: { message: _vm.form.error("url_website_perusahaan") }
                 })
               ],
               1
@@ -54136,12 +54157,55 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "youtube_link", value: "Link YouTube" }
+                  attrs: {
+                    for: "whatsapp_number",
+                    value: "Nomor WhatsApp (Gunakan awalan +62)"
+                  }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: { id: "youtube_link", type: "text" },
+                  attrs: {
+                    id: "whatsapp_number",
+                    type: "number",
+                    placeholder: "+62"
+                  },
+                  model: {
+                    value: _vm.form.whatsapp_number,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "whatsapp_number", $$v)
+                    },
+                    expression: "form.whatsapp_number"
+                  }
+                }),
+                _vm._v(" "),
+                _c("jet-input-error", {
+                  staticClass: "mt-2",
+                  attrs: { message: _vm.form.error("whatsapp_number") }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-span-6 sm:col-span-4" },
+              [
+                _c("jet-label", {
+                  attrs: {
+                    for: "youtube_link",
+                    value: "Link YouTube (Opsional)"
+                  }
+                }),
+                _vm._v(" "),
+                _c("jet-input", {
+                  staticClass: "mt-1 block w-full",
+                  attrs: {
+                    id: "youtube_link",
+                    type: "text",
+                    placeholder:
+                      "https://www.youtube.com/channel/id_channel_anda"
+                  },
                   model: {
                     value: _vm.form.youtube_link,
                     callback: function($$v) {
@@ -54164,12 +54228,19 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "facebook_link", value: "Link Facebook" }
+                  attrs: {
+                    for: "facebook_link",
+                    value: "Link Facebook (Opsional)"
+                  }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: { id: "facebook_link", type: "text" },
+                  attrs: {
+                    id: "facebook_link",
+                    type: "text",
+                    placeholder: "https://facebook.com/id_facebook_anda"
+                  },
                   model: {
                     value: _vm.form.facebook_link,
                     callback: function($$v) {
@@ -54192,12 +54263,19 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "instagram_link", value: "Link Instagram" }
+                  attrs: {
+                    for: "instagram_link",
+                    value: "Link Instagram (Opsional)"
+                  }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: { id: "instagram_link", type: "text" },
+                  attrs: {
+                    id: "instagram_link",
+                    type: "text",
+                    placeholder: "https://instagram.com/id_instagram_anda"
+                  },
                   model: {
                     value: _vm.form.instagram_link,
                     callback: function($$v) {
@@ -54220,12 +54298,19 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "twitter_link", value: "Link Twitter" }
+                  attrs: {
+                    for: "twitter_link",
+                    value: "Link Twitter (Opsional)"
+                  }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
-                  attrs: { id: "twitter_link", type: "text" },
+                  attrs: {
+                    id: "twitter_link",
+                    type: "text",
+                    placeholder: "https://twitter.com/id_twitter_anda"
+                  },
                   model: {
                     value: _vm.form.twitter_link,
                     callback: function($$v) {
@@ -54238,34 +54323,6 @@ var render = function() {
                 _c("jet-input-error", {
                   staticClass: "mt-2",
                   attrs: { message: _vm.form.error("twitter_link") }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-span-6 sm:col-span-4" },
-              [
-                _c("jet-label", {
-                  attrs: { for: "whatsapp_number", value: "Nomor WhatsApp" }
-                }),
-                _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
-                  attrs: { id: "whatsapp_number", type: "number" },
-                  model: {
-                    value: _vm.form.whatsapp_number,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "whatsapp_number", $$v)
-                    },
-                    expression: "form.whatsapp_number"
-                  }
-                }),
-                _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("whatsapp_number") }
                 })
               ],
               1
@@ -54962,15 +55019,16 @@ var render = function() {
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "URL Website Perusahaan",
-                            value: _vm.informasi.url_website_perusahaan
+                            info: "Alamat Perusahaan",
+                            value: _vm.informasi.alamat_perusahaan
                           }
                         }),
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Alamat Perusahaan",
-                            value: _vm.informasi.alamat_perusahaan
+                            optional: true,
+                            info: "URL Website Perusahaan (Opsional)",
+                            value: _vm.informasi.url_website_perusahaan
                           }
                         })
                       ],
@@ -54990,36 +55048,40 @@ var render = function() {
                       [
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Link YouTube",
-                            value: _vm.informasi.youtube_link
+                            info: "Nomor WhatsApp",
+                            value: _vm.informasi.whatsapp_number
                           }
                         }),
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Link Facebook",
+                            optional: true,
+                            info: "Link Facebook (Opsional)",
                             value: _vm.informasi.facebook_link
                           }
                         }),
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Link Instagram",
+                            optional: true,
+                            info: "Link Instagram (Opsional)",
                             value: _vm.informasi.instagram_link
                           }
                         }),
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Link Twitter",
+                            optional: true,
+                            info: "Link Twitter (Opsional)",
                             value: _vm.informasi.twitter_link
                           }
                         }),
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Nomor WhatsApp",
-                            value: _vm.informasi.whatsapp_number
+                            optional: true,
+                            info: "Link YouTube (Opsional)",
+                            value: _vm.informasi.youtube_link
                           }
                         })
                       ],
@@ -56341,8 +56403,19 @@ var render = function() {
           _vm._v("\n        " + _vm._s(this.info) + "\n    ")
         ])
       : _c("div", [
-          _c("i", { staticClass: "fas fa-times-circle text-red-400 mr-2" }),
-          _vm._v("\n        " + _vm._s(this.info) + "\n    ")
+          _vm.optional
+            ? _c("div", [
+                _c("i", {
+                  staticClass: "fas fa-minus-circle text-gray-400 mr-2"
+                }),
+                _vm._v("\n            " + _vm._s(this.info) + "\n        ")
+              ])
+            : _c("div", [
+                _c("i", {
+                  staticClass: "fas fa-times-circle text-red-400 mr-2"
+                }),
+                _vm._v("\n            " + _vm._s(this.info) + "\n        ")
+              ])
         ])
   ])
 }
