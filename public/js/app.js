@@ -8257,7 +8257,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      informasi: null
+      informasi: null,
+      requestPanelKey: 0
     };
   },
   methods: {
@@ -8267,6 +8268,10 @@ __webpack_require__.r(__webpack_exports__);
         var data = response.data.data;
         vm.informasi = data;
       });
+    },
+    updateInformasi: function updateInformasi(updatedInformasi) {
+      Object.assign(this.informasi, updatedInformasi);
+      this.requestPanelKey += 1;
     }
   }
 });
@@ -8379,6 +8384,12 @@ __webpack_require__.r(__webpack_exports__);
     submitInformasiAplikasi: function submitInformasiAplikasi() {
       this.form.post(route('form-order.update'), {
         preserveScroll: true
+      });
+      this.$emit('submitted', {
+        nama_aplikasi: this.form.nama_aplikasi,
+        deskripsi_aplikasi: this.form.deskripsi_aplikasi,
+        url_website_perusahaan: this.form.url_website_perusahaan,
+        alamat_perusahaan: this.form.alamat_perusahaan
       });
     }
   }
@@ -8500,6 +8511,13 @@ __webpack_require__.r(__webpack_exports__);
     submitInformasiMediaSosial: function submitInformasiMediaSosial() {
       this.form.post(route('form-order.update'), {
         preserveScroll: true
+      });
+      this.$emit('submitted', {
+        facebook_link: this.form.facebook_link,
+        instagram_link: this.form.instagram_link,
+        twitter_link: this.form.twitter_link,
+        youtube_link: this.form.youtube_link,
+        whatsapp_number: this.form.whatsapp_number
       });
     }
   }
@@ -8778,6 +8796,12 @@ __webpack_require__.r(__webpack_exports__);
 
       this.form.post(route('form-order.update'), {
         preserveScroll: true
+      });
+      this.$emit('submitted', {
+        nama_pemilik: this.form.nama_pemilik,
+        nama_toko: this.form.nama_toko,
+        logo_toko_path: !this.form.logo_toko_path ? this.informasi.logo_toko_path : this.form.logo_toko_path,
+        banner_toko_path: !this.form.banner_toko_path ? this.informasi.banner_toko_path : this.form.banner_toko_path
       });
     },
     // Buka file manager untuk logo
@@ -53798,7 +53822,8 @@ var render = function() {
                   "div",
                   [
                     _c("informasi-toko", {
-                      attrs: { informasi: _vm.informasi }
+                      attrs: { informasi: _vm.informasi },
+                      on: { submitted: _vm.updateInformasi }
                     }),
                     _vm._v(" "),
                     _c("jet-section-border")
@@ -53810,7 +53835,8 @@ var render = function() {
                   "div",
                   [
                     _c("informasi-aplikasi", {
-                      attrs: { informasi: _vm.informasi }
+                      attrs: { informasi: _vm.informasi },
+                      on: { submitted: _vm.updateInformasi }
                     }),
                     _vm._v(" "),
                     _c("jet-section-border")
@@ -53822,7 +53848,8 @@ var render = function() {
                   "div",
                   [
                     _c("informasi-media-sosial", {
-                      attrs: { informasi: _vm.informasi }
+                      attrs: { informasi: _vm.informasi },
+                      on: { submitted: _vm.updateInformasi }
                     }),
                     _vm._v(" "),
                     _c("jet-section-border")
@@ -53842,6 +53869,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
+                  { key: _vm.requestPanelKey },
                   [
                     _c("request-panel", { attrs: { informasi: _vm.informasi } })
                   ],
@@ -54892,15 +54920,15 @@ var render = function() {
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Nama Toko",
-                            value: _vm.informasi.nama_toko
+                            info: "Nama Pemilik",
+                            value: _vm.informasi.nama_pemilik
                           }
                         }),
                         _vm._v(" "),
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Nama Pemilik",
-                            value: _vm.informasi.nama_pemilik
+                            info: "Nama Toko",
+                            value: _vm.informasi.nama_toko
                           }
                         })
                       ],

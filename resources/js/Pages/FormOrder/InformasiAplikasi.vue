@@ -94,6 +94,16 @@
                 this.form.post(route('form-order.update'), {
                     preserveScroll: true,
                 });
+
+                this.$emit(
+                    'submitted',
+                    {
+                        nama_aplikasi: this.form.nama_aplikasi,
+                        deskripsi_aplikasi: this.form.deskripsi_aplikasi,
+                        url_website_perusahaan: this.form.url_website_perusahaan,
+                        alamat_perusahaan: this.form.alamat_perusahaan,
+                    }
+                );
             }
         }
     }

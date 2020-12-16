@@ -9,17 +9,17 @@
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" v-if="informasi">
                 <div>
-                    <informasi-toko :informasi="informasi" />
+                    <informasi-toko @submitted="updateInformasi" :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-aplikasi :informasi="informasi" />
+                    <informasi-aplikasi @submitted="updateInformasi" :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-media-sosial :informasi="informasi" />
+                    <informasi-media-sosial @submitted="updateInformasi" :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
@@ -28,7 +28,7 @@
                     <jet-section-border />
                 </div>
 
-                <div>
+                <div :key="requestPanelKey">
                     <request-panel :informasi="informasi" />
                 </div>                
             </div>
@@ -63,6 +63,7 @@ export default {
     data() {
         return {
             informasi: null,
+            requestPanelKey: 0,
         }
     },
 
@@ -77,6 +78,11 @@ export default {
 
                     vm.informasi = data;
                 });
+        },
+
+        updateInformasi(updatedInformasi) {
+            Object.assign(this.informasi, updatedInformasi);
+            this.requestPanelKey += 1;
         }
     },
 }

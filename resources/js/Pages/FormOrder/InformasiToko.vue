@@ -152,6 +152,16 @@
                 this.form.post(route('form-order.update'), {
                     preserveScroll: true,
                 });
+
+                this.$emit(
+                    'submitted',
+                    {
+                        nama_pemilik: this.form.nama_pemilik,
+                        nama_toko: this.form.nama_toko,
+                        logo_toko_path: !this.form.logo_toko_path ? this.informasi.logo_toko_path : this.form.logo_toko_path,
+                        banner_toko_path: !this.form.banner_toko_path ? this.informasi.banner_toko_path : this.form.banner_toko_path,
+                    }
+                );
             },
             
             // Buka file manager untuk logo

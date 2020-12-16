@@ -102,6 +102,17 @@
                 this.form.post(route('form-order.update'), {
                     preserveScroll: true,
                 });
+
+                this.$emit(
+                    'submitted',
+                    {
+                        facebook_link: this.form.facebook_link,
+                        instagram_link: this.form.instagram_link,
+                        twitter_link: this.form.twitter_link,
+                        youtube_link: this.form.youtube_link,
+                        whatsapp_number: this.form.whatsapp_number,
+                    }
+                );
             }
         }
     }

@@ -19,8 +19,8 @@
                             <li>
                                 <shiroyuki-fulfilled :info="'Logo Toko'" :value="informasi.logo_toko_path" />
                                 <shiroyuki-fulfilled :info="'Banner Toko'" :value="informasi.banner_toko_path" />
-                                <shiroyuki-fulfilled :info="'Nama Toko'" :value="informasi.nama_toko" />
                                 <shiroyuki-fulfilled :info="'Nama Pemilik'" :value="informasi.nama_pemilik" />
+                                <shiroyuki-fulfilled :info="'Nama Toko'" :value="informasi.nama_toko" />
                             </li>
                         </ol>
                     </li>
