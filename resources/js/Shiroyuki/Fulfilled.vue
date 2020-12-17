@@ -1,17 +1,29 @@
 <template>
     <li>
-        <div v-if="value">
-            <i class="fas fa-check-circle text-green-400 mr-2"></i>
-            {{ this.info }}
-        </div>
-        <div v-else>
-            <div v-if="optional">
-                <i class="fas fa-minus-circle text-gray-400 mr-2"></i>
+        <div v-if="count">
+            <div v-if="value.length > 0">
+                <i class="fas fa-check-circle text-green-400 mr-2"></i>
                 {{ this.info }}
             </div>
             <div v-else>
                 <i class="fas fa-times-circle text-red-400 mr-2"></i>
                 {{ this.info }}
+            </div>
+        </div>
+        <div v-else>
+            <div v-if="value">
+                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                {{ this.info }}
+            </div>
+            <div v-else>
+                <div v-if="optional">
+                    <i class="fas fa-minus-circle text-gray-400 mr-2"></i>
+                    {{ this.info }}
+                </div>
+                <div v-else>
+                    <i class="fas fa-times-circle text-red-400 mr-2"></i>
+                    {{ this.info }}
+                </div>
             </div>
         </div>
     </li>
@@ -30,6 +42,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        count: {
+            type: Boolean,
+            default: false,
+        }
     }
 }
 </script>

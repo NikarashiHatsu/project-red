@@ -8272,6 +8272,10 @@ __webpack_require__.r(__webpack_exports__);
     updateInformasi: function updateInformasi(updatedInformasi) {
       Object.assign(this.informasi, updatedInformasi);
       this.requestPanelKey += 1;
+    },
+    updateProduk: function updateProduk(produkBaru) {
+      this.informasi.products.push(produkBaru);
+      this.requestPanelKey += 1;
     }
   },
   computed: {
@@ -8555,6 +8559,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
 /* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
 /* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
+/* harmony import */ var _ListProduk__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ListProduk */ "./resources/js/Pages/FormOrder/ListProduk.vue");
 //
 //
 //
@@ -8607,6 +8612,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -8622,26 +8653,63 @@ __webpack_require__.r(__webpack_exports__);
     JetFormSection: _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_3__["default"],
     JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_4__["default"],
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_5__["default"],
-    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"]
+    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_6__["default"],
+    ListProduk: _ListProduk__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
+  props: ['sudahDiajukan', 'informasi'],
   data: function data() {
     return {
-      produk: [],
+      previewFotoProduk: null,
+      listProdukKey: 0,
       form: this.$inertia.form({
-        '_method': 'PUT',
         // Produk
-        namaProduk: null,
-        hargaProduk: null,
-        deskripsiProduk: null,
-        fotoProduk: null
+        form_order_id: this.informasi.id,
+        nama_produk: null,
+        harga_produk: null,
+        deskripsi_produk: null,
+        foto_produk_path: null
       }, {
-        bag: 'updateProfileInformation',
-        resetOnSuccess: false
+        resetOnSuccess: true
       })
     };
   },
   methods: {
-    submitInformasiProduk: function submitInformasiProduk() {}
+    submitInformasiProduk: function submitInformasiProduk() {
+      if (this.$refs.fotoProduk) {
+        this.form.foto_produk_path = this.$refs.fotoProduk.files[0];
+      }
+
+      this.form.post(route('produk.store'), {
+        preserveScroll: true
+      });
+      this.$emit('submitted', {
+        form_order_id: this.form.form_order_id,
+        nama_produk: this.form.nama_produk,
+        harga_produk: new Intl.NumberFormat('id-ID', {
+          minimumFractionDigits: 0,
+          style: 'currency',
+          currency: 'IDR'
+        }).format(this.form.harga_produk),
+        deskripsi_produk: this.form.deskripsi_produk,
+        foto_produk_path: this.previewFotoProduk
+      });
+      this.previewFotoProduk = null;
+      this.listProdukKey += 1;
+    },
+    updatePreviewFotoProduk: function updatePreviewFotoProduk() {
+      var _this = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.previewFotoProduk = e.target.result;
+      };
+
+      reader.readAsDataURL(this.$refs.fotoProduk.files[0]);
+    },
+    pilihFotoProduk: function pilihFotoProduk() {
+      this.$refs.fotoProduk.click();
+    }
   }
 });
 
@@ -8855,6 +8923,49 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['produk']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/FormOrder/RequestPanel.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/FormOrder/RequestPanel.vue?vue&type=script&lang=js& ***!
@@ -8869,6 +8980,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/FormSection */ "./resources/js/Jetstream/FormSection.vue");
 /* harmony import */ var _Shiroyuki_Fulfilled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Shiroyuki/Fulfilled */ "./resources/js/Shiroyuki/Fulfilled.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9798,6 +9917,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     info: {
@@ -9807,6 +9938,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     },
     optional: {
+      type: Boolean,
+      "default": false
+    },
+    count: {
       type: Boolean,
       "default": false
     }
@@ -53944,7 +54079,13 @@ var render = function() {
                 _c(
                   "div",
                   [
-                    _c("informasi-produk"),
+                    _c("informasi-produk", {
+                      attrs: {
+                        sudahDiajukan: _vm.sudahDiajukan,
+                        informasi: _vm.informasi
+                      },
+                      on: { submitted: _vm.updateProduk }
+                    }),
                     _vm._v(" "),
                     _c("jet-section-border")
                   ],
@@ -54515,31 +54656,95 @@ var render = function() {
           return [
             _c(
               "div",
+              { staticClass: "col-span-6" },
+              [
+                _c("list-produk", {
+                  key: _vm.listProdukKey,
+                  attrs: { produk: _vm.informasi.products }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
               { staticClass: "col-span-6 sm:col-span-4" },
               [
-                _c("jet-label", {
-                  attrs: { for: "namaProduk", value: "Nama Produk" }
+                _c("input", {
+                  ref: "fotoProduk",
+                  staticClass: "hidden",
+                  attrs: { type: "file", disabled: _vm.sudahDiajukan },
+                  on: { change: _vm.updatePreviewFotoProduk }
                 }),
                 _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
-                  attrs: {
-                    id: "namaProduk",
-                    type: "text",
-                    autocomplete: "namaToko"
-                  },
-                  model: {
-                    value: _vm.form.namaProduk,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "namaProduk", $$v)
-                    },
-                    expression: "form.namaProduk"
-                  }
+                _c("jet-label", {
+                  attrs: { for: "fotoProduk", value: "Foto Barang (Max: 2MB)" }
                 }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.previewFotoProduk,
+                        expression: "!previewFotoProduk"
+                      }
+                    ],
+                    staticClass: "mt-2"
+                  },
+                  [
+                    _c("div", {
+                      staticClass: "rounded-md h-32 w-32 object-cover border"
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.previewFotoProduk,
+                        expression: "previewFotoProduk"
+                      }
+                    ],
+                    staticClass: "mt-2"
+                  },
+                  [
+                    _c("span", {
+                      staticClass:
+                        "block rounded-md h-32 w-32 object-cover border",
+                      style:
+                        "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
+                        _vm.previewFotoProduk +
+                        "');"
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-secondary-button",
+                  {
+                    staticClass: "mt-2 mr-2",
+                    class: { "bg-gray-100": _vm.sudahDiajukan },
+                    attrs: { disabled: _vm.sudahDiajukan, type: "button" },
+                    nativeOn: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.pilihFotoProduk($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Pilih Foto Produk\n            ")]
+                ),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("namaProduk") }
+                  attrs: { message: _vm.form.error("foto_produk_path") }
                 })
               ],
               1
@@ -54550,28 +54755,28 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "hargaProduk", value: "Harga Produk" }
+                  attrs: { for: "nama_produk", value: "Nama Produk" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
                   attrs: {
-                    id: "hargaProduk",
+                    id: "nama_produk",
                     type: "text",
                     autocomplete: "namaToko"
                   },
                   model: {
-                    value: _vm.form.hargaProduk,
+                    value: _vm.form.nama_produk,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "hargaProduk", $$v)
+                      _vm.$set(_vm.form, "nama_produk", $$v)
                     },
-                    expression: "form.hargaProduk"
+                    expression: "form.nama_produk"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("hargaProduk") }
+                  attrs: { message: _vm.form.error("nama_produk") }
                 })
               ],
               1
@@ -54582,28 +54787,29 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "deskripsiProduk", value: "Deskripsi Produk" }
+                  attrs: { for: "harga_produk", value: "Harga Produk" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
                   attrs: {
-                    id: "deskripsiProduk",
+                    id: "harga_produk",
                     type: "text",
+                    placeholder: "Gunakan angka, tanpa koma atau titik",
                     autocomplete: "namaToko"
                   },
                   model: {
-                    value: _vm.form.deskripsiProduk,
+                    value: _vm.form.harga_produk,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "deskripsiProduk", $$v)
+                      _vm.$set(_vm.form, "harga_produk", $$v)
                     },
-                    expression: "form.deskripsiProduk"
+                    expression: "form.harga_produk"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("deskripsiProduk") }
+                  attrs: { message: _vm.form.error("harga_produk") }
                 })
               ],
               1
@@ -54614,28 +54820,28 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "fotoProduk", value: "Foto Produk" }
+                  attrs: { for: "deskripsi_produk", value: "Deskripsi Produk" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
                   attrs: {
-                    id: "fotoProduk",
+                    id: "deskripsi_produk",
                     type: "text",
                     autocomplete: "namaToko"
                   },
                   model: {
-                    value: _vm.form.fotoProduk,
+                    value: _vm.form.deskripsi_produk,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "fotoProduk", $$v)
+                      _vm.$set(_vm.form, "deskripsi_produk", $$v)
                     },
-                    expression: "form.fotoProduk"
+                    expression: "form.deskripsi_produk"
                   }
                 }),
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("fotoProduk") }
+                  attrs: { message: _vm.form.error("deskripsi_produk") }
                 })
               ],
               1
@@ -55017,6 +55223,91 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=template&id=a5c1b40e&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=template&id=a5c1b40e& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("table", { staticClass: "table table-auto w-full" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm.produk.length > 0
+      ? _c(
+          "tbody",
+          _vm._l(_vm.produk, function(prod, index) {
+            return _c("tr", { key: index }, [
+              _c("td", { staticClass: "border p-2" }, [
+                _c("img", {
+                  staticClass: "w-20 h-20 border rounded-sm block mx-auto",
+                  attrs: {
+                    src: prod.foto_produk_path,
+                    alt: "Foto Produk " + prod.nama_produk
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "border p-2" }, [
+                _vm._v(_vm._s(prod.nama_produk))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "border p-2 text-right" }, [
+                _vm._v(_vm._s(prod.harga_produk))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "border p-2" }, [_vm._v("Opsi")])
+            ])
+          }),
+          0
+        )
+      : _c("tbody", [_vm._m(1)])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Foto")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Nama")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Opsi")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        { staticClass: "border text-center p-2", attrs: { colspan: "4" } },
+        [_vm._v("Belum ada barang")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/FormOrder/RequestPanel.vue?vue&type=template&id=33892dc3&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/FormOrder/RequestPanel.vue?vue&type=template&id=33892dc3& ***!
@@ -55146,6 +55437,28 @@ var render = function() {
                             optional: true,
                             info: "URL Website Perusahaan (Opsional)",
                             value: _vm.informasi.url_website_perusahaan
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "mb-2" }, [
+                  _c("p", { staticClass: "italic" }, [
+                    _vm._v("Informasi Produk")
+                  ]),
+                  _vm._v(" "),
+                  _c("ol", [
+                    _c(
+                      "li",
+                      [
+                        _c("shiroyuki-fulfilled", {
+                          attrs: {
+                            info: "Produk (minimal 1 produk)",
+                            value: _vm.informasi.products,
+                            count: true
                           }
                         })
                       ],
@@ -56544,16 +56857,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", [
-    _vm.value
+    _vm.count
       ? _c("div", [
-          _c("i", { staticClass: "fas fa-check-circle text-green-400 mr-2" }),
-          _vm._v("\n        " + _vm._s(this.info) + "\n    ")
-        ])
-      : _c("div", [
-          _vm.optional
+          _vm.value.length > 0
             ? _c("div", [
                 _c("i", {
-                  staticClass: "fas fa-minus-circle text-gray-400 mr-2"
+                  staticClass: "fas fa-check-circle text-green-400 mr-2"
                 }),
                 _vm._v("\n            " + _vm._s(this.info) + "\n        ")
               ])
@@ -56562,6 +56871,38 @@ var render = function() {
                   staticClass: "fas fa-times-circle text-red-400 mr-2"
                 }),
                 _vm._v("\n            " + _vm._s(this.info) + "\n        ")
+              ])
+        ])
+      : _c("div", [
+          _vm.value
+            ? _c("div", [
+                _c("i", {
+                  staticClass: "fas fa-check-circle text-green-400 mr-2"
+                }),
+                _vm._v("\n            " + _vm._s(this.info) + "\n        ")
+              ])
+            : _c("div", [
+                _vm.optional
+                  ? _c("div", [
+                      _c("i", {
+                        staticClass: "fas fa-minus-circle text-gray-400 mr-2"
+                      }),
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(this.info) +
+                          "\n            "
+                      )
+                    ])
+                  : _c("div", [
+                      _c("i", {
+                        staticClass: "fas fa-times-circle text-red-400 mr-2"
+                      }),
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(this.info) +
+                          "\n            "
+                      )
+                    ])
               ])
         ])
   ])
@@ -70293,6 +70634,8 @@ var map = {
 	"./FormOrder/InformasiProduk.vue": "./resources/js/Pages/FormOrder/InformasiProduk.vue",
 	"./FormOrder/InformasiToko": "./resources/js/Pages/FormOrder/InformasiToko.vue",
 	"./FormOrder/InformasiToko.vue": "./resources/js/Pages/FormOrder/InformasiToko.vue",
+	"./FormOrder/ListProduk": "./resources/js/Pages/FormOrder/ListProduk.vue",
+	"./FormOrder/ListProduk.vue": "./resources/js/Pages/FormOrder/ListProduk.vue",
 	"./FormOrder/RequestPanel": "./resources/js/Pages/FormOrder/RequestPanel.vue",
 	"./FormOrder/RequestPanel.vue": "./resources/js/Pages/FormOrder/RequestPanel.vue",
 	"./Profile/DeleteUserForm": "./resources/js/Pages/Profile/DeleteUserForm.vue",
@@ -70878,6 +71221,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformasiToko_vue_vue_type_template_id_c496eae2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InformasiToko_vue_vue_type_template_id_c496eae2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/FormOrder/ListProduk.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/Pages/FormOrder/ListProduk.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListProduk_vue_vue_type_template_id_a5c1b40e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListProduk.vue?vue&type=template&id=a5c1b40e& */ "./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=template&id=a5c1b40e&");
+/* harmony import */ var _ListProduk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListProduk.vue?vue&type=script&lang=js& */ "./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ListProduk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListProduk_vue_vue_type_template_id_a5c1b40e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ListProduk_vue_vue_type_template_id_a5c1b40e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/FormOrder/ListProduk.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListProduk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListProduk.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListProduk_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=template&id=a5c1b40e&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=template&id=a5c1b40e& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListProduk_vue_vue_type_template_id_a5c1b40e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListProduk.vue?vue&type=template&id=a5c1b40e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/FormOrder/ListProduk.vue?vue&type=template&id=a5c1b40e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListProduk_vue_vue_type_template_id_a5c1b40e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListProduk_vue_vue_type_template_id_a5c1b40e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

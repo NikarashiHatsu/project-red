@@ -24,7 +24,7 @@
                 </div>
 
                 <div>
-                    <informasi-produk />
+                    <informasi-produk @submitted="updateProduk" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
                     <jet-section-border />
                 </div>
 
@@ -84,6 +84,11 @@ export default {
             Object.assign(this.informasi, updatedInformasi);
             this.requestPanelKey += 1;
         },
+
+        updateProduk(produkBaru) {
+            this.informasi.products.push(produkBaru);
+            this.requestPanelKey += 1;
+        }
     },
 
     computed: {

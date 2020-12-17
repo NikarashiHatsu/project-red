@@ -37,6 +37,14 @@
                         </ol>
                     </li>
                     <li class="mb-2">
+                        <p class="italic">Informasi Produk</p>
+                        <ol>
+                            <li>
+                                <shiroyuki-fulfilled :info="'Produk (minimal 1 produk)'" :value="informasi.products" :count="true" />
+                            </li>
+                        </ol>
+                    </li>
+                    <li class="mb-2">
                         <p class="italic">Informasi Media Sosial</p>
                         <ol>
                             <li>
