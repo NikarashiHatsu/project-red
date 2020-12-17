@@ -11,7 +11,7 @@
         <template #form>
             <!-- List Produk -->
             <div class="col-span-6">
-                <list-produk :key="listProdukKey" :produk="informasi.products" />
+                <list-produk :produk="informasi.products" />
             </div>
             
             <!-- Foto produk -->
@@ -102,7 +102,6 @@
         data() {
             return {
                 previewFotoProduk: null,
-                listProdukKey: 0,
                 
                 form: this.$inertia.form({
                     // Produk
@@ -139,7 +138,6 @@
                 );
 
                 this.previewFotoProduk = null;
-                this.listProdukKey += 1;
             },
 
             updatePreviewFotoProduk() {
