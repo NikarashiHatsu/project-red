@@ -8660,7 +8660,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       previewFotoProduk: null,
-      listProdukKey: 0,
       form: this.$inertia.form({
         // Produk
         form_order_id: this.informasi.id,
@@ -8694,7 +8693,6 @@ __webpack_require__.r(__webpack_exports__);
         foto_produk_path: this.previewFotoProduk
       });
       this.previewFotoProduk = null;
-      this.listProdukKey += 1;
     },
     updatePreviewFotoProduk: function updatePreviewFotoProduk() {
       var _this = this;
@@ -8932,6 +8930,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/DangerButton */ "./resources/js/Jetstream/DangerButton.vue");
+/* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
+/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
 //
 //
 //
@@ -8960,8 +8961,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['produk']
+  components: {
+    JetDangerButton: _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_0__["default"],
+    JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_1__["default"],
+    JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: ['produk'],
+  data: function data() {
+    return {
+      showDeleteDialog: false,
+      wantToBeDeleted: {
+        id: null,
+        nama_produk: null,
+        foto_produk: null
+      }
+    };
+  },
+  methods: {
+    hapusProduk: function hapusProduk(id, nama_produk, foto_produk) {
+      this.wantToBeDeleted.id = id;
+      this.wantToBeDeleted.nama_produk = nama_produk;
+      this.wantToBeDeleted.foto_produk = foto_produk;
+      this.showDeleteDialog = true;
+    },
+    confirmDeletion: function confirmDeletion() {
+      console.log(this.wantToBeDeleted);
+      this.showDeleteDialog = false;
+    }
+  }
 });
 
 /***/ }),
@@ -9935,7 +9994,7 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     },
     value: {
-      type: String
+      type: [String, Array]
     },
     optional: {
       type: Boolean,
@@ -54658,10 +54717,7 @@ var render = function() {
               "div",
               { staticClass: "col-span-6" },
               [
-                _c("list-produk", {
-                  key: _vm.listProdukKey,
-                  attrs: { produk: _vm.informasi.products }
-                })
+                _c("list-produk", { attrs: { produk: _vm.informasi.products } })
               ],
               1
             ),
@@ -55238,39 +55294,142 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-auto w-full" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _vm.produk.length > 0
-      ? _c(
-          "tbody",
-          _vm._l(_vm.produk, function(prod, index) {
-            return _c("tr", { key: index }, [
-              _c("td", { staticClass: "border p-2" }, [
+  return _c(
+    "div",
+    [
+      _c("table", { staticClass: "table table-auto w-full" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm.produk.length > 0
+          ? _c(
+              "tbody",
+              _vm._l(_vm.produk, function(prod) {
+                return _c("tr", { key: prod.id }, [
+                  _c("td", { staticClass: "border p-2" }, [
+                    _c("img", {
+                      staticClass: "w-20 h-20 border rounded-sm block mx-auto",
+                      attrs: {
+                        src: prod.foto_produk_path,
+                        alt: "Foto Produk " + prod.nama_produk
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border p-2" }, [
+                    _vm._v(_vm._s(prod.nama_produk))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border p-2 text-right" }, [
+                    _vm._v(_vm._s(prod.harga_produk))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    { staticClass: "border p-2" },
+                    [
+                      _c(
+                        "jet-danger-button",
+                        {
+                          nativeOn: {
+                            click: function($event) {
+                              return _vm.hapusProduk(
+                                prod.id,
+                                prod.nama_produk,
+                                prod.foto_produk_path
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        Hapus\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              }),
+              0
+            )
+          : _c("tbody", [_vm._m(1)])
+      ]),
+      _vm._v(" "),
+      _c("jet-dialog-modal", {
+        attrs: { show: _vm.showDeleteDialog },
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function() {
+              return [_vm._v("\n            Hapus Produk\n        ")]
+            },
+            proxy: true
+          },
+          {
+            key: "content",
+            fn: function() {
+              return [
                 _c("img", {
-                  staticClass: "w-20 h-20 border rounded-sm block mx-auto",
+                  staticClass: "w-20 h-20 border rounded-sm block mb-4",
                   attrs: {
-                    src: prod.foto_produk_path,
-                    alt: "Foto Produk " + prod.nama_produk
+                    src: _vm.wantToBeDeleted.foto_produk,
+                    alt: _vm.wantToBeDeleted.nama_produk
                   }
-                })
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "border p-2" }, [
-                _vm._v(_vm._s(prod.nama_produk))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "border p-2 text-right" }, [
-                _vm._v(_vm._s(prod.harga_produk))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "border p-2" }, [_vm._v("Opsi")])
-            ])
-          }),
-          0
-        )
-      : _c("tbody", [_vm._m(1)])
-  ])
+                }),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Apakah Anda yakin ingin menghapus produk "
+                  ),
+                  _c("span", { staticClass: "font-bold" }, [
+                    _vm._v(_vm._s(_vm.wantToBeDeleted.nama_produk))
+                  ]),
+                  _vm._v(
+                    " ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.\n            "
+                  )
+                ])
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "footer",
+            fn: function() {
+              return [
+                _c(
+                  "jet-secondary-button",
+                  {
+                    staticClass: "mr-3",
+                    nativeOn: {
+                      click: function($event) {
+                        _vm.showDeleteDialog = false
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Kembali\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-danger-button",
+                  {
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.confirmDeletion($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Hapus Produk\n            ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
