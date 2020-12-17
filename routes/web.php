@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FormOrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,5 +30,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::group(['prefix' => 'form-order', 'as' => 'form-order.'], function() {
         Route::resource('/', FormOrderController::class)->except(['create', 'edit', 'show', 'destroy']);
         Route::get('/check_information/{user_id}', [FormOrderController::class, 'check_information'])->name('check_information');
+    });
+
+    // Produk
+    Route::group(['prefix' => 'produk', 'as' => 'produk.'], function() {
+        Route::resource('/', ProductController::class);
     });
 });

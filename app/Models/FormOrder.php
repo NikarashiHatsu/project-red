@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class FormOrder extends Model
 {
     use HasFactory;
+
+    // Show the user's products
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 
     // Set the casts
     protected $casts = [

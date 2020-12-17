@@ -175,7 +175,7 @@ class FormOrderController extends Controller
     public function check_information($userId)
     {
         // Mengambil data informasi toko di database
-        $formOrder = FormOrder::where('user_id', $userId)->first();
+        $formOrder = FormOrder::where('user_id', $userId)->with('products')->first();
 
         // Jika tidak ada, buat data informasi toko baru
         if($formOrder == null) {
