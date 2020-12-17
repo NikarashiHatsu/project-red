@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
@@ -46,7 +48,7 @@ class ProductController extends Controller
         
         // Upload file
         $formOrderId = $request->form_order_id;
-        $newFileName = Str::random(50) . $request->file('foto_produk_path')->getClientOriginalExtension();
+        $newFileName = Str::random(50) . '.' . $request->file('foto_produk_path')->getClientOriginalExtension();
         $foto_produk_path = $request->file('foto_produk_path')->storeAs('public/produk_toko/' . $formOrderId, $newFileName);
 
         // Store ke database
@@ -61,10 +63,11 @@ class ProductController extends Controller
         // Kembali ke halaman sebelumnya
         return redirect()
             ->back()
-            ->with([
-                'success' => 1,
-                'data' => $product,
-            ]);
+            ->with('data', $product);
+
+        // return Inertia::render('FormOrder/Index', [
+        //     'product' => $product,
+        // ])
     }
 
     /**
@@ -104,11 +107,21 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+        $product = Product::find($request->id);
+        
+        Storage::delete($product->foto_produk_path);
+        $product->delete();
+
+        // Kembali ke halaman sebelumnya
+        return redirect()
+            ->back()
+            ->with([
+                'success' => 1,
+            ]);
     }
 }

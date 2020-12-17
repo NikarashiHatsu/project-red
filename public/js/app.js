@@ -8276,11 +8276,15 @@ __webpack_require__.r(__webpack_exports__);
     updateProduk: function updateProduk(produkBaru) {
       this.informasi.products.push(produkBaru);
       this.requestPanelKey += 1;
+    },
+    produkTerhapus: function produkTerhapus(listProdukBaru) {
+      this.informasi.products = listProdukBaru;
+      this.requestPanelKey += 1;
     }
   },
   computed: {
     bisaRequest: function bisaRequest() {
-      if (this.informasi.logo_toko_path == null || this.informasi.banner_toko_path == null || this.informasi.nama_pemilik == null || this.informasi.nama_toko == null || this.informasi.nama_aplikasi == null || this.informasi.deskripsi_aplikasi == null || this.informasi.alamat_perusahaan == null || this.informasi.whatsapp_number == null) {
+      if (this.informasi.logo_toko_path == null || this.informasi.banner_toko_path == null || this.informasi.nama_pemilik == null || this.informasi.nama_toko == null || this.informasi.nama_aplikasi == null || this.informasi.deskripsi_aplikasi == null || this.informasi.alamat_perusahaan == null || this.informasi.products.length == 0 || this.informasi.whatsapp_number == null) {
         // disabled = true
         return true;
       } else {
@@ -8633,10 +8637,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -8684,13 +8684,13 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('submitted', {
         form_order_id: this.form.form_order_id,
         nama_produk: this.form.nama_produk,
-        harga_produk: new Intl.NumberFormat('id-ID', {
+        formatted_harga_produk: new Intl.NumberFormat('id-ID', {
           minimumFractionDigits: 0,
           style: 'currency',
           currency: 'IDR'
         }).format(this.form.harga_produk),
         deskripsi_produk: this.form.deskripsi_produk,
-        foto_produk_path: this.previewFotoProduk
+        storage_foto_produk_path: this.previewFotoProduk
       });
       this.previewFotoProduk = null;
     },
@@ -8707,6 +8707,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     pilihFotoProduk: function pilihFotoProduk() {
       this.$refs.fotoProduk.click();
+    },
+    produkTerhapus: function produkTerhapus(listProdukBaru) {
+      this.$emit('produkTerhapus', listProdukBaru);
     }
   }
 });
@@ -8933,6 +8936,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Jetstream/DangerButton */ "./resources/js/Jetstream/DangerButton.vue");
 /* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
 /* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -8989,6 +8994,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -8998,7 +9004,7 @@ __webpack_require__.r(__webpack_exports__);
     JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_1__["default"],
     JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: ['produk'],
+  props: ['produk', 'sudahDiajukan'],
   data: function data() {
     return {
       showDeleteDialog: false,
@@ -9006,7 +9012,13 @@ __webpack_require__.r(__webpack_exports__);
         id: null,
         nama_produk: null,
         foto_produk: null
-      }
+      },
+      form: this.$inertia.form({
+        _method: 'DELETE',
+        id: null
+      }, {
+        resetOnSuccess: true
+      })
     };
   },
   methods: {
@@ -9017,8 +9029,18 @@ __webpack_require__.r(__webpack_exports__);
       this.showDeleteDialog = true;
     },
     confirmDeletion: function confirmDeletion() {
-      console.log(this.wantToBeDeleted);
+      this.form.id = this.wantToBeDeleted.id;
+      this.form.post(route('produk.destroy'), {
+        preserveScroll: true
+      });
+      var delProd = this.produk;
+      var theId = this.wantToBeDeleted.id;
+      var filtered = [];
+      Object.keys(delProd).reduce(function (p, c) {
+        if (delProd[c].id !== theId) filtered.push(delProd[c]);
+      }, {});
       this.showDeleteDialog = false;
+      this.$emit('produkTerhapus', filtered);
     }
   }
 });
@@ -54143,7 +54165,10 @@ var render = function() {
                         sudahDiajukan: _vm.sudahDiajukan,
                         informasi: _vm.informasi
                       },
-                      on: { submitted: _vm.updateProduk }
+                      on: {
+                        submitted: _vm.updateProduk,
+                        produkTerhapus: _vm.produkTerhapus
+                      }
                     }),
                     _vm._v(" "),
                     _c("jet-section-border")
@@ -54717,7 +54742,13 @@ var render = function() {
               "div",
               { staticClass: "col-span-6" },
               [
-                _c("list-produk", { attrs: { produk: _vm.informasi.products } })
+                _c("list-produk", {
+                  attrs: {
+                    sudahDiajukan: _vm.sudahDiajukan,
+                    produk: _vm.informasi.products
+                  },
+                  on: { produkTerhapus: _vm.produkTerhapus }
+                })
               ],
               1
             ),
@@ -54816,8 +54847,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "nama_produk",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     autocomplete: "namaToko"
                   },
@@ -54848,8 +54881,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "harga_produk",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     placeholder: "Gunakan angka, tanpa koma atau titik",
                     autocomplete: "namaToko"
@@ -54881,8 +54916,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input", {
                   staticClass: "mt-1 block w-full",
+                  class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
                     id: "deskripsi_produk",
+                    disabled: _vm.sudahDiajukan,
                     type: "text",
                     autocomplete: "namaToko"
                   },
@@ -54911,28 +54948,17 @@ var render = function() {
         fn: function() {
           return [
             _c(
-              "jet-secondary-button",
-              {
-                staticClass: "mr-4",
-                on: {
-                  type: function($event) {
-                    "button"
-                  }
-                }
-              },
-              [_vm._v("\n            Tambah Produk\n        ")]
-            ),
-            _vm._v(" "),
-            _c(
               "jet-button",
               {
+                class: { "opacity-25": _vm.sudahDiajukan },
+                attrs: { disabled: _vm.sudahDiajukan },
                 on: {
                   type: function($event) {
                     "submit"
                   }
                 }
               },
-              [_vm._v("\n            Simpan\n        ")]
+              [_vm._v("\n            Tambah Produk\n        ")]
             )
           ]
         },
@@ -55307,9 +55333,10 @@ var render = function() {
                 return _c("tr", { key: prod.id }, [
                   _c("td", { staticClass: "border p-2" }, [
                     _c("img", {
-                      staticClass: "w-20 h-20 border rounded-sm block mx-auto",
+                      staticClass:
+                        "w-20 h-20 border rounded-sm block mx-auto object-cover",
                       attrs: {
-                        src: prod.foto_produk_path,
+                        src: prod.storage_foto_produk_path,
                         alt: "Foto Produk " + prod.nama_produk
                       }
                     })
@@ -55320,7 +55347,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "border p-2 text-right" }, [
-                    _vm._v(_vm._s(prod.harga_produk))
+                    _vm._v(_vm._s(prod.formatted_harga_produk))
                   ]),
                   _vm._v(" "),
                   _c(
@@ -55330,12 +55357,14 @@ var render = function() {
                       _c(
                         "jet-danger-button",
                         {
+                          class: { "opacity-25": _vm.sudahDiajukan },
+                          attrs: { disabled: _vm.sudahDiajukan },
                           nativeOn: {
                             click: function($event) {
                               return _vm.hapusProduk(
                                 prod.id,
                                 prod.nama_produk,
-                                prod.foto_produk_path
+                                prod.storage_foto_produk_path
                               )
                             }
                           }
@@ -55371,7 +55400,8 @@ var render = function() {
             fn: function() {
               return [
                 _c("img", {
-                  staticClass: "w-20 h-20 border rounded-sm block mb-4",
+                  staticClass:
+                    "w-20 h-20 border rounded-sm block mb-4 object-cover",
                   attrs: {
                     src: _vm.wantToBeDeleted.foto_produk,
                     alt: _vm.wantToBeDeleted.nama_produk
@@ -55615,7 +55645,10 @@ var render = function() {
                       [
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            info: "Produk (minimal 1 produk)",
+                            info:
+                              "Produk (minimal 1 produk, produk yang terdaftar: " +
+                              _vm.informasi.products.length +
+                              " produk)",
                             value: _vm.informasi.products,
                             count: true
                           }

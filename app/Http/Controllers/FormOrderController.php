@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\FormOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,12 @@ class FormOrderController extends Controller
      */
     public function index()
     {
-        return \Inertia\Inertia::render('FormOrder/Index');
+        $userId = Auth::user()['id'];
+        $formOrder = FormOrder::where('user_id', $userId)->with('products')->first();
+        
+        return \Inertia\Inertia::render('FormOrder/Index', [
+            'data' => $formOrder,
+        ]);
     }
 
     /**

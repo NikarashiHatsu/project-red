@@ -11,7 +11,7 @@
         <template #form>
             <!-- List Produk -->
             <div class="col-span-6">
-                <list-produk :produk="informasi.products" />
+                <list-produk :sudahDiajukan="sudahDiajukan" @produkTerhapus="produkTerhapus" :produk="informasi.products" />
             </div>
             
             <!-- Foto produk -->
@@ -44,32 +44,28 @@
             <!-- Nama Produk -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="nama_produk" value="Nama Produk" />
-                <jet-input id="nama_produk" type="text" class="mt-1 block w-full" v-model="form.nama_produk" autocomplete="namaToko" />
+                <jet-input id="nama_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.nama_produk" autocomplete="namaToko" />
                 <jet-input-error :message="form.error('nama_produk')" class="mt-2" />
             </div>
             
             <!-- Harga Produk -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="harga_produk" value="Harga Produk" />
-                <jet-input id="harga_produk" type="text" class="mt-1 block w-full" v-model="form.harga_produk" placeholder="Gunakan angka, tanpa koma atau titik" autocomplete="namaToko" />
+                <jet-input id="harga_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.harga_produk" placeholder="Gunakan angka, tanpa koma atau titik" autocomplete="namaToko" />
                 <jet-input-error :message="form.error('harga_produk')" class="mt-2" />
             </div>
             
             <!-- Deskripsi Produk -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="deskripsi_produk" value="Deskripsi Produk" />
-                <jet-input id="deskripsi_produk" type="text" class="mt-1 block w-full" v-model="form.deskripsi_produk" autocomplete="namaToko" />
+                <jet-input id="deskripsi_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.deskripsi_produk" autocomplete="namaToko" />
                 <jet-input-error :message="form.error('deskripsi_produk')" class="mt-2" />
             </div>
         </template>
 
         <template #actions>
-            <jet-secondary-button class="mr-4" @type="'button'">
+            <jet-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @type="'submit'">
                 Tambah Produk
-            </jet-secondary-button>
-            
-            <jet-button @type="'submit'">
-                Simpan
             </jet-button>
         </template>
     </jet-form-section>
@@ -131,9 +127,9 @@
                     {
                         form_order_id: this.form.form_order_id,
                         nama_produk: this.form.nama_produk,
-                        harga_produk: new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0, style: 'currency', currency: 'IDR' }).format(this.form.harga_produk),
+                        formatted_harga_produk: new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0, style: 'currency', currency: 'IDR' }).format(this.form.harga_produk),
                         deskripsi_produk: this.form.deskripsi_produk,
-                        foto_produk_path: this.previewFotoProduk,
+                        storage_foto_produk_path: this.previewFotoProduk,
                     }
                 );
 
@@ -153,6 +149,10 @@
             pilihFotoProduk() {
                 this.$refs.fotoProduk.click();
             },
+
+            produkTerhapus(listProdukBaru) {
+                this.$emit('produkTerhapus', listProdukBaru);
+            }
         }
     }
 </script>

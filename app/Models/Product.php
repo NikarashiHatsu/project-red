@@ -18,7 +18,18 @@ class Product extends Model
      */
     public function getFotoProdukPathAttribute($value)
     {
-        return Storage::url($value);
+        // return Storage::url($value);
+        return $value;
+    }
+
+    /**
+     * Get the Storage version of the photo
+     * 
+     * @return string
+     */
+    public function getStorageFotoProdukPathAttribute()
+    {
+        return Storage::url($this->foto_produk_path);
     }
 
     /**
@@ -27,9 +38,9 @@ class Product extends Model
      * @param int $value
      * @return string
      */
-    public function getHargaProdukAttribute($value)
+    public function getFormattedHargaProdukAttribute()
     {
-        return 'Rp ' . number_format($value, 0, '.', '.');
+        return 'Rp ' . number_format($this->harga_produk, 0, '.', '.');
     }
 
     // Mass assignable columns
@@ -39,5 +50,11 @@ class Product extends Model
         'nama_produk',
         'harga_produk',
         'deskripsi_produk',
+    ];
+
+    // Add new column to the model
+    protected $appends = [
+        'storage_foto_produk_path',
+        'formatted_harga_produk',
     ];
 }

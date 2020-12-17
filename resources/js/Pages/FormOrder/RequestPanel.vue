@@ -40,7 +40,7 @@
                         <p class="italic">Informasi Produk</p>
                         <ol>
                             <li>
-                                <shiroyuki-fulfilled :info="'Produk (minimal 1 produk)'" :value="informasi.products" :count="true" />
+                                <shiroyuki-fulfilled :info="'Produk (minimal 1 produk, produk yang terdaftar: ' + informasi.products.length + ' produk)'" :value="informasi.products" :count="true" />
                             </li>
                         </ol>
                     </li>
