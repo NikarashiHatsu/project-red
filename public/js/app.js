@@ -8663,8 +8663,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       previewFotoProduk: null,
+      editMode: false,
       form: this.$inertia.form({
+        _method: 'STORE',
         // Produk
+        id: null,
         form_order_id: this.informasi.id,
         nama_produk: null,
         harga_produk: null,
@@ -8681,9 +8684,20 @@ __webpack_require__.r(__webpack_exports__);
         this.form.foto_produk_path = this.$refs.fotoProduk.files[0];
       }
 
-      this.form.post(route('produk.store'), {
-        preserveScroll: true
-      });
+      if (this.editMode) {
+        this.form._method = 'PUT';
+        this.form.post(route('produk.update', this.editId), {
+          preserveScroll: true
+        });
+        this.form.id = null;
+        this.form._method = 'STORE';
+        this.editMode = false;
+      } else {
+        this.form.post(route('produk.store'), {
+          preserveScroll: true
+        });
+      }
+
       this.previewFotoProduk = null;
     },
     updatePreviewFotoProduk: function updatePreviewFotoProduk() {
@@ -8699,6 +8713,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     pilihFotoProduk: function pilihFotoProduk() {
       this.$refs.fotoProduk.click();
+    },
+    editProduk: function editProduk(prod) {
+      this.editMode = true;
+      this.form.id = prod.id;
+      this.form.nama_produk = prod.nama_produk;
+      this.form.harga_produk = prod.harga_produk;
+      this.form.deskripsi_produk = prod.deskripsi_produk;
+      this.previewFotoProduk = prod.storage_foto_produk_path;
     }
   }
 });
@@ -8979,6 +9001,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9007,6 +9036,9 @@ __webpack_require__.r(__webpack_exports__);
       this.form.nama_produk = prod.nama_produk;
       this.form.storage_foto_produk_path = prod.storage_foto_produk_path;
       this.showDeleteDialog = true;
+    },
+    editProduk: function editProduk(prod) {
+      this.$emit('edit', prod);
     },
     confirmDeletion: function confirmDeletion() {
       this.form.post(route('produk.destroy'), {
@@ -54756,7 +54788,8 @@ var render = function() {
                   attrs: {
                     sudahDiajukan: _vm.sudahDiajukan,
                     produk: _vm.informasi.products
-                  }
+                  },
+                  on: { edit: _vm.editProduk }
                 })
               ],
               1
@@ -54967,7 +55000,15 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n            Tambah Produk\n        ")]
+              [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(
+                      _vm.editMode ? "Simpan Perubahan" : "Tambah Produk"
+                    ) +
+                    "\n        "
+                )
+              ]
             )
           ]
         },
@@ -55335,7 +55376,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("table", { staticClass: "table table-auto w-full" }, [
+      _c("table", { staticClass: "table table-fixed w-full" }, [
         _vm._m(0),
         _vm._v(" "),
         _vm.produk.length > 0
@@ -55343,19 +55384,27 @@ var render = function() {
               "tbody",
               _vm._l(_vm.produk, function(prod) {
                 return _c("tr", { key: prod.id }, [
-                  _c("td", { staticClass: "border p-2" }, [
-                    _c("img", {
-                      staticClass:
-                        "w-20 h-20 border rounded-sm block mx-auto object-cover",
-                      attrs: {
-                        src: prod.storage_foto_produk_path,
-                        alt: "Foto Produk " + prod.nama_produk
-                      }
-                    })
-                  ]),
+                  _c(
+                    "td",
+                    { staticClass: "border p-2", attrs: { width: "100" } },
+                    [
+                      _c("img", {
+                        staticClass:
+                          "w-20 h-20 border rounded-sm block mx-auto object-cover",
+                        attrs: {
+                          src: prod.storage_foto_produk_path,
+                          alt: "Foto Produk " + prod.nama_produk
+                        }
+                      })
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("td", { staticClass: "border p-2" }, [
                     _vm._v(_vm._s(prod.nama_produk))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border p-2" }, [
+                    _vm._v(_vm._s(prod.deskripsi_produk))
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "border p-2 text-right" }, [
@@ -55364,27 +55413,52 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "td",
-                    { staticClass: "border p-2" },
+                    { staticClass: "border p-2", attrs: { width: "180" } },
                     [
                       _c(
-                        "jet-danger-button",
-                        {
-                          class: { "opacity-25": _vm.sudahDiajukan },
-                          attrs: { disabled: _vm.sudahDiajukan },
-                          nativeOn: {
-                            click: function($event) {
-                              return _vm.hapusProduk(prod)
-                            }
-                          }
-                        },
+                        "div",
+                        { staticClass: "w-full flex justify-end" },
                         [
-                          _vm._v(
-                            "\n                        Hapus\n                    "
+                          _c(
+                            "jet-secondary-button",
+                            {
+                              staticClass: "mr-3",
+                              class: { "opacity-25": _vm.sudahDiajukan },
+                              attrs: { disabled: _vm.sudahDiajukan },
+                              nativeOn: {
+                                click: function($event) {
+                                  return _vm.editProduk(prod)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Edit\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "jet-danger-button",
+                            {
+                              class: { "opacity-25": _vm.sudahDiajukan },
+                              attrs: { disabled: _vm.sudahDiajukan },
+                              nativeOn: {
+                                click: function($event) {
+                                  return _vm.hapusProduk(prod)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Hapus\n                        "
+                              )
+                            ]
                           )
-                        ]
+                        ],
+                        1
                       )
-                    ],
-                    1
+                    ]
                   )
                 ])
               }),
@@ -55476,13 +55550,25 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Foto")]),
+        _c(
+          "th",
+          { staticClass: "border py-2 bg-gray-100", attrs: { width: "100" } },
+          [_vm._v("Foto")]
+        ),
         _vm._v(" "),
         _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Nama")]),
         _vm._v(" "),
+        _c("th", { staticClass: "border py-2 bg-gray-100" }, [
+          _vm._v("Deskripsi")
+        ]),
+        _vm._v(" "),
         _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Harga")]),
         _vm._v(" "),
-        _c("th", { staticClass: "border py-2 bg-gray-100" }, [_vm._v("Opsi")])
+        _c(
+          "th",
+          { staticClass: "border py-2 bg-gray-100", attrs: { width: "180" } },
+          [_vm._v("Opsi")]
+        )
       ])
     ])
   },

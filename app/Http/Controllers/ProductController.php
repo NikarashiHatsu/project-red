@@ -64,10 +64,6 @@ class ProductController extends Controller
         return redirect()
             ->back()
             ->with('data', $product);
-
-        // return Inertia::render('FormOrder/Index', [
-        //     'product' => $product,
-        // ])
     }
 
     /**
@@ -96,12 +92,43 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'nama_produk' => ['required', 'string'],
+            'harga_produk' => ['required', 'integer'],
+            'deskripsi_produk' => ['required', 'string'],
+        ]);
+
+        $product = Product::find($request->id);
+
+        if($request->hasFile('foto_produk_path')) {
+            // Validasi
+            $request->validate([
+                'foto_produk_path' => ['image', 'max:2048', 'mimes:jpeg,jpg,png,bmp']
+            ]);
+            
+            // Cek file lama ada di database
+            if($product->foto_produk_path != null) {
+                // Hapus file
+                Storage::delete($product->foto_produk_path);
+            }
+            
+            $formOrderId = $request->form_order_id;
+            $newFileName = Str::random(50) . '.' . $request->file('foto_produk_path')->getClientOriginalExtension();
+            $foto_produk_path = $request->file('foto_produk_path')->storeAs('public/produk_toko/' . $formOrderId, $newFileName);
+
+            $product->update([
+                'foto_produk_path' => $foto_produk_path,
+            ]);
+        }
+
+        if($request->has('id')) {
+            $product->update($request->except('foto_produk_path'));
+            return redirect()->back();
+        }
     }
 
     /**

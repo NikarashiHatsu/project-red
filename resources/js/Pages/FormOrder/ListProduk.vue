@@ -1,25 +1,32 @@
 <template>
     <div>
-        <table class="table table-auto w-full">
+        <table class="table table-fixed w-full">
             <thead>
                 <tr>
-                    <th class="border py-2 bg-gray-100">Foto</th>
+                    <th width="100" class="border py-2 bg-gray-100">Foto</th>
                     <th class="border py-2 bg-gray-100">Nama</th>
+                    <th class="border py-2 bg-gray-100">Deskripsi</th>
                     <th class="border py-2 bg-gray-100">Harga</th>
-                    <th class="border py-2 bg-gray-100">Opsi</th>
+                    <th width="180" class="border py-2 bg-gray-100">Opsi</th>
                 </tr>
             </thead>
             <tbody v-if="produk.length > 0">
                 <tr v-for="prod in produk" :key="prod.id">
-                    <td class="border p-2">
+                    <td width="100" class="border p-2">
                         <img class="w-20 h-20 border rounded-sm block mx-auto object-cover" :src="prod.storage_foto_produk_path" :alt="'Foto Produk ' + prod.nama_produk">
                     </td>
                     <td class="border p-2">{{ prod.nama_produk }}</td>
+                    <td class="border p-2">{{ prod.deskripsi_produk }}</td>
                     <td class="border p-2 text-right">{{ prod.formatted_harga_produk }}</td>
-                    <td class="border p-2">
-                        <jet-danger-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="hapusProduk(prod)">
-                            Hapus
-                        </jet-danger-button>
+                    <td width="180" class="border p-2">
+                        <div class="w-full flex justify-end">
+                            <jet-secondary-button class="mr-3" :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="editProduk(prod)">
+                                Edit
+                            </jet-secondary-button>
+                            <jet-danger-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="hapusProduk(prod)">
+                                Hapus
+                            </jet-danger-button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -88,6 +95,10 @@
                 this.form.nama_produk = prod.nama_produk;
                 this.form.storage_foto_produk_path = prod.storage_foto_produk_path;
                 this.showDeleteDialog = true;
+            },
+
+            editProduk(prod) {
+                this.$emit('edit', prod);  
             },
 
             confirmDeletion() {

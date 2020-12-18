@@ -11,7 +11,7 @@
         <template #form>
             <!-- List Produk -->
             <div class="col-span-6">
-                <list-produk :sudahDiajukan="sudahDiajukan" :produk="informasi.products" />
+                <list-produk @edit="editProduk" :sudahDiajukan="sudahDiajukan" :produk="informasi.products" />
             </div>
             
             <!-- Foto produk -->
@@ -65,7 +65,7 @@
 
         <template #actions>
             <jet-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @type="'submit'">
-                Tambah Produk
+                {{ (editMode) ? 'Simpan Perubahan' : 'Tambah Produk' }}
             </jet-button>
         </template>
     </jet-form-section>
@@ -98,9 +98,12 @@
         data() {
             return {
                 previewFotoProduk: null,
+                editMode: false,
                 
                 form: this.$inertia.form({
+                    _method: 'STORE',
                     // Produk
+                    id: null,
                     form_order_id: this.informasi.id,
                     nama_produk: null,
                     harga_produk: null,
@@ -117,10 +120,21 @@
                 if(this.$refs.fotoProduk) {
                     this.form.foto_produk_path = this.$refs.fotoProduk.files[0];
                 }
-                
-                this.form.post(route('produk.store'), {
-                    preserveScroll: true,
-                });
+
+                if(this.editMode) {
+                    this.form._method = 'PUT';
+                    this.form.post(route('produk.update', this.editId), {
+                        preserveScroll: true,
+                    });
+
+                    this.form.id = null;
+                    this.form._method = 'STORE';
+                    this.editMode = false;
+                } else {
+                    this.form.post(route('produk.store'), {
+                        preserveScroll: true,
+                    });
+                }
 
                 this.previewFotoProduk = null;
             },
@@ -138,6 +152,16 @@
             pilihFotoProduk() {
                 this.$refs.fotoProduk.click();
             },
+
+            editProduk(prod) {
+                this.editMode = true;
+
+                this.form.id = prod.id;
+                this.form.nama_produk = prod.nama_produk;
+                this.form.harga_produk = prod.harga_produk;
+                this.form.deskripsi_produk = prod.deskripsi_produk;
+                this.previewFotoProduk = prod.storage_foto_produk_path;
+            }
         }
     }
 </script>
