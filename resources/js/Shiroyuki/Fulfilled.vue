@@ -18,11 +18,11 @@
 
         <!-- Semisal valuenya BISA dihitung -->
         <div v-else>
-            <div class="inline-block" v-show="value.length != 0">
+            <div class="inline-block" v-show="counter > 0">
                 <i class="fas fa-check-circle text-green-400 mr-2"></i>
             </div>
-            <div class="inline-block" v-show="value.length == 0">
-                <i class="fas fa-check-circle text-red-400 mr-2"></i>
+            <div class="inline-block" v-show="counter == 0">
+                <i class="fas fa-times-circle text-red-400 mr-2"></i>
             </div>
             {{ this.info }}
         </div>
@@ -48,11 +48,9 @@ export default {
             type: Boolean,
             default: false,
         },
-        countableObject: {
-            type: Array,
-            default() {
-                return []
-            }
+        counter: {
+            type: Number,
+            default: 0,
         },
     },
 

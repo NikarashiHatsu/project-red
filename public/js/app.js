@@ -8239,7 +8239,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -8994,22 +8993,25 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showDeleteDialog: false,
-      wantToBeDeleted: {
+      form: this.$inertia.form({
+        _method: 'DELETE',
         id: null,
         nama_produk: null,
-        foto_produk: null
-      }
+        storage_foto_produk_path: null
+      })
     };
   },
   methods: {
     hapusProduk: function hapusProduk(prod) {
-      this.wantToBeDeleted = prod;
+      this.form.id = prod.id;
+      this.form.nama_produk = prod.nama_produk;
+      this.form.storage_foto_produk_path = prod.storage_foto_produk_path;
       this.showDeleteDialog = true;
     },
     confirmDeletion: function confirmDeletion() {
-      this.wantToBeDeleted._method = 'DELETE';
-      console.log(this.wantToBeDeleted);
-      this.$inertia.post(route('produk.destroy', this.wantToBeDeleted));
+      this.form.post(route('produk.destroy'), {
+        preserveScroll: true
+      });
       this.showDeleteDialog = false;
     }
   }
@@ -9031,6 +9033,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
 /* harmony import */ var _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/FormSection */ "./resources/js/Jetstream/FormSection.vue");
 /* harmony import */ var _Shiroyuki_Fulfilled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Shiroyuki/Fulfilled */ "./resources/js/Shiroyuki/Fulfilled.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10014,11 +10033,9 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       "default": false
     },
-    countableObject: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
+    counter: {
+      type: Number,
+      "default": 0
     }
   },
   computed: {
@@ -54113,21 +54130,6 @@ var render = function() {
                 _c(
                   "div",
                   [
-                    _c("request-panel", {
-                      attrs: {
-                        sudahDiajukan: _vm.sudahDiajukan,
-                        informasi: _vm.$page.data
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("jet-section-border")
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
                     _c("informasi-toko", {
                       attrs: {
                         sudahDiajukan: _vm.sudahDiajukan,
@@ -54181,6 +54183,20 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("jet-section-border")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("request-panel", {
+                      attrs: {
+                        bisaRequest: _vm.bisaRequest,
+                        sudahDiajukan: _vm.sudahDiajukan,
+                        informasi: _vm.$page.data
+                      }
+                    })
                   ],
                   1
                 )
@@ -55395,8 +55411,8 @@ var render = function() {
                   staticClass:
                     "w-20 h-20 border rounded-sm block mb-4 object-cover",
                   attrs: {
-                    src: _vm.wantToBeDeleted.storage_foto_produk_path,
-                    alt: _vm.wantToBeDeleted.nama_produk
+                    src: _vm.form.storage_foto_produk_path,
+                    alt: _vm.form.nama_produk
                   }
                 }),
                 _vm._v(" "),
@@ -55405,7 +55421,7 @@ var render = function() {
                     "\n                Apakah Anda yakin ingin menghapus produk "
                   ),
                   _c("span", { staticClass: "font-bold" }, [
-                    _vm._v(_vm._s(_vm.wantToBeDeleted.nama_produk))
+                    _vm._v(_vm._s(_vm.form.nama_produk))
                   ]),
                   _vm._v(
                     " ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.\n            "
@@ -55692,12 +55708,12 @@ var render = function() {
                       [
                         _c("shiroyuki-fulfilled", {
                           attrs: {
-                            count: true,
+                            countable: true,
                             info:
                               "Produk (Jumlah produk yang Anda daftarkan: " +
                               _vm.$page.data.products.length +
                               " produk)",
-                            countableObject: _vm.$page.data.products
+                            counter: _vm.$page.data.products.length
                           }
                         })
                       ],
@@ -57130,8 +57146,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.value.length != 0,
-                  expression: "value.length != 0"
+                  value: _vm.counter > 0,
+                  expression: "counter > 0"
                 }
               ],
               staticClass: "inline-block"
@@ -57150,13 +57166,13 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.value.length == 0,
-                  expression: "value.length == 0"
+                  value: _vm.counter == 0,
+                  expression: "counter == 0"
                 }
               ],
               staticClass: "inline-block"
             },
-            [_c("i", { staticClass: "fas fa-check-circle text-red-400 mr-2" })]
+            [_c("i", { staticClass: "fas fa-times-circle text-red-400 mr-2" })]
           ),
           _vm._v("\n        " + _vm._s(this.info) + "\n    ")
         ])

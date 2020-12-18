@@ -9,11 +9,6 @@
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" v-if="$page.data">
                 <div>
-                    <request-panel :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
-                    <jet-section-border />
-                </div>
-
-                <div>
                     <informasi-toko :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
                     <jet-section-border />
                 </div>
@@ -31,6 +26,10 @@
                 <div>
                     <informasi-produk :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
                     <jet-section-border />
+                </div>
+
+                <div>
+                    <request-panel :bisaRequest="bisaRequest" :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
                 </div>
             </div>
         </div>

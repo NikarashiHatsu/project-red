@@ -83,9 +83,9 @@
                         <ol>
                             <li>
                                 <shiroyuki-fulfilled 
-                                    :count="true" 
+                                    :countable="true" 
                                     :info="'Produk (Jumlah produk yang Anda daftarkan: ' + $page.data.products.length + ' produk)'" 
-                                    :countableObject="$page.data.products" />
+                                    :counter="$page.data.products.length" />
                             </li>
                         </ol>
                     </li>

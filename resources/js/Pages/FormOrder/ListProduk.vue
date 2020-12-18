@@ -35,9 +35,9 @@
             </template>
 
             <template #content>
-                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="wantToBeDeleted.storage_foto_produk_path" :alt="wantToBeDeleted.nama_produk" />
+                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="form.storage_foto_produk_path" :alt="form.nama_produk" />
                 <p>
-                    Apakah Anda yakin ingin menghapus produk <span class="font-bold">{{ wantToBeDeleted.nama_produk }}</span> ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.
+                    Apakah Anda yakin ingin menghapus produk <span class="font-bold">{{ form.nama_produk }}</span> ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.
                 </p>
             </template>
 
@@ -73,24 +73,27 @@
             return {
                 showDeleteDialog: false,
 
-                wantToBeDeleted: {
+                form: this.$inertia.form({
+                    _method: 'DELETE',
                     id: null,
                     nama_produk: null,
-                    foto_produk: null,
-                },
+                    storage_foto_produk_path: null,
+                }),
             }
         },
 
         methods: {
             hapusProduk(prod) {
-                this.wantToBeDeleted = prod;
+                this.form.id = prod.id;
+                this.form.nama_produk = prod.nama_produk;
+                this.form.storage_foto_produk_path = prod.storage_foto_produk_path;
                 this.showDeleteDialog = true;
             },
 
             confirmDeletion() {
-                this.wantToBeDeleted._method = 'DELETE';
-                console.log(this.wantToBeDeleted);
-                this.$inertia.post(route('produk.destroy', this.wantToBeDeleted));
+                this.form.post(route('produk.destroy'), {
+                    preserveScroll: true
+                });
                 this.showDeleteDialog = false;
             }
         }
