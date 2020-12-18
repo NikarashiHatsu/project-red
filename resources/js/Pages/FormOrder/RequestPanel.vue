@@ -9,19 +9,18 @@
         </template>
 
         <template #form>
-            <!-- Banner Toko -->
             <div class="col-span-6 sm:col-span-4">
                 <p class="mb-4">Catatan: Pengajuan permintaan aplikasi akan dilaksanakan dengan jangka waktu 2-14 hari. Anda tidak bisa mengedit form apapun pada halaman ini setelah tombol dibawah ditekan. Pastikan semua informasi dan produk-produk diisi dengan sempurna.</p>
-                <p class="mb-4">Dibawah ini adalah persyaratan yang telah Anda penuhi:</p>
+                <p class="mb-4">Dibawah ini adalah persyaratan yang telah Anda penuhi (teks yang berwarna abu-abu adalah persyaratan opsional):</p>
                 <ol>
                     <li class="mb-2">
                         <p class="italic">Informasi Toko</p>
                         <ol>
                             <li>
-                                <shiroyuki-fulfilled :info="'Logo Toko'" :value="informasi.logo_toko_path" />
-                                <shiroyuki-fulfilled :info="'Banner Toko'" :value="informasi.banner_toko_path" />
-                                <shiroyuki-fulfilled :info="'Nama Pemilik'" :value="informasi.nama_pemilik" />
-                                <shiroyuki-fulfilled :info="'Nama Toko'" :value="informasi.nama_toko" />
+                                <shiroyuki-fulfilled :info="'Banner Toko'" :value="$page.data.banner_toko_path" />
+                                <shiroyuki-fulfilled :info="'Logo Toko'" :value="$page.data.logo_toko_path" />
+                                <shiroyuki-fulfilled :info="'Nama Pemilik'" :value="$page.data.nama_pemilik" />
+                                <shiroyuki-fulfilled :info="'Nama Toko'" :value="$page.data.nama_toko" />
                             </li>
                         </ol>
                     </li>
@@ -29,18 +28,10 @@
                         <p class="italic">Informasi Aplikasi</p>
                         <ol>
                             <li>
-                                <shiroyuki-fulfilled :info="'Nama Aplikasi'" :value="informasi.nama_aplikasi" />
-                                <shiroyuki-fulfilled :info="'Deskripsi Aplikasi'" :value="informasi.deskripsi_aplikasi" />
-                                <shiroyuki-fulfilled :info="'Alamat Perusahaan'" :value="informasi.alamat_perusahaan" />
-                                <shiroyuki-fulfilled :optional="true" :info="'URL Website Perusahaan (Opsional)'" :value="informasi.url_website_perusahaan" />
-                            </li>
-                        </ol>
-                    </li>
-                    <li class="mb-2">
-                        <p class="italic">Informasi Produk</p>
-                        <ol>
-                            <li>
-                                <shiroyuki-fulfilled :info="'Produk (minimal 1 produk, produk yang terdaftar: ' + informasi.products.length + ' produk)'" :value="informasi.products" :count="true" />
+                                <shiroyuki-fulfilled :info="'Nama Aplikasi'" :value="$page.data.nama_aplikasi" />
+                                <shiroyuki-fulfilled :info="'Deskripsi Aplikasi'" :value="$page.data.deskripsi_aplikasi" />
+                                <shiroyuki-fulfilled :info="'Alamat Perusahaan'" :value="$page.data.alamat_perusahaan" />
+                                <shiroyuki-fulfilled :optional="true" :info="'URL Website Perusahaan (Opsional)'" :value="$page.data.url_website_perusahaan" />
                             </li>
                         </ol>
                     </li>
@@ -48,11 +39,36 @@
                         <p class="italic">Informasi Media Sosial</p>
                         <ol>
                             <li>
-                                <shiroyuki-fulfilled :info="'Nomor WhatsApp'" :value="informasi.whatsapp_number" />
-                                <shiroyuki-fulfilled :optional="true" :info="'Link Facebook (Opsional)'" :value="informasi.facebook_link" />
-                                <shiroyuki-fulfilled :optional="true" :info="'Link Instagram (Opsional)'" :value="informasi.instagram_link" />
-                                <shiroyuki-fulfilled :optional="true" :info="'Link Twitter (Opsional)'" :value="informasi.twitter_link" />
-                                <shiroyuki-fulfilled :optional="true" :info="'Link YouTube (Opsional)'" :value="informasi.youtube_link" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Nomor WhatsApp'" 
+                                    :value="$page.data.whatsapp_number" />
+                                <shiroyuki-fulfilled 
+                                    :optional="true" 
+                                    :info="'Link YouTube (Opsional)'" 
+                                    :value="$page.data.youtube_link" />
+                                <shiroyuki-fulfilled 
+                                    :optional="true" 
+                                    :info="'Link Facebook (Opsional)'" 
+                                    :value="$page.data.facebook_link" />
+                                <shiroyuki-fulfilled 
+                                    :optional="true" 
+                                    :info="'Link Instagram (Opsional)'" 
+                                    :value="$page.data.instagram_link" />
+                                <shiroyuki-fulfilled 
+                                    :optional="true" 
+                                    :info="'Link Twitter (Opsional)'" 
+                                    :value="$page.data.twitter_link" />
+                            </li>
+                        </ol>
+                    </li>
+                    <li class="mb-2">
+                        <p class="italic">Informasi Produk</p>
+                        <ol>
+                            <li>
+                                <shiroyuki-fulfilled 
+                                    :count="true" 
+                                    :info="'Produk (Jumlah produk yang Anda daftarkan: ' + $page.data.products.length + ' produk)'" 
+                                    :countableObject="$page.data.products" />
                             </li>
                         </ol>
                     </li>

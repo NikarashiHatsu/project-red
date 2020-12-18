@@ -18,7 +18,7 @@
                 <!-- Banner toko sekarang -->
                 <div class="mt-2" v-show="!bannerTokoPreview">
                     <div class="block rounded-md aspect-w-16 aspect-h-5 border"
-                        :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + informasi.banner_toko_path + '\');'"></div>
+                        :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + informasi.storage_banner_toko_path + '\');'"></div>
                 </div>
 
                 <!-- Preview banner toko baru -->
@@ -44,7 +44,7 @@
 
                 <!-- Logo toko sekarang -->
                 <div class="mt-2" v-show="!logoTokoPreview">
-                    <img :src="informasi.logo_toko_path" alt=" " class="rounded-full h-20 w-20 object-cover border" />
+                    <img :src="informasi.storage_logo_toko_path" alt=" " class="rounded-full h-20 w-20 object-cover border" />
                 </div>
 
                 <!-- Preview logo toko baru -->
@@ -152,16 +152,9 @@
                 this.form.post(route('form-order.update'), {
                     preserveScroll: true,
                 });
-
-                this.$emit(
-                    'submitted',
-                    {
-                        nama_pemilik: this.form.nama_pemilik,
-                        nama_toko: this.form.nama_toko,
-                        logo_toko_path: !this.form.logo_toko_path ? this.informasi.logo_toko_path : this.form.logo_toko_path,
-                        banner_toko_path: !this.form.banner_toko_path ? this.informasi.banner_toko_path : this.form.banner_toko_path,
-                    }
-                );
+                
+                // Emit
+                this.$emit('submitted');
             },
             
             // Buka file manager untuk logo

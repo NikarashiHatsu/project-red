@@ -11,7 +11,7 @@
         <template #form>
             <!-- List Produk -->
             <div class="col-span-6">
-                <list-produk :sudahDiajukan="sudahDiajukan" @produkTerhapus="produkTerhapus" :produk="informasi.products" />
+                <list-produk :sudahDiajukan="sudahDiajukan" :produk="informasi.products" />
             </div>
             
             <!-- Foto produk -->
@@ -121,17 +121,6 @@
                 this.form.post(route('produk.store'), {
                     preserveScroll: true,
                 });
-                
-                this.$emit(
-                    'submitted',
-                    {
-                        form_order_id: this.form.form_order_id,
-                        nama_produk: this.form.nama_produk,
-                        formatted_harga_produk: new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0, style: 'currency', currency: 'IDR' }).format(this.form.harga_produk),
-                        deskripsi_produk: this.form.deskripsi_produk,
-                        storage_foto_produk_path: this.previewFotoProduk,
-                    }
-                );
 
                 this.previewFotoProduk = null;
             },
@@ -149,10 +138,6 @@
             pilihFotoProduk() {
                 this.$refs.fotoProduk.click();
             },
-
-            produkTerhapus(listProdukBaru) {
-                this.$emit('produkTerhapus', listProdukBaru);
-            }
         }
     }
 </script>

@@ -17,7 +17,7 @@
                     <td class="border p-2">{{ prod.nama_produk }}</td>
                     <td class="border p-2 text-right">{{ prod.formatted_harga_produk }}</td>
                     <td class="border p-2">
-                        <jet-danger-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="hapusProduk(prod.id, prod.nama_produk, prod.storage_foto_produk_path)">
+                        <jet-danger-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="hapusProduk(prod)">
                             Hapus
                         </jet-danger-button>
                     </td>
@@ -35,7 +35,7 @@
             </template>
 
             <template #content>
-                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="wantToBeDeleted.foto_produk" :alt="wantToBeDeleted.nama_produk" />
+                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="wantToBeDeleted.storage_foto_produk_path" :alt="wantToBeDeleted.nama_produk" />
                 <p>
                     Apakah Anda yakin ingin menghapus produk <span class="font-bold">{{ wantToBeDeleted.nama_produk }}</span> ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.
                 </p>
@@ -78,41 +78,20 @@
                     nama_produk: null,
                     foto_produk: null,
                 },
-
-                form: this.$inertia.form({
-                    _method: 'DELETE',
-                    id: null,
-                }, {
-                    resetOnSuccess: true,
-                }),
             }
         },
 
         methods: {
-            hapusProduk(id, nama_produk, foto_produk) {
-                this.wantToBeDeleted.id = id;
-                this.wantToBeDeleted.nama_produk = nama_produk;
-                this.wantToBeDeleted.foto_produk = foto_produk;
+            hapusProduk(prod) {
+                this.wantToBeDeleted = prod;
                 this.showDeleteDialog = true;
             },
 
             confirmDeletion() {
-                this.form.id = this.wantToBeDeleted.id;
-
-                this.form.post(route('produk.destroy'), {
-                    preserveScroll: true,
-                });
-                
-                var delProd = this.produk;
-                var theId = this.wantToBeDeleted.id;
-                var filtered = [];
-                
-                Object.keys(delProd).reduce((p, c) => {
-                    if(delProd[c].id !== theId) filtered.push(delProd[c]);
-                }, {});
-
+                this.wantToBeDeleted._method = 'DELETE';
+                console.log(this.wantToBeDeleted);
+                this.$inertia.post(route('produk.destroy', this.wantToBeDeleted));
                 this.showDeleteDialog = false;
-                this.$emit('produkTerhapus', filtered);
             }
         }
     }

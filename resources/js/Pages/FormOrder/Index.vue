@@ -7,29 +7,30 @@
         </template>
 
         <div>
-            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" v-if="informasi">
+            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" v-if="$page.data">
                 <div>
-                    <informasi-toko @submitted="updateInformasi" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
+                    <request-panel :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-aplikasi @submitted="updateInformasi" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
+                    <informasi-toko :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-media-sosial @submitted="updateInformasi" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
+                    <informasi-aplikasi :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
                     <jet-section-border />
                 </div>
 
                 <div>
-                    <informasi-produk @submitted="updateProduk" @produkTerhapus="produkTerhapus" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
+                    <informasi-media-sosial :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
                     <jet-section-border />
                 </div>
 
-                <div :key="requestPanelKey">
-                    <request-panel :bisaRequest="bisaRequest" :sudahDiajukan="sudahDiajukan" :informasi="informasi" />
+                <div>
+                    <informasi-produk :sudahDiajukan="sudahDiajukan" :informasi="$page.data" />
+                    <jet-section-border />
                 </div>
             </div>
         </div>
@@ -38,75 +39,78 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout';
+    import JetActionMessage from '@/Jetstream/ActionMessage';
+    import JetButton from '@/Jetstream/Button';
+    import JetFormSection from '@/Jetstream/FormSection';
     import JetSectionBorder from '@/Jetstream/SectionBorder';
     import InformasiAplikasi from './InformasiAplikasi';
     import InformasiMediaSosial from './InformasiMediaSosial';
     import InformasiProduk from './InformasiProduk';
     import InformasiToko from './InformasiToko';
-    import RequestPanel from './RequestPanel.vue';
+    import RequestPanel from './RequestPanel';
+    import ShiroyukiFulfilled from '@/Shiroyuki/Fulfilled';
 
     export default {
         components: {
             AppLayout,
+            JetActionMessage,
+            JetButton,
             JetSectionBorder,
+            JetFormSection,
             InformasiAplikasi,
             InformasiMediaSosial,
             InformasiProduk,
             InformasiToko,
             RequestPanel,
-        },
-
-        created() {
-            this.fetchData();
+            ShiroyukiFulfilled,
         },
 
         data() {
             return {
-                informasi: null,
-                requestPanelKey: 0,
+                form: this.$inertia.form({
+                    '_method': 'PUT',
+                    // Informasi Aplikasi
+                    id: this.$page.data.id,
+                    requested: true,
+                }, {
+                    bag: 'updateProfileInformation',
+                    resetOnSuccess: false,
+                }),
             }
         },
 
         methods: {
-            fetchData() {
-                var vm = this;
-
-                axios
-                    .get(route('form-order.check_information', this.$page.user.id))
-                    .then(function(response) {
-                        var data = response.data.data;
-
-                        vm.informasi = data;
-                    });
+            ajukanAplikasi() {
+                this.form.post(route('form-order.update'), {
+                    preserveScroll: true,
+                });
             },
 
-            updateInformasi(updatedInformasi) {
-                Object.assign(this.informasi, updatedInformasi);
-                this.requestPanelKey += 1;
-            },
+            apakahAda(param) {
+                let ada;
 
-            updateProduk(produkBaru) {
-                this.informasi.products.push(produkBaru);
-                this.requestPanelKey += 1;
-            },
+                if(this.$page.data[param]) {
+                    ada = true;
+                } else {
+                    ada = false;
+                }
 
-            produkTerhapus(listProdukBaru) {
-                this.informasi.products = listProdukBaru;
-                this.requestPanelKey += 1;
+                return ada;
             },
         },
 
         computed: {
             bisaRequest() {
-                if(this.informasi.logo_toko_path == null ||
-                    this.informasi.banner_toko_path == null ||
-                    this.informasi.nama_pemilik == null ||
-                    this.informasi.nama_toko == null ||
-                    this.informasi.nama_aplikasi == null ||
-                    this.informasi.deskripsi_aplikasi == null ||
-                    this.informasi.alamat_perusahaan == null ||
-                    this.informasi.products.length == 0 ||
-                    this.informasi.whatsapp_number == null) {
+                var info = this.$page.data;
+                if(info.logo_toko_path == null ||
+                    info.banner_toko_path == null ||
+                    info.nama_pemilik == null ||
+                    info.nama_toko == null ||
+                    info.nama_aplikasi == null ||
+                    info.deskripsi_aplikasi == null ||
+                    info.alamat_perusahaan == null ||
+                    info.products.length == 0 ||
+                    info.whatsapp_number == null) {
                     // disabled = true
                     return true;
                 } else {
@@ -116,8 +120,8 @@
             },
 
             sudahDiajukan() {
-                return this.informasi.requested;
-            }
+                return this.$page.data.requested;
+            },
         }
     }
 </script>
