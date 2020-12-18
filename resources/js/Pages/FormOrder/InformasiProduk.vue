@@ -101,7 +101,7 @@
                 editMode: false,
                 
                 form: this.$inertia.form({
-                    _method: 'STORE',
+                    _method: 'POST',
                     // Produk
                     id: null,
                     form_order_id: this.informasi.id,
@@ -128,7 +128,7 @@
                     });
 
                     this.form.id = null;
-                    this.form._method = 'STORE';
+                    this.form._method = 'POST';
                     this.editMode = false;
                 } else {
                     this.form.post(route('produk.store'), {

@@ -8665,7 +8665,7 @@ __webpack_require__.r(__webpack_exports__);
       previewFotoProduk: null,
       editMode: false,
       form: this.$inertia.form({
-        _method: 'STORE',
+        _method: 'POST',
         // Produk
         id: null,
         form_order_id: this.informasi.id,
@@ -8690,7 +8690,7 @@ __webpack_require__.r(__webpack_exports__);
           preserveScroll: true
         });
         this.form.id = null;
-        this.form._method = 'STORE';
+        this.form._method = 'POST';
         this.editMode = false;
       } else {
         this.form.post(route('produk.store'), {
