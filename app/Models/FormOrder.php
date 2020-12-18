@@ -5,10 +5,23 @@ namespace App\Models;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class FormOrder extends Model
 {
     use HasFactory;
+
+    // Get the storage's banner toko path
+    public function getStorageBannerTokoPathAttribute()
+    {
+        return Storage::url($this->banner_toko_path);
+    }
+
+    // Get the storage's logo toko path
+    public function getStorageLogoTokoPathAttribute()
+    {
+        return Storage::url($this->logo_toko_path);
+    }
 
     // Show the user's products
     public function products()
@@ -39,5 +52,11 @@ class FormOrder extends Model
         'whatsapp_number',
         'confirmed',
         'requested',
+    ];
+
+    // Append new property
+    protected $appends = [
+        'storage_banner_toko_path',
+        'storage_logo_toko_path',
     ];
 }
