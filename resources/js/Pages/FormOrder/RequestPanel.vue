@@ -17,10 +17,18 @@
                         <p class="italic">Informasi Toko</p>
                         <ol>
                             <li>
-                                <shiroyuki-fulfilled :info="'Banner Toko'" :value="$page.data.banner_toko_path" />
-                                <shiroyuki-fulfilled :info="'Logo Toko'" :value="$page.data.logo_toko_path" />
-                                <shiroyuki-fulfilled :info="'Nama Pemilik'" :value="$page.data.nama_pemilik" />
-                                <shiroyuki-fulfilled :info="'Nama Toko'" :value="$page.data.nama_toko" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Banner Toko'" 
+                                    :value="$page.data.banner_toko_path" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Logo Toko'" 
+                                    :value="$page.data.logo_toko_path" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Nama Pemilik'" 
+                                    :value="$page.data.nama_pemilik" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Nama Toko'" 
+                                    :value="$page.data.nama_toko" />
                             </li>
                         </ol>
                     </li>
@@ -28,10 +36,19 @@
                         <p class="italic">Informasi Aplikasi</p>
                         <ol>
                             <li>
-                                <shiroyuki-fulfilled :info="'Nama Aplikasi'" :value="$page.data.nama_aplikasi" />
-                                <shiroyuki-fulfilled :info="'Deskripsi Aplikasi'" :value="$page.data.deskripsi_aplikasi" />
-                                <shiroyuki-fulfilled :info="'Alamat Perusahaan'" :value="$page.data.alamat_perusahaan" />
-                                <shiroyuki-fulfilled :optional="true" :info="'URL Website Perusahaan (Opsional)'" :value="$page.data.url_website_perusahaan" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Nama Aplikasi'" 
+                                    :value="$page.data.nama_aplikasi" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Deskripsi Aplikasi'" 
+                                    :value="$page.data.deskripsi_aplikasi" />
+                                <shiroyuki-fulfilled 
+                                    :info="'Alamat Perusahaan'" 
+                                    :value="$page.data.alamat_perusahaan" />
+                                <shiroyuki-fulfilled 
+                                    :optional="true" 
+                                    :info="'URL Website Perusahaan (Opsional)'" 
+                                    :value="$page.data.url_website_perusahaan" />
                             </li>
                         </ol>
                     </li>
