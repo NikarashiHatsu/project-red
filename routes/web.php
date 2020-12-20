@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\FormOrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LayoutPickerController;
+use App\Models\LayoutPicker;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,15 +27,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', function() {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-
-    // Form Order
-    Route::group(['prefix' => 'form-order', 'as' => 'form-order.'], function() {
-        Route::resource('/', FormOrderController::class)->except(['create', 'edit', 'show', 'destroy']);
-        Route::get('/check_information/{user_id}', [FormOrderController::class, 'check_information'])->name('check_information');
-    });
-
-    // Produk
-    Route::group(['prefix' => 'produk', 'as' => 'produk.'], function() {
-        Route::resource('/', ProductController::class);
-    });
+    
+    Route::resource('/form_order', FormOrderController::class)->except(['create', 'edit', 'show', 'destroy']);
+    Route::resource('/layout_picker', LayoutPickerController::class)->except(['index', 'create', 'show', 'edit']);
+    Route::resource('/produk', ProductController::class)->except(['index', 'create', 'show', 'edit']);
 });

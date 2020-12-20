@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <jet-nav-link :href="route('form-order.index')" :active="route().current('form-order.index')">
+                            <jet-nav-link :href="route('form_order.index')" :active="route().current('form_order.index')">
                                 Form Order
                             </jet-nav-link>
                         </div>

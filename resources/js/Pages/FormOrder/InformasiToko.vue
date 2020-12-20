@@ -149,7 +149,7 @@
                 }
 
                 // Lakukan transaksi
-                this.form.post(route('form-order.update'), {
+                this.form.post(route('form_order.update'), {
                     preserveScroll: true,
                 });
                 
