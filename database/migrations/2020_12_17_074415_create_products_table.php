@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnFotoProdukPathInProductsTable extends Migration
+class CreateProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,14 @@ class AddColumnFotoProdukPathInProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('form_order_id');
             $table->string('foto_produk_path');
+            $table->string('nama_produk');
+            $table->bigInteger('harga_produk');
+            $table->text('deskripsi_produk');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +31,6 @@ class AddColumnFotoProdukPathInProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('products');
     }
 }

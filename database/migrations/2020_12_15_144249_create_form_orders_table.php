@@ -33,6 +33,9 @@ class CreateFormOrdersTable extends Migration
             $table->string('youtube_link')->nullable();
             $table->string('whatsapp_number')->nullable();
             $table->boolean('confirmed')->nullable();
+            // Untuk Admin
+            $table->boolean('requested')->nullable();
+            
             $table->timestamps();
         });
     }
