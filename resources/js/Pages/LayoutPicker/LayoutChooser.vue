@@ -1,0 +1,72 @@
+<template>
+    <div class="bg-white rounded-md shadow-md">
+        <h5 class="text-xl px-6 py-4">Pilih Layout</h5>
+        <a href="javascript:void(0)" @click="chooseLayout(1)" :class="(activeLayout == 1) ? activeClass : ''" class="flex justify-between items-center px-6 py-3 hover:bg-gray-100 rounded-md transition ease-in-out duration-300">
+            <span>Layout 1</span>
+            <div :class="(activeLayout == 1) ? activeIconClass : ''" class="p-2 rounded-full text-xs text-center w-8 h-8 transition ease-in-out duration-300">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+
+        <a href="javascript:void(0)" @click="chooseLayout(2)" :class="(activeLayout == 2) ? activeClass : ''" class="flex justify-between items-center px-6 py-3 hover:bg-gray-100 rounded-md transition ease-in-out duration-300">
+            <span>Layout 2</span>
+            <div :class="(activeLayout == 2) ? activeIconClass : ''" class="p-2 rounded-full text-xs text-center w-8 h-8 transition ease-in-out duration-300">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+
+        <a href="javascript:void(0)" @click="chooseLayout(3)" :class="(activeLayout == 3) ? activeClass : ''" class="flex justify-between items-center px-6 py-3 hover:bg-gray-100 rounded-md transition ease-in-out duration-300">
+            <span>Layout 3</span>
+            <div :class="(activeLayout == 3) ? activeIconClass : ''" class="p-2 rounded-full text-xs text-center w-8 h-8 transition ease-in-out duration-300">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                activeLayout: this.$page.data.layout_picker.layout_id_used,
+            }
+        },
+
+        props: ['colorChoosen'],
+
+        methods: {
+            chooseLayout(num) {
+                if(this.activeLayout == num) {
+                    this.activeLayout = null;
+                    num = null;
+                } else {
+                    this.activeLayout = num;
+                }
+                
+                this.$emit('layoutChoosen', num);
+            }
+        },
+
+        computed: {
+            activeClass() {
+                let activeBg = 'bg-gray-100 text-black hover:bg-gray-200';
+
+                if(this.colorChoosen) {
+                    activeBg = `bg-${this.colorChoosen}-500 text-white hover:bg-${this.colorChoosen}-600`;
+                }
+
+                return activeBg;
+            },
+
+            activeIconClass() {
+                let activeIconBg = 'bg-gray-200';
+
+                if(this.colorChoosen) {
+                    activeIconBg = `bg-${this.colorChoosen}-600`;
+                }
+
+                return activeIconBg;
+            }
+        }
+    }
+</script>

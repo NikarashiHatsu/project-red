@@ -29,6 +29,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     })->name('dashboard');
     
     Route::resource('/form_order', FormOrderController::class)->except(['create', 'edit', 'show', 'destroy']);
-    Route::resource('/layout_picker', LayoutPickerController::class)->except(['index', 'create', 'show', 'edit']);
+    Route::resource('/layout_picker', LayoutPickerController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
     Route::resource('/produk', ProductController::class)->except(['index', 'create', 'show', 'edit']);
 });

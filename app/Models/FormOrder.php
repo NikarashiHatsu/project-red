@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\LayoutPickerController;
 use App\Models\Product;
+use App\Models\LayoutPicker;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +29,12 @@ class FormOrder extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    // Show the user's layout picker
+    public function layout_picker()
+    {
+        return $this->hasOne(LayoutPicker::class);
     }
 
     // Set the casts
