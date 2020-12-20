@@ -20,6 +20,12 @@ class FormOrderController extends Controller
     {
         $userId = Auth::user()['id'];
         $formOrder = FormOrder::where('user_id', $userId)->with('products')->first();
+
+        if(!$formOrder) {
+            $formOrder = new FormOrder;
+            $formOrder->user_id = $userId;
+            $formOrder->save();
+        }
         
         return \Inertia\Inertia::render('FormOrder/Index', [
             'data' => $formOrder,
