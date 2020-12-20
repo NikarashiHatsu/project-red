@@ -92,7 +92,7 @@
         methods: {
             submitInformasiAplikasi() {
                 this.$emit('submitted');
-                this.form.post(route('form_order.update'), {
+                this.form.post(route('form_order.update', this.$page.data), {
                     preserveScroll: true,
                 });
             }

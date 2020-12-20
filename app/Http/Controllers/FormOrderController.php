@@ -85,7 +85,7 @@ class FormOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(FormOrder $formOrder, Request $request)
     {
         // Validasi request
         $request->validate([

@@ -32,7 +32,7 @@
             </tbody>
             <tbody v-else>
                 <tr>
-                    <td colspan="4" class="border text-center p-2">Belum ada barang</td>
+                    <td colspan="5" class="border text-center p-2">Belum ada barang</td>
                 </tr>
             </tbody>
         </table>

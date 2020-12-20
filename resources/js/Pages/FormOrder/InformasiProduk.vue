@@ -99,6 +99,7 @@
             return {
                 previewFotoProduk: null,
                 editMode: false,
+                productObject: null,
                 
                 form: this.$inertia.form({
                     _method: 'POST',
@@ -123,10 +124,11 @@
 
                 if(this.editMode) {
                     this.form._method = 'PUT';
-                    this.form.post(route('produk.update', this.editId), {
+                    this.form.post(route('produk.update', this.productObject), {
                         preserveScroll: true,
                     });
 
+                    this.productObject = null;
                     this.form.id = null;
                     this.form._method = 'POST';
                     this.editMode = false;
@@ -156,6 +158,7 @@
             editProduk(prod) {
                 this.editMode = true;
 
+                this.productObject = prod;
                 this.form.id = prod.id;
                 this.form.nama_produk = prod.nama_produk;
                 this.form.harga_produk = prod.harga_produk;
