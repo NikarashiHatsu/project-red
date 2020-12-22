@@ -15,7 +15,7 @@ class CreateLayoutPickersTable extends Migration
     {
         Schema::create('layout_pickers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_order_id');
+            $table->foreignId('user_id');
             $table->bigInteger('layout_id_used')->nullable();
             $table->string('color_scheme_used')->nullable();
             $table->timestamps();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LayoutPicker;
-use App\Models\FormOrder;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,18 +17,11 @@ class LayoutPickerController extends Controller
      */
     public function index()
     {
-        $userId = Auth::user()->id;
-        $formOrder = FormOrder::where('user_id', $userId)->with(['products', 'layout_picker'])->first();
+        $user_id = Auth::user()->id;
+        $user = User::where('id', $user_id)->with(['form_order', 'products', 'layout_picker'])->first();
 
-        if(!$formOrder->layout_picker) {
-            $layoutPicker = new LayoutPicker;
-            $layoutPicker->form_order_id = $formOrder->id;
-            $layoutPicker->save();
-        }
-
-        
         return Inertia::render('LayoutPicker/Index', [
-            'data' => $formOrder,
+            'data' => $user,
         ]);
     }
 

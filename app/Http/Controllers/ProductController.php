@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -38,7 +39,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'form_order_id' => ['required', 'integer'],
+            'user_id' => ['required', 'integer'],
             'nama_produk' => ['required', 'string'],
             'harga_produk' => ['required', 'integer'],
             'deskripsi_produk' => ['required', 'string'],
@@ -46,13 +47,13 @@ class ProductController extends Controller
         ]);
         
         // Upload file
-        $formOrderId = $request->form_order_id;
+        $user_id = Auth::user()->id;
         $newFileName = Str::random(50) . '.' . $request->file('foto_produk_path')->getClientOriginalExtension();
-        $foto_produk_path = $request->file('foto_produk_path')->storeAs('public/produk_toko/' . $formOrderId, $newFileName);
+        $foto_produk_path = $request->file('foto_produk_path')->storeAs('public/produk_toko/' . $user_id, $newFileName);
 
         // Store ke database
         $product = new Product;
-        $product->form_order_id = $formOrderId;
+        $product->user_id = $user_id;
         $product->nama_produk = $request->nama_produk;
         $product->harga_produk = $request->harga_produk;
         $product->deskripsi_produk = $request->deskripsi_produk;
@@ -115,9 +116,9 @@ class ProductController extends Controller
                 Storage::delete($product->foto_produk_path);
             }
             
-            $formOrderId = $request->form_order_id;
+            $user_id = Auth::user()->id;
             $newFileName = Str::random(50) . '.' . $request->file('foto_produk_path')->getClientOriginalExtension();
-            $foto_produk_path = $request->file('foto_produk_path')->storeAs('public/produk_toko/' . $formOrderId, $newFileName);
+            $foto_produk_path = $request->file('foto_produk_path')->storeAs('public/produk_toko/' . $user_id, $newFileName);
 
             $product->update([
                 'foto_produk_path' => $foto_produk_path,

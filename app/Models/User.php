@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\FormOrder;
+use App\Models\Product;
+use App\Models\LayoutPicker;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,6 +21,30 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    /**
+     * Get the FormOrder
+     */
+    public function form_order()
+    {
+        return $this->hasOne(FormOrder::class);
+    }
+
+    /**
+     * Get the LayoutPicker
+     */
+    public function layout_picker()
+    {
+        return $this->hasOne(LayoutPicker::class);
+    }
+
+    /**
+     * Get the Products
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+    
     /**
      * The attributes that are mass assignable.
      *

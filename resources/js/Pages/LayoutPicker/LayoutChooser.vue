@@ -7,20 +7,6 @@
                 <i class="fas fa-chevron-right"></i>
             </div>
         </a>
-
-        <a href="javascript:void(0)" @click="chooseLayout(2)" :class="(activeLayout == 2) ? activeClass : ''" class="flex justify-between items-center px-6 py-3 hover:bg-gray-100 rounded-md transition ease-in-out duration-300">
-            <span>Layout 2</span>
-            <div :class="(activeLayout == 2) ? activeIconClass : ''" class="p-2 rounded-full text-xs text-center w-8 h-8 transition ease-in-out duration-300">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </a>
-
-        <a href="javascript:void(0)" @click="chooseLayout(3)" :class="(activeLayout == 3) ? activeClass : ''" class="flex justify-between items-center px-6 py-3 hover:bg-gray-100 rounded-md transition ease-in-out duration-300">
-            <span>Layout 3</span>
-            <div :class="(activeLayout == 3) ? activeIconClass : ''" class="p-2 rounded-full text-xs text-center w-8 h-8 transition ease-in-out duration-300">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </a>
     </div>
 </template>
 

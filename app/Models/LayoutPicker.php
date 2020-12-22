@@ -11,6 +11,6 @@ class LayoutPicker extends Model
 
     // Mass assignable
     protected $fillable = [
-        'layout_id_used', 'color_scheme_used'
+        'user_id', 'layout_id_used', 'color_scheme_used'
     ];
 }

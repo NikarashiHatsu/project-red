@@ -18,17 +18,11 @@ class FormOrderController extends Controller
      */
     public function index()
     {
-        $userId = Auth::user()['id'];
-        $formOrder = FormOrder::where('user_id', $userId)->with('products')->first();
-
-        if(!$formOrder) {
-            $formOrder = new FormOrder;
-            $formOrder->user_id = $userId;
-            $formOrder->save();
-        }
+        $user_id = Auth::user()->id;
+        $user = User::where('id', $user_id)->with(['form_order', 'products'])->first();
         
         return \Inertia\Inertia::render('FormOrder/Index', [
-            'data' => $formOrder,
+            'data' => $user,
         ]);
     }
 
@@ -49,12 +43,7 @@ class FormOrderController extends Controller
      */
     public function store($userId)
     {
-        $user = User::find($userId);
-
-        $formOrder = new FormOrder;
-        $formOrder->user_id = $userId;
-        $formOrder->nama_pemilik = $user->name;
-        $formOrder->save();
+        //
     }
 
     /**
@@ -176,39 +165,5 @@ class FormOrderController extends Controller
     public function destroy(FormOrder $formOrder)
     {
         //
-    }
-
-    /**
-     * Check whether the information to belongs to the user is available or not
-     * 
-     * @param int $userId
-     * @return \Illuminate\Http\Response
-     */
-    public function check_information($userId)
-    {
-        // Mengambil data informasi toko di database
-        $formOrder = FormOrder::where('user_id', $userId)->with('products')->first();
-
-        // Jika tidak ada, buat data informasi toko baru
-        if($formOrder == null) {
-            // Gunakan fungsi store
-            $this->store($userId);
-        }
-
-        // Modifikasi logo toko menjadi URL
-        if($formOrder->logo_toko_path != null) {
-            $formOrder->logo_toko_path = Storage::url($formOrder->logo_toko_path);
-        }
-
-        // Modifikasi banner toko menjadi URL
-        if($formOrder->banner_toko_path != null) {
-            $formOrder->banner_toko_path = Storage::url($formOrder->banner_toko_path);
-        }
-
-        // Kembalikan response dengan data $formOrder
-        return response()->json([
-            'success' => 1,
-            'data' => $formOrder
-        ], 200);
     }
 }

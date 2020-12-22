@@ -3,8 +3,8 @@
         <!-- Navbar -->
         <div :class="navbarColorTheme" class="flex justify-between items-center p-4 shadow-md">
             <div class="flex items-center">
-                <img class="w-8 h-8 rounded-full border object-cover mr-4" :src="this.$page.data.storage_logo_toko_path" :alt="this.$page.data.nama_toko" />
-                <span class="font-semibold">{{ this.$page.data.nama_toko }}</span>
+                <img class="w-8 h-8 rounded-full border object-cover mr-4" :src="form_order.storage_logo_toko_path" :alt="this.$page.data.nama_toko" />
+                <span class="font-semibold">{{ form_order.nama_toko }}</span>
             </div>
             <a href="javascript:void(0)" :class="navbarNavColorTheme" class="flex items-center justify-center w-8 h-8 rounded-md transition ease-in-out duration-300">
                 <i class="fas fa-bars text-gray-700"></i>
@@ -20,7 +20,7 @@
 
                 <!-- Banner -->
                 <div class="w-full aspect-w-16 aspect-h-8" 
-                    :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + this.$page.data.storage_banner_toko_path + '\');'">
+                    :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + form_order.storage_banner_toko_path + '\');'">
                 </div>
                 <!-- !Banner -->
 
@@ -28,34 +28,34 @@
                 <div class="flex p-6">
                     <!-- Store Profile Picture -->
                     <div class="flex">
-                        <img class="rounded-full shadow-md w-12 h-12" :src="this.$page.data.storage_logo_toko_path" :alt="this.$page.data.nama_toko" />
+                        <img class="rounded-full shadow-md w-12 h-12" :src="form_order.storage_logo_toko_path" :alt="form_order.nama_toko" />
                     </div>
                     <!-- !Store Profile Picture -->
 
                     <!-- Store Information -->
                     <div class="flex flex-col ml-4">
-                        <h5 class="text-xl font-semibold mb-2">{{ this.$page.data.nama_toko }}</h5>
+                        <h5 class="text-xl font-semibold mb-2">{{ form_order.nama_toko }}</h5>
                         <p class="mb-1">
                             <i class="fas fa-map-marker-alt mr-1"></i>
-                            <span>{{ this.$page.data.alamat_perusahaan }}</span>
+                            <span>{{ form_order.alamat_perusahaan }}</span>
                         </p>
-                        <a class="block mb-1" :href="'https://wa.me/' + this.$page.data.whatsapp_number.replace('+', '')">
+                        <a class="block mb-1" :href="form_order.whatsapp_number" v-show="form_order.whatsapp_number">
                             <i class="fab fa-whatsapp mr-1"></i>
-                            <span>{{ this.$page.data.whatsapp_number }}</span>
+                            <span>{{ form_order.whatsapp_number }}</span>
                         </a>
-                        <a class="block mb-1" :href="this.$page.data.youtube_link" v-show="this.$page.data.youtube_link">
+                        <a class="block mb-1" :href="form_order.youtube_link" v-show="form_order.youtube_link">
                             <i class="fab fa-youtube mr-1"></i>
                             <span>YouTube</span>
                         </a>
-                        <a class="block mb-1" :href="this.$page.data.facebook_link" v-show="this.$page.data.facebook_link">
+                        <a class="block mb-1" :href="form_order.facebook_link" v-show="form_order.facebook_link">
                             <i class="fab fa-facebook mr-1"></i>
                             <span>Facebook</span>
                         </a>
-                        <a class="block mb-1" :href="this.$page.data.instagram_link" v-show="this.$page.data.instagram_link">
+                        <a class="block mb-1" :href="form_order.instagram_link" v-show="form_order.instagram_link">
                             <i class="fab fa-instagram mr-1"></i>
                             <span>Instagram</span>
                         </a>
-                        <a class="block mb-1" :href="this.$page.data.twitter" v-show="this.$page.data.twitter">
+                        <a class="block mb-1" :href="form_order.twitter" v-show="form_order.twitter">
                             <i class="fab fa-twitter mr-1"></i>
                             <span>Twitter</span>
                         </a>
@@ -99,8 +99,8 @@
 
         <!-- Footer -->
         <footer class="p-6">
-            <p class="font-bold text-center mb-2">Beli Aneka Produk Online dari Toko {{ this.$page.data.nama_toko }}</p>
-            <p class="mb-2 text-center">Beli aneka produk di Toko {{ this.$page.data.nama_toko }} secara online sekarang. Kamu bisa beli produk dari Toko {{ this.$page.data.nama_toko }} dengan aman & mudah dari Kab. Cirebon. Beli aneka produk terbaru di Toko {{ this.$page.data.nama_toko }} dengan mudah dari genggaman tangan kamu menggunakan Aplikasi. Cek terus Toko {{ this.$page.data.nama_toko }} untuk update Produk secara online!</p>
+            <p class="font-bold text-center mb-2">Beli Aneka Produk Online dari Toko {{ form_order.nama_toko }}</p>
+            <p class="mb-2 text-center">Beli aneka produk di Toko {{ form_order.nama_toko }} secara online sekarang. Kamu bisa beli produk dari Toko {{ form_order.nama_toko }} dengan aman & mudah dari Kab. Cirebon. Beli aneka produk terbaru di Toko {{ form_order.nama_toko }} dengan mudah dari genggaman tangan kamu menggunakan Aplikasi. Cek terus Toko {{ form_order.nama_toko }} untuk update Produk secara online!</p>
         </footer>
         <!-- !Footer -->
     </div>
@@ -115,5 +115,11 @@
             'productsSectionColorTheme', 
             'productsCount',
         ],
+
+        data() {
+            return {
+                form_order: this.$page.data.form_order,
+            }
+        }
     }
 </script>

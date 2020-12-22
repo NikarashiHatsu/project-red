@@ -105,7 +105,7 @@
                     _method: 'POST',
                     // Produk
                     id: null,
-                    form_order_id: this.informasi.id,
+                    user_id: this.$page.user.id,
                     nama_produk: null,
                     harga_produk: null,
                     deskripsi_produk: null,

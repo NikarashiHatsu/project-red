@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormOrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LayoutPickerController;
-use App\Models\LayoutPicker;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +22,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
-    // Dashboard
-    Route::get('/dashboard', function() {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-    
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/form_order', FormOrderController::class)->except(['create', 'edit', 'show', 'destroy']);
     Route::resource('/layout_picker', LayoutPickerController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
     Route::resource('/produk', ProductController::class)->except(['index', 'create', 'show', 'edit']);

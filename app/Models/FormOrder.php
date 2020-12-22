@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\LayoutPickerController;
-use App\Models\Product;
-use App\Models\LayoutPicker;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -25,18 +22,6 @@ class FormOrder extends Model
         return Storage::url($this->logo_toko_path);
     }
 
-    // Show the user's products
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
-
-    // Show the user's layout picker
-    public function layout_picker()
-    {
-        return $this->hasOne(LayoutPicker::class);
-    }
-
     // Set the casts
     protected $casts = [
         'confirmed' => 'boolean',
@@ -45,6 +30,7 @@ class FormOrder extends Model
 
     // Set the mass-assignable columns
     protected $fillable = [
+        'user_id',
         'nama_pemilik',
         'nama_toko',
         'logo_toko_path',

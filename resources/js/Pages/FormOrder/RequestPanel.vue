@@ -19,16 +19,16 @@
                             <li>
                                 <shiroyuki-fulfilled 
                                     :info="'Banner Toko'" 
-                                    :value="$page.data.banner_toko_path" />
+                                    :value="$page.data.form_order.banner_toko_path" />
                                 <shiroyuki-fulfilled 
                                     :info="'Logo Toko'" 
-                                    :value="$page.data.logo_toko_path" />
+                                    :value="$page.data.form_order.logo_toko_path" />
                                 <shiroyuki-fulfilled 
                                     :info="'Nama Pemilik'" 
-                                    :value="$page.data.nama_pemilik" />
+                                    :value="$page.data.form_order.nama_pemilik" />
                                 <shiroyuki-fulfilled 
                                     :info="'Nama Toko'" 
-                                    :value="$page.data.nama_toko" />
+                                    :value="$page.data.form_order.nama_toko" />
                             </li>
                         </ol>
                     </li>
@@ -38,17 +38,17 @@
                             <li>
                                 <shiroyuki-fulfilled 
                                     :info="'Nama Aplikasi'" 
-                                    :value="$page.data.nama_aplikasi" />
+                                    :value="$page.data.form_order.nama_aplikasi" />
                                 <shiroyuki-fulfilled 
                                     :info="'Deskripsi Aplikasi'" 
-                                    :value="$page.data.deskripsi_aplikasi" />
+                                    :value="$page.data.form_order.deskripsi_aplikasi" />
                                 <shiroyuki-fulfilled 
                                     :info="'Alamat Perusahaan'" 
-                                    :value="$page.data.alamat_perusahaan" />
+                                    :value="$page.data.form_order.alamat_perusahaan" />
                                 <shiroyuki-fulfilled 
                                     :optional="true" 
                                     :info="'URL Website Perusahaan (Opsional)'" 
-                                    :value="$page.data.url_website_perusahaan" />
+                                    :value="$page.data.form_order.url_website_perusahaan" />
                             </li>
                         </ol>
                     </li>
@@ -58,23 +58,23 @@
                             <li>
                                 <shiroyuki-fulfilled 
                                     :info="'Nomor WhatsApp'" 
-                                    :value="$page.data.whatsapp_number" />
+                                    :value="$page.data.form_order.whatsapp_number" />
                                 <shiroyuki-fulfilled 
                                     :optional="true" 
                                     :info="'Link YouTube (Opsional)'" 
-                                    :value="$page.data.youtube_link" />
+                                    :value="$page.data.form_order.youtube_link" />
                                 <shiroyuki-fulfilled 
                                     :optional="true" 
                                     :info="'Link Facebook (Opsional)'" 
-                                    :value="$page.data.facebook_link" />
+                                    :value="$page.data.form_order.facebook_link" />
                                 <shiroyuki-fulfilled 
                                     :optional="true" 
                                     :info="'Link Instagram (Opsional)'" 
-                                    :value="$page.data.instagram_link" />
+                                    :value="$page.data.form_order.instagram_link" />
                                 <shiroyuki-fulfilled 
                                     :optional="true" 
                                     :info="'Link Twitter (Opsional)'" 
-                                    :value="$page.data.twitter_link" />
+                                    :value="$page.data.form_order.twitter_link" />
                             </li>
                         </ol>
                     </li>
@@ -137,11 +137,9 @@
             return {
                 form: this.$inertia.form({
                     '_method': 'PUT',
-                    // Informasi Aplikasi
                     id: this.informasi.id,
                     requested: true,
                 }, {
-                    bag: 'updateProfileInformation',
                     resetOnSuccess: false,
                 }),
             }
@@ -149,7 +147,7 @@
 
         methods: {
             ajukanAplikasi() {
-                this.form.post(route('form_order.update', this.$page.data), {
+                this.form.post(route('form_order.update', this.$page.data.form_order), {
                     preserveScroll: true,
                 });
             },

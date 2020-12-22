@@ -83,7 +83,6 @@
             return {
                 form: this.$inertia.form({
                     '_method': 'PUT',
-                    // Media sosial
                     id: this.informasi.id,
                     facebook_link: this.informasi.facebook_link,
                     instagram_link: this.informasi.instagram_link,
@@ -99,7 +98,7 @@
 
         methods: {
             submitInformasiMediaSosial() {
-                this.form.post(route('form_order.update', this.$page.data), {
+                this.form.post(route('form_order.update', this.$page.data.form_order), {
                     preserveScroll: true,
                 });
             }
