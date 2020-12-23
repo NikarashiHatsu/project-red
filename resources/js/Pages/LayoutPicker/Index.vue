@@ -8,15 +8,15 @@
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-12 grid-flow-row gap-6">
                     <div class="col-span-12 sm:col-span-5 md:col-span-6 lg:col-span-4 xl:col-span-4">
-                        <layout-chooser :disabled="isRequested" :colorChoosen="this.form.color_scheme_used" class="mb-6" @layoutChoosen="layoutChoosen" />
-                        <color-theme-chooser :disabled="isRequested" class="mb-6" @colorChoosen="colorChoosen" />
-                        <div class="block lg:hidden">Layout Modifier (Pro Only)</div>
+                        <layout-chooser :disabled="$page.data.form_order.requested" :colorChoosen="this.form.color_scheme_used" class="mb-6" @layoutChoosen="layoutChoosen" />
+                        <color-theme-chooser :disabled="$page.data.form_order.requested" class="mb-6" @colorChoosen="colorChoosen" />
                     </div>
                     <div class="col-span-12 sm:col-span-7 md:col-span-6 lg:col-span-5 xl:col-span-4">
-                        <previewer class="shadow-md" :layoutChoosen="this.form.layout_id_used" :colorChoosen="this.form.color_scheme_used" />
+                        <previewer class="shadow-md mb-4 lg:mb-0" :layoutChoosen="this.form.layout_id_used" :colorChoosen="this.form.color_scheme_used" />
+                        <product-detail class="block lg:hidden" v-show="this.form.layout_id_used" :product="$page.data.products[0]" :colorChoosen="this.form.color_scheme_used" />
                     </div>
                     <div class="hidden lg:block lg:col-span-3 xl:col-span-4">
-                        Layout Modifier (Pro Only)
+                        <product-detail v-show="this.form.layout_id_used" :product="$page.data.products[0]" :colorChoosen="this.form.color_scheme_used" />
                     </div>
                 </div>
             </div>
@@ -29,13 +29,15 @@
     import ColorThemeChooser from './ColorThemeChooser';
     import LayoutChooser from './LayoutChooser';
     import Previewer from './Previewer';
+    import ProductDetail from './Layouts/ProductDetail';
 
     export default {
         components: {
             AppLayout,
             ColorThemeChooser,
             LayoutChooser,
-            Previewer
+            Previewer,
+            ProductDetail,
         },
 
         data() {
@@ -66,10 +68,6 @@
                     preserveScroll: true,
                 });
             },
-
-            isRequested() {
-                return this.$page.data.form_order.requested;
-            }
         }
     }
 </script>
