@@ -8739,6 +8739,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -56937,6 +56954,7 @@ var render = function() {
               [
                 _c(
                   "div",
+                  { staticClass: "mb-6 lg:mb-0" },
                   [
                     _c("informasi-toko", {
                       attrs: {
@@ -56952,6 +56970,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
+                  { staticClass: "mb-6 lg:mb-0" },
                   [
                     _c("informasi-aplikasi", {
                       attrs: {
@@ -56967,6 +56986,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
+                  { staticClass: "mb-6 lg:mb-0" },
                   [
                     _c("informasi-media-sosial", {
                       attrs: {
@@ -58141,7 +58161,51 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("table", { staticClass: "table table-fixed w-full" }, [
+      _c(
+        "div",
+        { staticClass: "block lg:hidden" },
+        _vm._l(_vm.produk, function(prod, index) {
+          return _c(
+            "div",
+            { key: prod.id, staticClass: "flex pb-4 mb-4 border-b" },
+            [
+              _c("div", { staticClass: "mr-2" }, [
+                _vm._v(
+                  "\n                " + _vm._s(index + 1) + "\n            "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-2" }, [
+                _c("div", { staticClass: "w-15 md:w-20" }, [
+                  _c("img", {
+                    staticClass:
+                      "w-full h-auto border rounded-sm block mx-auto object-cover",
+                    attrs: {
+                      src: prod.storage_foto_produk_path,
+                      alt: "Foto Produk " + prod.nama_produk
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex flex-col" }, [
+                _c("h6", { staticClass: "font-bold text-large" }, [
+                  _vm._v(_vm._s(prod.nama_produk))
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(prod.deskripsi_produk))]),
+                _vm._v(" "),
+                _c("p", { staticClass: "font-semibold" }, [
+                  _vm._v(_vm._s(prod.formatted_harga_produk))
+                ])
+              ])
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c("table", { staticClass: "hidden lg:table table-fixed w-full" }, [
         _vm._m(0),
         _vm._v(" "),
         _vm.produk.length > 0
