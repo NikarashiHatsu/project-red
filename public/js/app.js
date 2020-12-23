@@ -7853,7 +7853,6 @@ __webpack_require__.r(__webpack_exports__);
       form_order: this.$page.data.form_order,
       products: this.$page.data.products,
       layout: this.$page.data.layout_picker,
-      apakahSemuaSyaratTerpenuhiClass: '',
       form: this.$inertia.form({
         _method: 'PUT',
         id: this.$page.data.form_order.id,
@@ -7874,8 +7873,8 @@ __webpack_require__.r(__webpack_exports__);
     borderColor: function borderColor() {
       var borderColor = 'border-l-4 border-gray-300';
 
-      if (this.$page.data.layout_picker.color_scheme_used) {
-        borderColor = "border-l-4 border-".concat(this.$page.data.layout_picker.color_scheme_used, "-400");
+      if (this.layout.color_scheme_used) {
+        borderColor = "border-l-4 border-".concat(this.layout.color_scheme_used, "-400");
       }
 
       return borderColor;
@@ -7916,16 +7915,25 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     apakahSemuaSyaratTerpenuhi: function apakahSemuaSyaratTerpenuhi() {
-      if (!this.apakahInformasiTokoTerpenuhi && !this.apakahInformasiAplikasiTerpenuhi && !this.apakahInformasiMediaSosialTerpenuhi && !this.apakahInformasiProdukTerpenuhi && !this.apakahLayoutPickerTerpenuhi || this.$page.data.form_order.requested) {
-        // Semua tidak terpenuhi ATAU pengajuan aplikasi sudah dibuat
-        // disabled = true
-        this.apakahSemuaSyaratTerpenuhiClass = 'opacity-25';
+      if (this.apakahInformasiTokoTerpenuhi && this.apakahInformasiAplikasiTerpenuhi && this.apakahInformasiMediaSosialTerpenuhi && this.apakahInformasiProdukTerpenuhi && this.apakahLayoutPickerTerpenuhi) {
         return true;
-      } else {
-        // Terpenuhi semua
-        // disabled = false
-        return false;
       }
+    },
+    apakahSudahDiajukan: function apakahSudahDiajukan() {
+      return this.form_order.requested;
+    },
+    buttonClasses: function buttonClasses() {
+      var classes = '';
+
+      if (this.layout.color_scheme_used) {
+        classes += "bg-".concat(this.layout.color_scheme_used, "-500 hover:bg-").concat(this.layout.color_scheme_used, "-600 active:bg-").concat(this.layout.color_scheme_used, "-600 focus:border-").concat(this.layout.color_scheme_used, "-900 focus:shadow-outline-").concat(this.layout.color_scheme_used);
+      }
+
+      if (!this.apakahSemuaSyaratTerpenuhi || this.apakahSudahDiajukan) {
+        classes += ' opacity-25';
+      }
+
+      return classes;
     }
   }
 });
@@ -56686,7 +56694,7 @@ var render = function() {
                 },
                 [
                   _c("h5", { staticClass: "text-xl mb-4" }, [
-                    _vm._v("Hai, " + _vm._s(this.$page.user.name))
+                    _vm._v("Hai, " + _vm._s(_vm.$page.user.name))
                   ]),
                   _vm._v(" "),
                   _c("p", [
@@ -56774,20 +56782,12 @@ var render = function() {
                       _c(
                         "jet-button",
                         {
-                          class:
-                            "bg-" +
-                            _vm.$page.data.layout_picker.color_scheme_used +
-                            "-500 hover:bg-" +
-                            _vm.$page.data.layout_picker.color_scheme_used +
-                            "-600 active:bg-" +
-                            _vm.$page.data.layout_picker.color_scheme_used +
-                            "-600 focus:border-" +
-                            _vm.$page.data.layout_picker.color_scheme_used +
-                            "-900 focus:shadow-outline-" +
-                            _vm.$page.data.layout_picker.color_scheme_used +
-                            " " +
-                            this.apakahSemuaSyaratTerpenuhiClass,
-                          attrs: { disabled: _vm.apakahSemuaSyaratTerpenuhi },
+                          class: _vm.buttonClasses,
+                          attrs: {
+                            disabled:
+                              !_vm.apakahSemuaSyaratTerpenuhi ||
+                              _vm.apakahSudahDiajukan
+                          },
                           nativeOn: {
                             click: function($event) {
                               return _vm.ajukanPermintaanAplikasi($event)
