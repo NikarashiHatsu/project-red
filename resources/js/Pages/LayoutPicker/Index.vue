@@ -8,8 +8,8 @@
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-12 grid-flow-row gap-6">
                     <div class="col-span-12 sm:col-span-5 md:col-span-6 lg:col-span-4 xl:col-span-4">
-                        <layout-chooser :colorChoosen="this.form.color_scheme_used" class="mb-6" @layoutChoosen="layoutChoosen" />
-                        <color-theme-chooser class="mb-6" @colorChoosen="colorChoosen" />
+                        <layout-chooser :disabled="isRequested" :colorChoosen="this.form.color_scheme_used" class="mb-6" @layoutChoosen="layoutChoosen" />
+                        <color-theme-chooser :disabled="isRequested" class="mb-6" @colorChoosen="colorChoosen" />
                         <div class="block lg:hidden">Layout Modifier (Pro Only)</div>
                     </div>
                     <div class="col-span-12 sm:col-span-7 md:col-span-6 lg:col-span-5 xl:col-span-4">
@@ -66,6 +66,10 @@
                     preserveScroll: true,
                 });
             },
+
+            isRequested() {
+                return this.$page.data.form_order.requested;
+            }
         }
     }
 </script>

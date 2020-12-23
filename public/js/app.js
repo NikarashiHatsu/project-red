@@ -9036,16 +9036,28 @@ __webpack_require__.r(__webpack_exports__);
       colorChoosen: this.$page.data.layout_picker.color_scheme_used
     };
   },
+  props: ['disabled'],
   methods: {
     chooseColorTheme: function chooseColorTheme(color) {
-      if (this.colorChoosen == color) {
-        this.colorChoosen = null;
-        color = null;
-      } else {
-        this.colorChoosen = color;
-      }
+      if (!this.disabled) {
+        // If it haven't requested
+        // then you could change the color
+        if (this.colorChoosen == color) {
+          this.colorChoosen = null;
+          color = null;
+        } else {
+          this.colorChoosen = color;
+        }
 
-      this.$emit('colorChoosen', color);
+        this.$emit('colorChoosen', color);
+      }
+    },
+    disabledClasses: function disabledClasses(color) {
+      if (this.colorChoosen == color) {
+        return "opacity-50 bg-".concat(this.colorChoosen, "-500 hover:bg-").concat(this.colorChoosen, "-500 text-white");
+      } else {
+        return 'opacity-50';
+      }
     }
   },
   computed: {
@@ -9140,6 +9152,9 @@ __webpack_require__.r(__webpack_exports__);
       this.form.post(route('layout_picker.update', this.$page.data.layout_picker), {
         preserveScroll: true
       });
+    },
+    isRequested: function isRequested() {
+      return this.$page.data.form_order.requested;
     }
   }
 });
@@ -9175,17 +9190,21 @@ __webpack_require__.r(__webpack_exports__);
       activeLayout: this.$page.data.layout_picker.layout_id_used
     };
   },
-  props: ['colorChoosen'],
+  props: ['colorChoosen', 'disabled'],
   methods: {
     chooseLayout: function chooseLayout(num) {
-      if (this.activeLayout == num) {
-        this.activeLayout = null;
-        num = null;
-      } else {
-        this.activeLayout = num;
-      }
+      if (!this.disabled) {
+        // If it haven't requested
+        // then you could change the layout
+        if (this.activeLayout == num) {
+          this.activeLayout = null;
+          num = null;
+        } else {
+          this.activeLayout = num;
+        }
 
-      this.$emit('layoutChoosen', num);
+        this.$emit('layoutChoosen', num);
+      }
     }
   },
   computed: {
@@ -9196,6 +9215,10 @@ __webpack_require__.r(__webpack_exports__);
         activeBg = "bg-".concat(this.colorChoosen, "-500 text-white hover:bg-").concat(this.colorChoosen, "-600");
       }
 
+      if (this.disabled) {
+        activeBg += ' opacity-50';
+      }
+
       return activeBg;
     },
     activeIconClass: function activeIconClass() {
@@ -9203,6 +9226,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.colorChoosen) {
         activeIconBg = "bg-".concat(this.colorChoosen, "-600");
+      }
+
+      if (this.disabled) {
+        activeIconBg += ' opacity-50';
       }
 
       return activeIconBg;
@@ -58576,7 +58603,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "red" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("red")
+            : _vm.colorChoosen == "red"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("red")
@@ -58595,7 +58626,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "orange" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("orange")
+            : _vm.colorChoosen == "orange"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("orange")
@@ -58614,7 +58649,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "amber" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("amber")
+            : _vm.colorChoosen == "amber"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("amber")
@@ -58633,7 +58672,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "yellow" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("yellow")
+            : _vm.colorChoosen == "yellow"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("yellow")
@@ -58652,7 +58695,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "lime" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("lime")
+            : _vm.colorChoosen == "lime"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("lime")
@@ -58671,7 +58718,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "green" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("green")
+            : _vm.colorChoosen == "green"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("green")
@@ -58690,7 +58741,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "emerald" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("emerald")
+            : _vm.colorChoosen == "emerald"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("emerald")
@@ -58709,7 +58764,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "teal" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("teal")
+            : _vm.colorChoosen == "teal"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("teal")
@@ -58728,7 +58787,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "cyan" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("cyan")
+            : _vm.colorChoosen == "cyan"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("cyan")
@@ -58747,7 +58810,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "lightBlue" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("lightBlue")
+            : _vm.colorChoosen == "lightBlue"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("lightBlue")
@@ -58766,7 +58833,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "blue" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("blue")
+            : _vm.colorChoosen == "blue"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("blue")
@@ -58785,7 +58856,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "indigo" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("indigo")
+            : _vm.colorChoosen == "indigo"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("indigo")
@@ -58804,7 +58879,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "violet" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("violet")
+            : _vm.colorChoosen == "violet"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("violet")
@@ -58823,7 +58902,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "purple" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("purple")
+            : _vm.colorChoosen == "purple"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("purple")
@@ -58842,7 +58925,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "fuchsia" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("fuchsia")
+            : _vm.colorChoosen == "fuchsia"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("fuchsia")
@@ -58861,7 +58948,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "pink" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("pink")
+            : _vm.colorChoosen == "pink"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("pink")
@@ -58880,7 +58971,11 @@ var render = function() {
         {
           staticClass:
             "transition ease-in-out duration-300 hover:bg-gray-100 cursor-pointer rounded-md p-2 flex flex-col items-center text-center",
-          class: _vm.colorChoosen == "rose" ? _vm.activeClass : "",
+          class: _vm.disabled
+            ? _vm.disabledClasses("rose")
+            : _vm.colorChoosen == "rose"
+            ? _vm.activeClass
+            : "",
           on: {
             click: function($event) {
               return _vm.chooseColorTheme("rose")
@@ -58946,12 +59041,16 @@ var render = function() {
               [
                 _c("layout-chooser", {
                   staticClass: "mb-6",
-                  attrs: { colorChoosen: this.form.color_scheme_used },
+                  attrs: {
+                    disabled: _vm.isRequested,
+                    colorChoosen: this.form.color_scheme_used
+                  },
                   on: { layoutChoosen: _vm.layoutChoosen }
                 }),
                 _vm._v(" "),
                 _c("color-theme-chooser", {
                   staticClass: "mb-6",
+                  attrs: { disabled: _vm.isRequested },
                   on: { colorChoosen: _vm.colorChoosen }
                 }),
                 _vm._v(" "),
