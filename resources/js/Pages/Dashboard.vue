@@ -9,13 +9,13 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="grid grid-cols-12 grid-flow-row gap-6">
-                    <div class="col-span-8">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-8">
                         <div :class="borderColor" class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                             <h5 class="text-xl mb-4">Hai, {{ $page.user.name }}</h5>
                             <p>Ini adalah overview Anda. Informasi lebih lanjut akan kami update di masa yang akan datang.</p>
                         </div>
                     </div>
-                    <div class="col-span-4">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-4">
                         <div :class="borderColor" class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                             <h6 class="text-large p-6 pb-4">To-do List:</h6>
                             <todo-list 

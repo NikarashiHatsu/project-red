@@ -56745,129 +56745,137 @@ var render = function() {
       _c("div", { staticClass: "py-12" }, [
         _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
           _c("div", { staticClass: "grid grid-cols-12 grid-flow-row gap-6" }, [
-            _c("div", { staticClass: "col-span-8" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "bg-white overflow-hidden shadow-xl sm:rounded-lg p-6",
-                  class: _vm.borderColor
-                },
-                [
-                  _c("h5", { staticClass: "text-xl mb-4" }, [
-                    _vm._v("Hai, " + _vm._s(_vm.$page.user.name))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Ini adalah overview Anda. Informasi lebih lanjut akan kami update di masa yang akan datang."
-                    )
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-span-4" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "bg-white overflow-hidden shadow-xl sm:rounded-lg",
-                  class: _vm.borderColor
-                },
-                [
-                  _c("h6", { staticClass: "text-large p-6 pb-4" }, [
-                    _vm._v("To-do List:")
-                  ]),
-                  _vm._v(" "),
-                  _c("todo-list", {
-                    attrs: {
-                      title: "Informasi Toko",
-                      url: _vm.route("form_order.index"),
-                      isFulfilled: _vm.apakahInformasiTokoTerpenuhi
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("todo-list", {
-                    attrs: {
-                      title: "Informasi Aplikasi",
-                      url: _vm.route("form_order.index"),
-                      isFulfilled: _vm.apakahInformasiAplikasiTerpenuhi
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("todo-list", {
-                    attrs: {
-                      title: "Informasi Media Sosial",
-                      url: _vm.route("form_order.index"),
-                      isFulfilled: _vm.apakahInformasiMediaSosialTerpenuhi
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("todo-list", {
-                    attrs: {
-                      title: "List Produk",
-                      url: _vm.route("form_order.index"),
-                      isFulfilled: _vm.apakahInformasiProdukTerpenuhi
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("todo-list", {
-                    attrs: {
-                      title: "Layout dan Tema",
-                      url: _vm.route("layout_picker.index"),
-                      isFulfilled: _vm.apakahLayoutPickerTerpenuhi
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "flex flex-row items-center justify-between p-6"
-                    },
-                    [
-                      _c(
-                        "jet-action-message",
-                        {
-                          staticClass: "mr-3",
-                          attrs: { on: _vm.form.recentlySuccessful }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Tersimpan\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "jet-button",
-                        {
-                          class: _vm.buttonClasses,
-                          attrs: {
-                            disabled:
-                              !_vm.apakahSemuaSyaratTerpenuhi ||
-                              _vm.apakahSudahDiajukan
-                          },
-                          nativeOn: {
-                            click: function($event) {
-                              return _vm.ajukanPermintaanAplikasi($event)
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Ajukan Pembuatan Aplikasi\n                            "
-                          )
-                        ]
+            _c(
+              "div",
+              { staticClass: "col-span-12 md:col-span-6 lg:col-span-8" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-white overflow-hidden shadow-xl sm:rounded-lg p-6",
+                    class: _vm.borderColor
+                  },
+                  [
+                    _c("h5", { staticClass: "text-xl mb-4" }, [
+                      _vm._v("Hai, " + _vm._s(_vm.$page.user.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "Ini adalah overview Anda. Informasi lebih lanjut akan kami update di masa yang akan datang."
                       )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ])
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-span-12 md:col-span-6 lg:col-span-4" },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-white overflow-hidden shadow-xl sm:rounded-lg",
+                    class: _vm.borderColor
+                  },
+                  [
+                    _c("h6", { staticClass: "text-large p-6 pb-4" }, [
+                      _vm._v("To-do List:")
+                    ]),
+                    _vm._v(" "),
+                    _c("todo-list", {
+                      attrs: {
+                        title: "Informasi Toko",
+                        url: _vm.route("form_order.index"),
+                        isFulfilled: _vm.apakahInformasiTokoTerpenuhi
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("todo-list", {
+                      attrs: {
+                        title: "Informasi Aplikasi",
+                        url: _vm.route("form_order.index"),
+                        isFulfilled: _vm.apakahInformasiAplikasiTerpenuhi
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("todo-list", {
+                      attrs: {
+                        title: "Informasi Media Sosial",
+                        url: _vm.route("form_order.index"),
+                        isFulfilled: _vm.apakahInformasiMediaSosialTerpenuhi
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("todo-list", {
+                      attrs: {
+                        title: "List Produk",
+                        url: _vm.route("form_order.index"),
+                        isFulfilled: _vm.apakahInformasiProdukTerpenuhi
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("todo-list", {
+                      attrs: {
+                        title: "Layout dan Tema",
+                        url: _vm.route("layout_picker.index"),
+                        isFulfilled: _vm.apakahLayoutPickerTerpenuhi
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "flex flex-row items-center justify-between p-6"
+                      },
+                      [
+                        _c(
+                          "jet-action-message",
+                          {
+                            staticClass: "mr-3",
+                            attrs: { on: _vm.form.recentlySuccessful }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Tersimpan\n                            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "jet-button",
+                          {
+                            class: _vm.buttonClasses,
+                            attrs: {
+                              disabled:
+                                !_vm.apakahSemuaSyaratTerpenuhi ||
+                                _vm.apakahSudahDiajukan
+                            },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.ajukanPermintaanAplikasi($event)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Ajukan Pembuatan Aplikasi\n                            "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]
+            )
           ])
         ])
       ])
