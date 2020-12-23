@@ -7397,6 +7397,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -55727,6 +55735,32 @@ var render = function() {
                     }
                   },
                   [_vm._v("\n                    Dashboard\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-responsive-nav-link",
+                  {
+                    attrs: {
+                      href: _vm.route("form_order.index"),
+                      active: _vm.route().current("form_order.index")
+                    }
+                  },
+                  [_vm._v("\n                    Form Order\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-responsive-nav-link",
+                  {
+                    attrs: {
+                      href: _vm.route("layout_picker.index"),
+                      active: _vm.route().current("layout_picker.index")
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Layout Picker\n                "
+                    )
+                  ]
                 )
               ],
               1

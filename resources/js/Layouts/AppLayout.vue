@@ -133,6 +133,14 @@
                     <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                         Dashboard
                     </jet-responsive-nav-link>
+
+                    <jet-responsive-nav-link :href="route('form_order.index')" :active="route().current('form_order.index')">
+                        Form Order
+                    </jet-responsive-nav-link>
+
+                    <jet-responsive-nav-link :href="route('layout_picker.index')" :active="route().current('layout_picker.index')">
+                        Layout Picker
+                    </jet-responsive-nav-link>
                 </div>
 
                 <!-- Responsive Settings Options -->
