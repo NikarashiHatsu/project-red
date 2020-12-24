@@ -19,6 +19,10 @@
                         <div :class="borderColor" class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                             <h6 class="text-large p-6 pb-4">To-do List:</h6>
                             <todo-list 
+                                :title="'Pricing Plan'" 
+                                :url="route('pricing.index')"
+                                :isFulfilled="apakahInformasiPricingTerpenuhi" />
+                            <todo-list 
                                 :title="'Informasi Toko'" 
                                 :url="route('form_order.index')"
                                 :isFulfilled="apakahInformasiTokoTerpenuhi" />
@@ -106,6 +110,12 @@
                 return borderColor;
             },
 
+            apakahInformasiPricingTerpenuhi() {
+                if (this.form_order.pricing_id) {
+                    return true;
+                }
+            },
+
             apakahInformasiTokoTerpenuhi() {
                 if (this.form_order.banner_toko_path &&
                     this.form_order.logo_toko_path &&
@@ -157,13 +167,14 @@
                     this.apakahInformasiAplikasiTerpenuhi &&
                     this.apakahInformasiMediaSosialTerpenuhi &&
                     this.apakahInformasiProdukTerpenuhi &&
-                    this.apakahLayoutPickerTerpenuhi) {
+                    this.apakahLayoutPickerTerpenuhi &&
+                    this.apakahInformasiPricingTerpenuhi) {
                         return true;
                     }
             },
 
             apakahSudahDiajukan() {
-                return this.form_order.requested;
+                return this.$page.data.form_order.requested;
             },
 
             buttonClasses() {

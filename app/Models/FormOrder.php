@@ -46,6 +46,7 @@ class FormOrder extends Model
         'whatsapp_number',
         'confirmed',
         'requested',
+        'pricing_id',
     ];
 
     // Append new property
