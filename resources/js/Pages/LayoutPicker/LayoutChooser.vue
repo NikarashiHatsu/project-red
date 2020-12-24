@@ -18,18 +18,22 @@
             }
         },
 
-        props: ['colorChoosen'],
+        props: ['colorChoosen', 'disabled'],
 
         methods: {
             chooseLayout(num) {
-                if(this.activeLayout == num) {
-                    this.activeLayout = null;
-                    num = null;
-                } else {
-                    this.activeLayout = num;
+                if(!this.disabled) {
+                    // If it haven't requested
+                    // then you could change the layout
+                    if(this.activeLayout == num) {
+                        this.activeLayout = null;
+                        num = null;
+                    } else {
+                        this.activeLayout = num;
+                    }
+                    
+                    this.$emit('layoutChoosen', num);
                 }
-                
-                this.$emit('layoutChoosen', num);
             }
         },
 
@@ -41,6 +45,10 @@
                     activeBg = `bg-${this.colorChoosen}-500 text-white hover:bg-${this.colorChoosen}-600`;
                 }
 
+                if(this.disabled) {
+                    activeBg += ' opacity-50';
+                }
+
                 return activeBg;
             },
 
@@ -49,6 +57,10 @@
 
                 if(this.colorChoosen) {
                     activeIconBg = `bg-${this.colorChoosen}-600`;
+                }
+
+                if(this.disabled) {
+                    activeIconBg += ' opacity-50';
                 }
 
                 return activeIconBg;

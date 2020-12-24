@@ -3,12 +3,8 @@
         <!-- Navbar -->
         <div :class="navbarColorTheme" class="flex justify-between items-center p-4 shadow-md">
             <div class="flex items-center">
-                <img class="w-8 h-8 rounded-full border object-cover mr-4" :src="form_order.storage_logo_toko_path" :alt="this.$page.data.nama_toko" />
-                <span class="font-semibold">{{ form_order.nama_toko }}</span>
+                <span class="font-semibold">Toko {{ form_order.nama_toko }}</span>
             </div>
-            <a href="javascript:void(0)" :class="navbarNavColorTheme" class="flex items-center justify-center w-8 h-8 rounded-md transition ease-in-out duration-300">
-                <i class="fas fa-bars text-gray-700"></i>
-            </a>
         </div>
         <!-- !Navbar -->
         

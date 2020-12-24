@@ -8,17 +8,17 @@
 
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" v-if="$page.data">
-                <div>
+                <div class="mb-6 lg:mb-0">
                     <informasi-toko :sudahDiajukan="sudahDiajukan" :informasi="$page.data.form_order" />
                     <jet-section-border />
                 </div>
 
-                <div>
+                <div class="mb-6 lg:mb-0">
                     <informasi-aplikasi :sudahDiajukan="sudahDiajukan" :informasi="$page.data.form_order" />
                     <jet-section-border />
                 </div>
 
-                <div>
+                <div class="mb-6 lg:mb-0">
                     <informasi-media-sosial :sudahDiajukan="sudahDiajukan" :informasi="$page.data.form_order" />
                     <jet-section-border />
                 </div>

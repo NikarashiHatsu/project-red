@@ -1,6 +1,23 @@
 <template>
     <div>
-        <table class="table table-fixed w-full">
+        <div class="block lg:hidden">
+            <div v-for="(prod, index) in produk" :key="prod.id" class="flex pb-4 mb-4 border-b">
+                <div class="mr-2">
+                    {{ index + 1 }}
+                </div>
+                <div class="mr-2">
+                    <div class="w-15 md:w-20">
+                        <img class="w-full h-auto border rounded-sm block mx-auto object-cover" :src="prod.storage_foto_produk_path" :alt="'Foto Produk ' + prod.nama_produk">
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <h6 class="font-bold text-large">{{ prod.nama_produk }}</h6>
+                    <p>{{ prod.deskripsi_produk }}</p>
+                    <p class="font-semibold">{{ prod.formatted_harga_produk }}</p>
+                </div>
+            </div>
+        </div>
+        <table class="hidden lg:table table-fixed w-full">
             <thead>
                 <tr>
                     <th width="100" class="border py-2 bg-gray-100">Foto</th>

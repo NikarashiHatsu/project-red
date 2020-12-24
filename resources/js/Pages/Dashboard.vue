@@ -9,15 +9,19 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="grid grid-cols-12 grid-flow-row gap-6">
-                    <div class="col-span-8">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-8">
                         <div :class="borderColor" class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                            <h5 class="text-xl mb-4">Hai, {{ this.$page.user.name }}</h5>
+                            <h5 class="text-xl mb-4">Hai, {{ $page.user.name }}</h5>
                             <p>Ini adalah overview Anda. Informasi lebih lanjut akan kami update di masa yang akan datang.</p>
                         </div>
                     </div>
-                    <div class="col-span-4">
+                    <div class="col-span-12 md:col-span-6 lg:col-span-4">
                         <div :class="borderColor" class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                             <h6 class="text-large p-6 pb-4">To-do List:</h6>
+                            <todo-list 
+                                :title="'Pricing Plan'" 
+                                :url="route('pricing.index')"
+                                :isFulfilled="apakahInformasiPricingTerpenuhi" />
                             <todo-list 
                                 :title="'Informasi Toko'" 
                                 :url="route('form_order.index')"
@@ -45,8 +49,8 @@
                                 
                                 <jet-button 
                                     @click.native="ajukanPermintaanAplikasi"
-                                    :disabled="apakahSemuaSyaratTerpenuhi" 
-                                    :class="`bg-${$page.data.layout_picker.color_scheme_used}-500 hover:bg-${$page.data.layout_picker.color_scheme_used}-600 active:bg-${$page.data.layout_picker.color_scheme_used}-600 focus:border-${$page.data.layout_picker.color_scheme_used}-900 focus:shadow-outline-${$page.data.layout_picker.color_scheme_used} ${this.apakahSemuaSyaratTerpenuhiClass}`">
+                                    :disabled="!apakahSemuaSyaratTerpenuhi || apakahSudahDiajukan"
+                                    :class="buttonClasses">
                                     Ajukan Pembuatan Aplikasi
                                 </jet-button>
                             </div>
@@ -77,7 +81,6 @@
                 form_order: this.$page.data.form_order,
                 products: this.$page.data.products,
                 layout: this.$page.data.layout_picker,
-                apakahSemuaSyaratTerpenuhiClass: '',
                 form: this.$inertia.form({
                     _method: 'PUT',
                     id: this.$page.data.form_order.id,
@@ -100,11 +103,17 @@
             borderColor() {
                 let borderColor = 'border-l-4 border-gray-300';
 
-                if (this.$page.data.layout_picker.color_scheme_used) {
-                    borderColor = `border-l-4 border-${this.$page.data.layout_picker.color_scheme_used}-400`;
+                if (this.layout.color_scheme_used) {
+                    borderColor = `border-l-4 border-${this.layout.color_scheme_used}-400`;
                 }
                 
                 return borderColor;
+            },
+
+            apakahInformasiPricingTerpenuhi() {
+                if (this.form_order.pricing_id) {
+                    return true;
+                }
             },
 
             apakahInformasiTokoTerpenuhi() {
@@ -154,24 +163,33 @@
             },
 
             apakahSemuaSyaratTerpenuhi() {
-                if(
-                    (
-                        !this.apakahInformasiTokoTerpenuhi &&
-                        !this.apakahInformasiAplikasiTerpenuhi &&
-                        !this.apakahInformasiMediaSosialTerpenuhi &&
-                        !this.apakahInformasiProdukTerpenuhi &&
-                        !this.apakahLayoutPickerTerpenuhi
-                    ) || this.$page.data.form_order.requested) {
-                        // Semua tidak terpenuhi ATAU pengajuan aplikasi sudah dibuat
-                        // disabled = true
-                        this.apakahSemuaSyaratTerpenuhiClass = 'opacity-25';
+                if (this.apakahInformasiTokoTerpenuhi &&
+                    this.apakahInformasiAplikasiTerpenuhi &&
+                    this.apakahInformasiMediaSosialTerpenuhi &&
+                    this.apakahInformasiProdukTerpenuhi &&
+                    this.apakahLayoutPickerTerpenuhi &&
+                    this.apakahInformasiPricingTerpenuhi) {
                         return true;
-                    } else {
-                        // Terpenuhi semua
-                        // disabled = false
-                        return false;
                     }
             },
+
+            apakahSudahDiajukan() {
+                return this.$page.data.form_order.requested;
+            },
+
+            buttonClasses() {
+                let classes = '';
+                
+                if(this.layout.color_scheme_used) {
+                    classes += `bg-${this.layout.color_scheme_used}-500 hover:bg-${this.layout.color_scheme_used}-600 active:bg-${this.layout.color_scheme_used}-600 focus:border-${this.layout.color_scheme_used}-900 focus:shadow-outline-${this.layout.color_scheme_used}`
+                }
+
+                if(!this.apakahSemuaSyaratTerpenuhi || this.apakahSudahDiajukan) {
+                    classes += ' opacity-25';
+                }
+
+                return classes;
+            }
         }
     }
 </script>
