@@ -2,12 +2,17 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-    purge: [
-        './vendor/laravel/jetstream/**/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        './resources/js/**/*.vue',
-    ],
+    purge: {
+        content: [
+            './vendor/laravel/jetstream/**/*.blade.php',
+            './storage/framework/views/*.php',
+            './resources/views/**/*.blade.php',
+            './resources/js/**/*.vue',
+        ],
+        options: {
+            safelist: [/^bg-/, /^text-/, /^border-/, /^hover\:bg-/]
+        }
+    },
 
     theme: {
         extend: {
