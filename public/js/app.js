@@ -8383,6 +8383,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8403,11 +8409,15 @@ __webpack_require__.r(__webpack_exports__);
     ListProduk: _ListProduk__WEBPACK_IMPORTED_MODULE_7__.default
   },
   props: ['sudahDiajukan', 'informasi'],
+  created: function created() {
+    this.hitungBatasProduk();
+  },
   data: function data() {
     return {
       previewFotoProduk: null,
       editMode: false,
       productObject: null,
+      batasProduk: 0,
       form: this.$inertia.form({
         _method: 'POST',
         // Produk
@@ -8423,6 +8433,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    hitungBatasProduk: function hitungBatasProduk() {
+      var pricingId = this.$page.data.form_order.pricing_id;
+      if (pricingId == 1) this.batasProduk = 12;
+      if (pricingId == 2) this.batasProduk = 24;
+      if (pricingId == 3) this.batasProduk = 52;
+      if (pricingId == 4) this.batasProduk = Infinity;
+    },
     submitInformasiProduk: function submitInformasiProduk() {
       if (this.$refs.fotoProduk) {
         this.form.foto_produk_path = this.$refs.fotoProduk.files[0];
@@ -8467,6 +8484,15 @@ __webpack_require__.r(__webpack_exports__);
       this.form.harga_produk = prod.harga_produk;
       this.form.deskripsi_produk = prod.deskripsi_produk;
       this.previewFotoProduk = prod.storage_foto_produk_path;
+    }
+  },
+  computed: {
+    apakahMencapaiBatasProduk: function apakahMencapaiBatasProduk() {
+      var jumlahProduk = this.$page.data.products.length;
+
+      if (jumlahProduk >= this.batasProduk) {
+        return true;
+      }
     }
   }
 });
@@ -8789,26 +8815,26 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showDeleteDialog: false,
-      form: this.$inertia.form({
-        _method: 'DELETE',
-        id: null,
+      product: {
         nama_produk: null,
         storage_foto_produk_path: null
-      })
+      }
     };
   },
   methods: {
     hapusProduk: function hapusProduk(prod) {
-      this.form.id = prod.id;
-      this.form.nama_produk = prod.nama_produk;
-      this.form.storage_foto_produk_path = prod.storage_foto_produk_path;
+      this.product = prod;
       this.showDeleteDialog = true;
     },
     editProduk: function editProduk(prod) {
       this.$emit('edit', prod);
     },
     confirmDeletion: function confirmDeletion() {
-      this.form.post(route('produk.destroy'), {
+      var form = this.$inertia.form({
+        _method: 'DELETE',
+        id: this.product.id
+      });
+      form.post(route('produk.destroy', this.product), {
         preserveScroll: true
       });
       this.showDeleteDialog = false;
@@ -58338,11 +58364,58 @@ var render = function() {
         key: "actions",
         fn: function() {
           return [
+            _vm.batasProduk == 0
+              ? _c(
+                  "span",
+                  { staticClass: "mr-2" },
+                  [
+                    _vm._v("\n            Anda belum memilih paket aplikasi. "),
+                    _c(
+                      "inertia-link",
+                      {
+                        staticClass: "text-gray-800 font-bold",
+                        attrs: { href: _vm.route("pricing.index") }
+                      },
+                      [_vm._v("Pilih disini")]
+                    ),
+                    _vm._v(".\n        ")
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.apakahMencapaiBatasProduk && _vm.batasProduk != 0
+              ? _c(
+                  "span",
+                  { staticClass: "mr-2" },
+                  [
+                    _vm._v("\n            Produk sudah mencapai batas paket. "),
+                    _c(
+                      "inertia-link",
+                      {
+                        staticClass: "text-gray-800 font-bold",
+                        attrs: { href: _vm.route("pricing.index") }
+                      },
+                      [_vm._v("Upgrade?")]
+                    )
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "jet-button",
               {
-                class: { "opacity-25": _vm.sudahDiajukan },
-                attrs: { disabled: _vm.sudahDiajukan },
+                class: {
+                  "opacity-25":
+                    (_vm.sudahDiajukan || _vm.apakahMencapaiBatasProduk) &&
+                    !_vm.editMode
+                },
+                attrs: {
+                  disabled:
+                    (_vm.sudahDiajukan || _vm.apakahMencapaiBatasProduk) &&
+                    !_vm.editMode
+                },
                 on: {
                   type: function($event) {
                     "submit"
@@ -58880,8 +58953,8 @@ var render = function() {
                   staticClass:
                     "w-20 h-20 border rounded-sm block mb-4 object-cover",
                   attrs: {
-                    src: _vm.form.storage_foto_produk_path,
-                    alt: _vm.form.nama_produk
+                    src: _vm.product.storage_foto_produk_path,
+                    alt: _vm.product.nama_produk
                   }
                 }),
                 _vm._v(" "),
@@ -58890,7 +58963,7 @@ var render = function() {
                     "\n                Apakah Anda yakin ingin menghapus produk "
                   ),
                   _c("span", { staticClass: "font-bold" }, [
-                    _vm._v(_vm._s(_vm.form.nama_produk))
+                    _vm._v(_vm._s(_vm.product.nama_produk))
                   ]),
                   _vm._v(
                     " ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.\n            "

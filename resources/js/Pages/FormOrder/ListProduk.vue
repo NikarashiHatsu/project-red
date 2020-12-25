@@ -59,9 +59,9 @@
             </template>
 
             <template #content>
-                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="form.storage_foto_produk_path" :alt="form.nama_produk" />
+                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="product.storage_foto_produk_path" :alt="product.nama_produk" />
                 <p>
-                    Apakah Anda yakin ingin menghapus produk <span class="font-bold">{{ form.nama_produk }}</span> ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.
+                    Apakah Anda yakin ingin menghapus produk <span class="font-bold">{{ product.nama_produk }}</span> ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.
                 </p>
             </template>
 
@@ -95,22 +95,17 @@
 
         data() {
             return {
-                showDeleteDialog: false,
-
-                form: this.$inertia.form({
-                    _method: 'DELETE',
-                    id: null,
+                showDeleteDialog: false,                
+                product: {
                     nama_produk: null,
                     storage_foto_produk_path: null,
-                }),
+                },
             }
         },
 
         methods: {
             hapusProduk(prod) {
-                this.form.id = prod.id;
-                this.form.nama_produk = prod.nama_produk;
-                this.form.storage_foto_produk_path = prod.storage_foto_produk_path;
+                this.product = prod;
                 this.showDeleteDialog = true;
             },
 
@@ -119,9 +114,15 @@
             },
 
             confirmDeletion() {
-                this.form.post(route('produk.destroy'), {
+                let form = this.$inertia.form({
+                    _method: 'DELETE',
+                    id: this.product.id,
+                });
+
+                form.post(route('produk.destroy', this.product), {
                     preserveScroll: true
                 });
+
                 this.showDeleteDialog = false;
             }
         }

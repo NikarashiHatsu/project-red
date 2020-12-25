@@ -64,7 +64,13 @@
         </template>
 
         <template #actions>
-            <jet-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @type="'submit'">
+            <span v-if="batasProduk == 0" class="mr-2">
+                Anda belum memilih paket aplikasi. <inertia-link :href="route('pricing.index')" class="text-gray-800 font-bold">Pilih disini</inertia-link>.
+            </span>
+            <span v-if="apakahMencapaiBatasProduk && batasProduk != 0" class="mr-2">
+                Produk sudah mencapai batas paket. <inertia-link :href="route('pricing.index')" class="text-gray-800 font-bold">Upgrade?</inertia-link>
+            </span>
+            <jet-button :disabled="(sudahDiajukan || apakahMencapaiBatasProduk) && !editMode " :class="{ 'opacity-25': (sudahDiajukan || apakahMencapaiBatasProduk) && !editMode }" @type="'submit'">
                 {{ (editMode) ? 'Simpan Perubahan' : 'Tambah Produk' }}
             </jet-button>
         </template>
@@ -95,11 +101,16 @@
 
         props: ['sudahDiajukan', 'informasi'],
 
+        created() {
+            this.hitungBatasProduk();
+        },
+
         data() {
             return {
                 previewFotoProduk: null,
                 editMode: false,
                 productObject: null,
+                batasProduk: 0,
                 
                 form: this.$inertia.form({
                     _method: 'POST',
@@ -117,6 +128,15 @@
         },
 
         methods: {
+            hitungBatasProduk() {
+                let pricingId = this.$page.data.form_order.pricing_id;
+
+                if(pricingId == 1) this.batasProduk = 12;
+                if(pricingId == 2) this.batasProduk = 24;
+                if(pricingId == 3) this.batasProduk = 52;
+                if(pricingId == 4) this.batasProduk = Infinity;
+            },
+            
             submitInformasiProduk() {
                 if(this.$refs.fotoProduk) {
                     this.form.foto_produk_path = this.$refs.fotoProduk.files[0];
@@ -164,6 +184,16 @@
                 this.form.harga_produk = prod.harga_produk;
                 this.form.deskripsi_produk = prod.deskripsi_produk;
                 this.previewFotoProduk = prod.storage_foto_produk_path;
+            }
+        },
+
+        computed: {
+            apakahMencapaiBatasProduk() {
+                let jumlahProduk = this.$page.data.products.length;
+                
+                if(jumlahProduk >= this.batasProduk) {
+                    return true;
+                }
             }
         }
     }
