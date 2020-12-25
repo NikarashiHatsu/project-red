@@ -134,14 +134,14 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
         $product = Product::find($request->id);
-        
         Storage::delete($product->foto_produk_path);
+
         $product->delete();
 
         // Kembali ke halaman sebelumnya
