@@ -73,7 +73,8 @@
                 
                 <div class="grid grid-cols-2 grid-flow-row gap-6 px-6">
                     <div class="col-span-1 bg-white rounded-md shadow-md border transition ease-in-out duration-300" 
-                         v-for="prod in this.$page.data.products" 
+                         v-for="(prod, index) in this.$page.data.products" 
+                         v-show="index < batasProduk"
                          :key="prod.id">
                         <div class="w-full aspect-w-1 aspect-h-1 rounded-t-md"
                             :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + prod.storage_foto_produk_path + '\');'"></div>
@@ -112,10 +113,26 @@
             'productsCount',
         ],
 
+        created() {
+            this.hitungBatasProduk();
+        },
+
         data() {
             return {
                 form_order: this.$page.data.form_order,
+                batasProduk: 0,
             }
+        },
+
+        methods: {
+            hitungBatasProduk() {
+                let pricingId = this.$page.data.form_order.pricing_id;
+
+                if(pricingId == 1) this.batasProduk = 12;
+                if(pricingId == 2) this.batasProduk = 24;
+                if(pricingId == 3) this.batasProduk = 52;
+                if(pricingId == 4) this.batasProduk = Infinity;
+            },
         }
     }
 </script>

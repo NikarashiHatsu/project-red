@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody v-if="produk.length > 0">
-                <tr v-for="prod in produk" :key="prod.id">
+                <tr v-for="(prod, index) in produk" :key="prod.id" :class="{ 'opacity-25': index + 1 > batasProduk }">
                     <td width="100" class="border p-2">
                         <img class="w-20 h-20 border rounded-sm block mx-auto object-cover" :src="prod.storage_foto_produk_path" :alt="'Foto Produk ' + prod.nama_produk">
                     </td>
@@ -36,6 +36,7 @@
                     <td class="border p-2">{{ prod.deskripsi_produk }}</td>
                     <td class="border p-2 text-right">{{ prod.formatted_harga_produk }}</td>
                     <td width="180" class="border p-2">
+                        <p v-if="index + 1 > batasProduk" class="text-center text-sm mb-2">Ilegal, produk ini tidak akan ditampilkan karena melebihi batas produk yang tertera pada pricing.</p>
                         <div class="w-full flex justify-end">
                             <jet-secondary-button class="mr-3" :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="editProduk(prod)">
                                 Edit
@@ -91,7 +92,7 @@
             JetSecondaryButton,
         },
 
-        props: ['produk', 'sudahDiajukan'],
+        props: ['produk', 'sudahDiajukan', 'batasProduk'],
 
         data() {
             return {

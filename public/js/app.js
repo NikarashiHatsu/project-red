@@ -8801,6 +8801,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -8811,7 +8812,7 @@ __webpack_require__.r(__webpack_exports__);
     JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_1__.default,
     JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__.default
   },
-  props: ['produk', 'sudahDiajukan'],
+  props: ['produk', 'sudahDiajukan', 'batasProduk'],
   data: function data() {
     return {
       showDeleteDialog: false,
@@ -9427,12 +9428,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['navbarColorTheme', 'navbarNavColorTheme', 'borderColorTheme', 'productsSectionColorTheme', 'productsCount'],
+  created: function created() {
+    this.hitungBatasProduk();
+  },
   data: function data() {
     return {
-      form_order: this.$page.data.form_order
+      form_order: this.$page.data.form_order,
+      batasProduk: 0
     };
+  },
+  methods: {
+    hitungBatasProduk: function hitungBatasProduk() {
+      var pricingId = this.$page.data.form_order.pricing_id;
+      if (pricingId == 1) this.batasProduk = 12;
+      if (pricingId == 2) this.batasProduk = 24;
+      if (pricingId == 3) this.batasProduk = 52;
+      if (pricingId == 4) this.batasProduk = Infinity;
+    }
   }
 });
 
@@ -58161,6 +58176,7 @@ var render = function() {
               [
                 _c("list-produk", {
                   attrs: {
+                    batasProduk: _vm.batasProduk,
                     sudahDiajukan: _vm.sudahDiajukan,
                     produk: _vm.informasi.products
                   },
@@ -58850,85 +58866,104 @@ var render = function() {
         _vm.produk.length > 0
           ? _c(
               "tbody",
-              _vm._l(_vm.produk, function(prod) {
-                return _c("tr", { key: prod.id }, [
-                  _c(
-                    "td",
-                    { staticClass: "border p-2", attrs: { width: "100" } },
-                    [
-                      _c("img", {
-                        staticClass:
-                          "w-20 h-20 border rounded-sm block mx-auto object-cover",
-                        attrs: {
-                          src: prod.storage_foto_produk_path,
-                          alt: "Foto Produk " + prod.nama_produk
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "border p-2" }, [
-                    _vm._v(_vm._s(prod.nama_produk))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "border p-2" }, [
-                    _vm._v(_vm._s(prod.deskripsi_produk))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "border p-2 text-right" }, [
-                    _vm._v(_vm._s(prod.formatted_harga_produk))
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    { staticClass: "border p-2", attrs: { width: "180" } },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "w-full flex justify-end" },
-                        [
-                          _c(
-                            "jet-secondary-button",
-                            {
-                              staticClass: "mr-3",
-                              class: { "opacity-25": _vm.sudahDiajukan },
-                              attrs: { disabled: _vm.sudahDiajukan },
-                              nativeOn: {
-                                click: function($event) {
-                                  return _vm.editProduk(prod)
+              _vm._l(_vm.produk, function(prod, index) {
+                return _c(
+                  "tr",
+                  {
+                    key: prod.id,
+                    class: { "opacity-25": index + 1 > _vm.batasProduk }
+                  },
+                  [
+                    _c(
+                      "td",
+                      { staticClass: "border p-2", attrs: { width: "100" } },
+                      [
+                        _c("img", {
+                          staticClass:
+                            "w-20 h-20 border rounded-sm block mx-auto object-cover",
+                          attrs: {
+                            src: prod.storage_foto_produk_path,
+                            alt: "Foto Produk " + prod.nama_produk
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "border p-2" }, [
+                      _vm._v(_vm._s(prod.nama_produk))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "border p-2" }, [
+                      _vm._v(_vm._s(prod.deskripsi_produk))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "border p-2 text-right" }, [
+                      _vm._v(_vm._s(prod.formatted_harga_produk))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "border p-2", attrs: { width: "180" } },
+                      [
+                        index + 1 > _vm.batasProduk
+                          ? _c(
+                              "p",
+                              { staticClass: "text-center text-sm mb-2" },
+                              [
+                                _vm._v(
+                                  "Ilegal, produk ini tidak akan ditampilkan karena melebihi batas produk yang tertera pada pricing."
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "w-full flex justify-end" },
+                          [
+                            _c(
+                              "jet-secondary-button",
+                              {
+                                staticClass: "mr-3",
+                                class: { "opacity-25": _vm.sudahDiajukan },
+                                attrs: { disabled: _vm.sudahDiajukan },
+                                nativeOn: {
+                                  click: function($event) {
+                                    return _vm.editProduk(prod)
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                            Edit\n                        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "jet-danger-button",
-                            {
-                              class: { "opacity-25": _vm.sudahDiajukan },
-                              attrs: { disabled: _vm.sudahDiajukan },
-                              nativeOn: {
-                                click: function($event) {
-                                  return _vm.hapusProduk(prod)
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Edit\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "jet-danger-button",
+                              {
+                                class: { "opacity-25": _vm.sudahDiajukan },
+                                attrs: { disabled: _vm.sudahDiajukan },
+                                nativeOn: {
+                                  click: function($event) {
+                                    return _vm.hapusProduk(prod)
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                            Hapus\n                        "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ]
-                  )
-                ])
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Hapus\n                        "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    )
+                  ]
+                )
               }),
               0
             )
@@ -60140,10 +60175,18 @@ var render = function() {
             _c(
               "div",
               { staticClass: "grid grid-cols-2 grid-flow-row gap-6 px-6" },
-              _vm._l(this.$page.data.products, function(prod) {
+              _vm._l(this.$page.data.products, function(prod, index) {
                 return _c(
                   "div",
                   {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: index < _vm.batasProduk,
+                        expression: "index < batasProduk"
+                      }
+                    ],
                     key: prod.id,
                     staticClass:
                       "col-span-1 bg-white rounded-md shadow-md border transition ease-in-out duration-300"

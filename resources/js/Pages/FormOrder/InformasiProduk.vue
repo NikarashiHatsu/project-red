@@ -11,7 +11,7 @@
         <template #form>
             <!-- List Produk -->
             <div class="col-span-6">
-                <list-produk @edit="editProduk" :sudahDiajukan="sudahDiajukan" :produk="informasi.products" />
+                <list-produk @edit="editProduk" :batasProduk="batasProduk" :sudahDiajukan="sudahDiajukan" :produk="informasi.products" />
             </div>
             
             <!-- Foto produk -->
