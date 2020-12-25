@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody v-if="produk.length > 0">
-                <tr v-for="prod in produk" :key="prod.id">
+                <tr v-for="(prod, index) in produk" :key="prod.id" :class="{ 'opacity-25': index + 1 > batasProduk }">
                     <td width="100" class="border p-2">
                         <img class="w-20 h-20 border rounded-sm block mx-auto object-cover" :src="prod.storage_foto_produk_path" :alt="'Foto Produk ' + prod.nama_produk">
                     </td>
@@ -36,6 +36,7 @@
                     <td class="border p-2">{{ prod.deskripsi_produk }}</td>
                     <td class="border p-2 text-right">{{ prod.formatted_harga_produk }}</td>
                     <td width="180" class="border p-2">
+                        <p v-if="index + 1 > batasProduk" class="text-center text-sm mb-2">Ilegal, produk ini tidak akan ditampilkan karena melebihi batas produk yang tertera pada pricing.</p>
                         <div class="w-full flex justify-end">
                             <jet-secondary-button class="mr-3" :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="editProduk(prod)">
                                 Edit
@@ -59,9 +60,9 @@
             </template>
 
             <template #content>
-                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="form.storage_foto_produk_path" :alt="form.nama_produk" />
+                <img class="w-20 h-20 border rounded-sm block mb-4 object-cover" :src="product.storage_foto_produk_path" :alt="product.nama_produk" />
                 <p>
-                    Apakah Anda yakin ingin menghapus produk <span class="font-bold">{{ form.nama_produk }}</span> ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.
+                    Apakah Anda yakin ingin menghapus produk <span class="font-bold">{{ product.nama_produk }}</span> ini? Anda bisa mengeditnya jika ada kesalahan (atau typo) daripada menghapusnya lalu menambah produk baru. Penghapusan produk bersifat permanen dan tidak bisa dipulihkan.
                 </p>
             </template>
 
@@ -91,26 +92,21 @@
             JetSecondaryButton,
         },
 
-        props: ['produk', 'sudahDiajukan'],
+        props: ['produk', 'sudahDiajukan', 'batasProduk'],
 
         data() {
             return {
-                showDeleteDialog: false,
-
-                form: this.$inertia.form({
-                    _method: 'DELETE',
-                    id: null,
+                showDeleteDialog: false,                
+                product: {
                     nama_produk: null,
                     storage_foto_produk_path: null,
-                }),
+                },
             }
         },
 
         methods: {
             hapusProduk(prod) {
-                this.form.id = prod.id;
-                this.form.nama_produk = prod.nama_produk;
-                this.form.storage_foto_produk_path = prod.storage_foto_produk_path;
+                this.product = prod;
                 this.showDeleteDialog = true;
             },
 
@@ -119,9 +115,15 @@
             },
 
             confirmDeletion() {
-                this.form.post(route('produk.destroy'), {
+                let form = this.$inertia.form({
+                    _method: 'DELETE',
+                    id: this.product.id,
+                });
+
+                form.post(route('produk.destroy', this.product), {
                     preserveScroll: true
                 });
+
                 this.showDeleteDialog = false;
             }
         }
