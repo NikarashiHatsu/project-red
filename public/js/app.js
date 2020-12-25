@@ -9161,6 +9161,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -59741,21 +59744,23 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("product-detail", {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: this.form.layout_id_used,
-                      expression: "this.form.layout_id_used"
-                    }
-                  ],
-                  staticClass: "block lg:hidden",
-                  attrs: {
-                    product: _vm.$page.data.products[0],
-                    colorChoosen: this.form.color_scheme_used
-                  }
-                })
+                _vm.$page.data.products[0]
+                  ? _c("product-detail", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: this.form.layout_id_used,
+                          expression: "this.form.layout_id_used"
+                        }
+                      ],
+                      staticClass: "block lg:hidden",
+                      attrs: {
+                        product: _vm.$page.data.products[0],
+                        colorChoosen: this.form.color_scheme_used
+                      }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -59764,20 +59769,30 @@ var render = function() {
               "div",
               { staticClass: "hidden lg:block lg:col-span-3 xl:col-span-4" },
               [
-                _c("product-detail", {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: this.form.layout_id_used,
-                      expression: "this.form.layout_id_used"
-                    }
-                  ],
-                  attrs: {
-                    product: _vm.$page.data.products[0],
-                    colorChoosen: this.form.color_scheme_used
-                  }
-                })
+                _vm.$page.data.products[0]
+                  ? _c("product-detail", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.form.layout_id_used,
+                          expression: "form.layout_id_used"
+                        }
+                      ],
+                      attrs: {
+                        product: _vm.$page.data.products[0],
+                        colorChoosen: this.form.color_scheme_used
+                      }
+                    })
+                  : _c(
+                      "div",
+                      { staticClass: "p-4 bg-white rounded-lg shadow-lg" },
+                      [
+                        _vm._v(
+                          "\n                        Tambahkan satu produk untuk melihat layout detail produk\n                    "
+                        )
+                      ]
+                    )
               ],
               1
             )
@@ -60339,7 +60354,7 @@ var render = function() {
               "section",
               {
                 staticClass:
-                  "bg-white text-gray-700 body-font overflow-hidden p-6"
+                  "bg-white text-gray-700 body-font overflow-hidden p-6 rounded-lg shadow-lg"
               },
               [
                 _c("div", { staticClass: "flex flex-wrap" }, [

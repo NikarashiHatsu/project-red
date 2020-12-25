@@ -13,10 +13,13 @@
                     </div>
                     <div class="col-span-12 sm:col-span-7 md:col-span-6 lg:col-span-5 xl:col-span-4">
                         <previewer class="shadow-md mb-4 lg:mb-0" :layoutChoosen="this.form.layout_id_used" :colorChoosen="this.form.color_scheme_used" />
-                        <product-detail class="block lg:hidden" v-show="this.form.layout_id_used" :product="$page.data.products[0]" :colorChoosen="this.form.color_scheme_used" />
+                        <product-detail v-if="$page.data.products[0]" class="block lg:hidden" v-show="this.form.layout_id_used" :product="$page.data.products[0]" :colorChoosen="this.form.color_scheme_used" />
                     </div>
                     <div class="hidden lg:block lg:col-span-3 xl:col-span-4">
-                        <product-detail v-show="this.form.layout_id_used" :product="$page.data.products[0]" :colorChoosen="this.form.color_scheme_used" />
+                        <product-detail v-if="$page.data.products[0]" v-show="form.layout_id_used" :product="$page.data.products[0]" :colorChoosen="this.form.color_scheme_used" />
+                        <div v-else class="p-4 bg-white rounded-lg shadow-lg">
+                            Tambahkan satu produk untuk melihat layout detail produk
+                        </div>
                     </div>
                 </div>
             </div>

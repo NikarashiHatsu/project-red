@@ -8,7 +8,7 @@
 
         <div class="py-12">
             <div class="px-5 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <section class="bg-white text-gray-700 body-font overflow-hidden p-6">
+                <section class="bg-white text-gray-700 body-font overflow-hidden p-6 rounded-lg shadow-lg">
                     <div class="flex flex-wrap">
                         <div class="lg:w-1/5 mt-48 hidden lg:block">
                             <div class="mt-px border-t border-gray-300 border-b border-l rounded-tl-lg rounded-bl-lg overflow-hidden">
