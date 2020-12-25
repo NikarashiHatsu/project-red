@@ -9,6 +9,9 @@
         <div class="py-12">
             <div class="px-5 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <section class="bg-white text-gray-700 body-font overflow-hidden p-6 rounded-lg shadow-lg">
+                    <div class="bg-yellow-200 border border-yellow-300 p-4 mb-4 rounded-md text-yellow-800">
+                        <i class="fas fa-exclamation-triangle mr-2 text-yellow-800"></i>Pembayaran akan dilakukan pada saat pengajuan.
+                    </div>
                     <div class="flex flex-wrap">
                         <div class="lg:w-1/5 mt-48 hidden lg:block">
                             <div class="mt-px border-t border-gray-300 border-b border-l rounded-tl-lg rounded-bl-lg overflow-hidden">

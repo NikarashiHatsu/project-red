@@ -9670,6 +9670,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -60473,6 +60476,23 @@ var render = function() {
                   "bg-white text-gray-700 body-font overflow-hidden p-6 rounded-lg shadow-lg"
               },
               [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-yellow-200 border border-yellow-300 p-4 mb-4 rounded-md text-yellow-800"
+                  },
+                  [
+                    _c("i", {
+                      staticClass:
+                        "fas fa-exclamation-triangle mr-2 text-yellow-800"
+                    }),
+                    _vm._v(
+                      "Pembayaran akan dilakukan pada saat pengajuan.\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "flex flex-wrap" }, [
                   _c("div", { staticClass: "lg:w-1/5 mt-48 hidden lg:block" }, [
                     _c(
