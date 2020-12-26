@@ -31,10 +31,12 @@
                     <!-- Store Information -->
                     <div class="flex flex-col ml-4">
                         <h5 class="text-xl font-semibold mb-2">{{ form_order.nama_toko }}</h5>
-                        <p class="mb-1">
-                            <i class="fas fa-map-marker-alt mr-1"></i>
-                            <span>{{ form_order.alamat_perusahaan }}</span>
-                        </p>
+
+                        <div>
+                            <i class="fas fa-map-marker-alt mr-1 mt-1 align-top inline-block"></i>
+                            <span class="mb-1 inline-block" v-html="form_order.nl2br_alamat_perusahaan"></span>
+                        </div>
+                        
                         <a class="block mb-1" :href="form_order.whatsapp_number" v-show="form_order.whatsapp_number">
                             <i class="fab fa-whatsapp mr-1"></i>
                             <span>{{ form_order.whatsapp_number }}</span>

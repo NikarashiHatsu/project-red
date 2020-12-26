@@ -9429,6 +9429,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['navbarColorTheme', 'navbarNavColorTheme', 'borderColorTheme', 'productsSectionColorTheme', 'productsCount'],
   created: function created() {
@@ -57757,20 +57759,34 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.alamat_perusahaan,
+                      expression: "form.alamat_perusahaan"
+                    }
+                  ],
+                  staticClass: "form-input rounded-md border mt-1 block w-full",
                   class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
+                    rows: "5",
                     id: "alamat_perusahaan",
-                    disabled: _vm.sudahDiajukan,
-                    type: "text"
+                    disabled: _vm.sudahDiajukan
                   },
-                  model: {
-                    value: _vm.form.alamat_perusahaan,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "alamat_perusahaan", $$v)
-                    },
-                    expression: "form.alamat_perusahaan"
+                  domProps: { value: _vm.form.alamat_perusahaan },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form,
+                        "alamat_perusahaan",
+                        $event.target.value
+                      )
+                    }
                   }
                 }),
                 _vm._v(" "),
@@ -58350,21 +58366,34 @@ var render = function() {
                   attrs: { for: "deskripsi_produk", value: "Deskripsi Produk" }
                 }),
                 _vm._v(" "),
-                _c("jet-input", {
-                  staticClass: "mt-1 block w-full",
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.deskripsi_produk,
+                      expression: "form.deskripsi_produk"
+                    }
+                  ],
+                  staticClass: "form-input rounded-md border mt-1 block w-full",
                   class: { "bg-gray-100": _vm.sudahDiajukan },
                   attrs: {
+                    rows: "5",
                     id: "deskripsi_produk",
-                    disabled: _vm.sudahDiajukan,
-                    type: "text",
-                    autocomplete: "namaToko"
+                    disabled: _vm.sudahDiajukan
                   },
-                  model: {
-                    value: _vm.form.deskripsi_produk,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "deskripsi_produk", $$v)
-                    },
-                    expression: "form.deskripsi_produk"
+                  domProps: { value: _vm.form.deskripsi_produk },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form,
+                        "deskripsi_produk",
+                        $event.target.value
+                      )
+                    }
                   }
                 }),
                 _vm._v(" "),
@@ -58896,9 +58925,10 @@ var render = function() {
                       _vm._v(_vm._s(prod.nama_produk))
                     ]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "border p-2" }, [
-                      _vm._v(_vm._s(prod.deskripsi_produk))
-                    ]),
+                    _c("td", {
+                      staticClass: "border p-2",
+                      domProps: { innerHTML: _vm._s(prod.nl2br_deskripsi) }
+                    }),
                     _vm._v(" "),
                     _c("td", { staticClass: "border p-2 text-right" }, [
                       _vm._v(_vm._s(prod.formatted_harga_produk))
@@ -60049,10 +60079,18 @@ var render = function() {
                   _vm._v(_vm._s(_vm.form_order.nama_toko))
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "mb-1" }, [
-                  _c("i", { staticClass: "fas fa-map-marker-alt mr-1" }),
+                _c("div", [
+                  _c("i", {
+                    staticClass:
+                      "fas fa-map-marker-alt mr-1 mt-1 align-top inline-block"
+                  }),
                   _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(_vm.form_order.alamat_perusahaan))])
+                  _c("span", {
+                    staticClass: "mb-1 inline-block",
+                    domProps: {
+                      innerHTML: _vm._s(_vm.form_order.nl2br_alamat_perusahaan)
+                    }
+                  })
                 ]),
                 _vm._v(" "),
                 _c(
@@ -60331,9 +60369,10 @@ var render = function() {
           _vm._v(_vm._s(_vm.product.formatted_harga_produk))
         ]),
         _vm._v(" "),
-        _c("p", { staticClass: "mb-2" }, [
-          _vm._v(_vm._s(_vm.product.deskripsi_produk))
-        ])
+        _c("p", {
+          staticClass: "mb-2",
+          domProps: { innerHTML: _vm._s(_vm.product.nl2br_deskripsi) }
+        })
       ]),
       _vm._v(" "),
       _c(

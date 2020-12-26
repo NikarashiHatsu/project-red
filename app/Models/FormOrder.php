@@ -22,6 +22,12 @@ class FormOrder extends Model
         return Storage::url($this->logo_toko_path);
     }
 
+    // Get the nl2br version of alamat_perusahaan
+    public function getNl2brAlamatPerusahaanAttribute()
+    {
+        return nl2br($this->alamat_perusahaan);
+    }
+
     // Set the casts
     protected $casts = [
         'confirmed' => 'boolean',
@@ -53,5 +59,6 @@ class FormOrder extends Model
     protected $appends = [
         'storage_banner_toko_path',
         'storage_logo_toko_path',
+        'nl2br_alamat_perusahaan',
     ];
 }

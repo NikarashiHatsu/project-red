@@ -13,7 +13,7 @@
             <div class="p-4 mb-4">
                 <h5 class="text-xl font-bold mb-2">{{ product.nama_produk }}</h5>
                 <p class="text-sm mb-2">{{ product.formatted_harga_produk }}</p>
-                <p class="mb-2">{{ product.deskripsi_produk }}</p>
+                <p class="mb-2" v-html="product.nl2br_deskripsi"></p>
             </div>
             <div class="flex flex-row-reverse p-4">
                 <jet-button>

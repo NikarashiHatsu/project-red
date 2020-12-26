@@ -33,7 +33,7 @@
                         <img class="w-20 h-20 border rounded-sm block mx-auto object-cover" :src="prod.storage_foto_produk_path" :alt="'Foto Produk ' + prod.nama_produk">
                     </td>
                     <td class="border p-2">{{ prod.nama_produk }}</td>
-                    <td class="border p-2">{{ prod.deskripsi_produk }}</td>
+                    <td class="border p-2" v-html="prod.nl2br_deskripsi"></td>
                     <td class="border p-2 text-right">{{ prod.formatted_harga_produk }}</td>
                     <td width="180" class="border p-2">
                         <p v-if="index + 1 > batasProduk" class="text-center text-sm mb-2">Ilegal, produk ini tidak akan ditampilkan karena melebihi batas produk yang tertera pada pricing.</p>
