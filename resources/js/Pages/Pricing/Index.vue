@@ -40,7 +40,7 @@
                                 :pricingData="paketB" />
                             <pricing
                                 :pricingTitle="'BERKEMBANG'"
-                                :pricingName="'Rp 3.500.000,-'"
+                                :pricingName="'Rp 2.500.000,-'"
                                 :pricingAdditionalInfo="'Untuk Usaha yang Berkembang'"
                                 :pricingData="paketC" />
                             <pricing

@@ -26,7 +26,7 @@
             <!-- Alamat Perusahaan -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="alamat_perusahaan" value="Alamat Perusahaan" />
-                <jet-input id="alamat_perusahaan" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.alamat_perusahaan" />
+                <textarea rows="5" id="alamat_perusahaan" class="form-input rounded-md border mt-1 block w-full" v-model="form.alamat_perusahaan" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }"></textarea>
                 <jet-input-error :message="form.error('alamat_perusahaan')" class="mt-2" />
             </div>
             

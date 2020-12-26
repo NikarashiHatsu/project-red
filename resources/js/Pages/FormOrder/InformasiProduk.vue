@@ -58,7 +58,7 @@
             <!-- Deskripsi Produk -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="deskripsi_produk" value="Deskripsi Produk" />
-                <jet-input id="deskripsi_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.deskripsi_produk" autocomplete="namaToko" />
+                <textarea rows="5" id="deskripsi_produk" class="form-input rounded-md border mt-1 block w-full" v-model="form.deskripsi_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }"></textarea>
                 <jet-input-error :message="form.error('deskripsi_produk')" class="mt-2" />
             </div>
         </template>

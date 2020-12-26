@@ -35,12 +35,21 @@ class Product extends Model
     /**
      * Format the harga_produk number to RP value
      * 
-     * @param int $value
      * @return string
      */
     public function getFormattedHargaProdukAttribute()
     {
         return 'Rp ' . number_format($this->harga_produk, 0, '.', '.');
+    }
+
+    /**
+     * Format the deskripsi_produk using nl2br function
+     * 
+     * @return string
+     */
+    public function getNl2brDeskripsiAttribute()
+    {
+        return nl2br($this->deskripsi_produk);
     }
 
     // Mass assignable columns
@@ -56,5 +65,6 @@ class Product extends Model
     protected $appends = [
         'storage_foto_produk_path',
         'formatted_harga_produk',
+        'nl2br_deskripsi',
     ];
 }
