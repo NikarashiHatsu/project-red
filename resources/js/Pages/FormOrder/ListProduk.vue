@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="block lg:hidden">
-            <div v-for="(prod, index) in produk" :key="prod.id" class="flex pb-4 mb-4 border-b">
+            <div v-for="(prod, index) in produk" :key="prod.id" :class="{ 'opacity-25': index + 1 > batasProduk }" class="flex pb-4 mb-4 border-b">
                 <div class="mr-2">
                     {{ index + 1 }}
                 </div>
@@ -14,6 +14,17 @@
                     <h6 class="font-bold text-large">{{ prod.nama_produk }}</h6>
                     <p>{{ prod.deskripsi_produk }}</p>
                     <p class="font-semibold">{{ prod.formatted_harga_produk }}</p>
+                    <div class="flex mt-4" :class="{ 'flex-col': index + 1 > batasProduk }">
+                        <p v-if="index + 1 > batasProduk" class="text-center text-sm mb-2">Ilegal, produk ini tidak akan ditampilkan karena melebihi batas produk yang tertera pada pricing.</p>
+                        <div class="w-full flex justify-end">
+                            <jet-secondary-button class="mr-3" :disabled="sudahDiajukan || index + 1 > batasProduk" :class="{ 'opacity-25': sudahDiajukan }" @click.native="editProduk(prod)">
+                                Edit
+                            </jet-secondary-button>
+                            <jet-danger-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="hapusProduk(prod)">
+                                Hapus
+                            </jet-danger-button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

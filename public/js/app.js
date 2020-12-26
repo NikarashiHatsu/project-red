@@ -8802,6 +8802,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -58854,7 +58865,11 @@ var render = function() {
         _vm._l(_vm.produk, function(prod, index) {
           return _c(
             "div",
-            { key: prod.id, staticClass: "flex pb-4 mb-4 border-b" },
+            {
+              key: prod.id,
+              staticClass: "flex pb-4 mb-4 border-b",
+              class: { "opacity-25": index + 1 > _vm.batasProduk }
+            },
             [
               _c("div", { staticClass: "mr-2" }, [
                 _vm._v(
@@ -58884,7 +58899,71 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", { staticClass: "font-semibold" }, [
                   _vm._v(_vm._s(prod.formatted_harga_produk))
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "flex mt-4",
+                    class: { "flex-col": index + 1 > _vm.batasProduk }
+                  },
+                  [
+                    index + 1 > _vm.batasProduk
+                      ? _c("p", { staticClass: "text-center text-sm mb-2" }, [
+                          _vm._v(
+                            "Ilegal, produk ini tidak akan ditampilkan karena melebihi batas produk yang tertera pada pricing."
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "w-full flex justify-end" },
+                      [
+                        _c(
+                          "jet-secondary-button",
+                          {
+                            staticClass: "mr-3",
+                            class: { "opacity-25": _vm.sudahDiajukan },
+                            attrs: {
+                              disabled:
+                                _vm.sudahDiajukan || index + 1 > _vm.batasProduk
+                            },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.editProduk(prod)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Edit\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "jet-danger-button",
+                          {
+                            class: { "opacity-25": _vm.sudahDiajukan },
+                            attrs: { disabled: _vm.sudahDiajukan },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.hapusProduk(prod)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Hapus\n                        "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
               ])
             ]
           )
