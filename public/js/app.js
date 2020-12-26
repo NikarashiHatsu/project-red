@@ -60623,7 +60623,7 @@ var render = function() {
                       _c("pricing", {
                         attrs: {
                           pricingTitle: "BERKEMBANG",
-                          pricingName: "Rp 3.500.000,-",
+                          pricingName: "Rp 2.500.000,-",
                           pricingAdditionalInfo: "Untuk Usaha yang Berkembang",
                           pricingData: _vm.paketC
                         }
