@@ -38,7 +38,7 @@
                     <td width="180" class="border p-2">
                         <p v-if="index + 1 > batasProduk" class="text-center text-sm mb-2">Ilegal, produk ini tidak akan ditampilkan karena melebihi batas produk yang tertera pada pricing.</p>
                         <div class="w-full flex justify-end">
-                            <jet-secondary-button class="mr-3" :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="editProduk(prod)">
+                            <jet-secondary-button class="mr-3" :disabled="sudahDiajukan || index + 1 > batasProduk" :class="{ 'opacity-25': sudahDiajukan }" @click.native="editProduk(prod)">
                                 Edit
                             </jet-secondary-button>
                             <jet-danger-button :disabled="sudahDiajukan" :class="{ 'opacity-25': sudahDiajukan }" @click.native="hapusProduk(prod)">
@@ -111,6 +111,7 @@
             },
 
             editProduk(prod) {
+                if(prod)
                 this.$emit('edit', prod);  
             },
 

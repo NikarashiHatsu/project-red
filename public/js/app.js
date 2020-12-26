@@ -8828,7 +8828,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showDeleteDialog = true;
     },
     editProduk: function editProduk(prod) {
-      this.$emit('edit', prod);
+      if (prod) this.$emit('edit', prod);
     },
     confirmDeletion: function confirmDeletion() {
       var form = this.$inertia.form({
@@ -58929,7 +58929,11 @@ var render = function() {
                               {
                                 staticClass: "mr-3",
                                 class: { "opacity-25": _vm.sudahDiajukan },
-                                attrs: { disabled: _vm.sudahDiajukan },
+                                attrs: {
+                                  disabled:
+                                    _vm.sudahDiajukan ||
+                                    index + 1 > _vm.batasProduk
+                                },
                                 nativeOn: {
                                   click: function($event) {
                                     return _vm.editProduk(prod)
