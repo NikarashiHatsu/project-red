@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Models\FormOrder;
 use App\Models\LayoutPicker;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -16,6 +16,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role == 'admin') {
+            return AdminDashboardController::index();
+        }
+        
         $user_id = Auth::user()->id;
 
         $this->check_form_order($user_id);
