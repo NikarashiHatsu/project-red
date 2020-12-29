@@ -44,14 +44,14 @@
             <!-- Nama Produk -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="nama_produk" value="Nama Produk" />
-                <jet-input id="nama_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.nama_produk" autocomplete="namaToko" />
+                <jet-input id="nama_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.nama_produk" />
                 <jet-input-error :message="form.error('nama_produk')" class="mt-2" />
             </div>
             
             <!-- Harga Produk -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="harga_produk" value="Harga Produk" />
-                <jet-input id="harga_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.harga_produk" placeholder="Gunakan angka, tanpa koma atau titik" autocomplete="namaToko" />
+                <jet-input id="harga_produk" :disabled="sudahDiajukan" :class="{ 'bg-gray-100': sudahDiajukan }" type="text" class="mt-1 block w-full" v-model="form.harga_produk" placeholder="Gunakan angka, tanpa koma atau titik" />
                 <jet-input-error :message="form.error('harga_produk')" class="mt-2" />
             </div>
             

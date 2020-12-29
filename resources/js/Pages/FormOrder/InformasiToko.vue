@@ -66,14 +66,14 @@
             <!-- Nama -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="nama_pemilik" value="Nama Pemilik" />
-                <jet-input id="nama_pemilik" :disabled="sudahDiajukan" type="text" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-1 block w-full bg-gray-100" v-model="form.nama_pemilik" autocomplete="nama_pemilik" readonly />
+                <jet-input id="nama_pemilik" :disabled="sudahDiajukan" type="text" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-1 block w-full bg-gray-100" v-model="form.nama_pemilik" readonly />
                 <jet-input-error :message="form.error('nama_pemilik')" class="mt-2" />
             </div>
 
             <!-- Nama Toko -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="nama_toko" value="Nama Toko" />
-                <jet-input id="nama_toko" :disabled="sudahDiajukan" type="text" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-1 block w-full" v-model="form.nama_toko" autocomplete="nama_toko" />
+                <jet-input id="nama_toko" :disabled="sudahDiajukan" type="text" :class="{ 'bg-gray-100': sudahDiajukan }" class="mt-1 block w-full" v-model="form.nama_toko" />
                 <jet-input-error :message="form.error('nama_toko')" class="mt-2" />
             </div>
         </template>
