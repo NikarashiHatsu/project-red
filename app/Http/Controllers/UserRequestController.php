@@ -104,7 +104,7 @@ class UserRequestController extends Controller
      */
     private static function get_requested_orders()
     {
-        return FormOrder::where(['requested' => 1, 'confirmed' => null])->with('user')->get();
+        return FormOrder::where(['requested' => 1, 'confirmed' => null, 'rejected' => null])->with('user')->get();
     }
 
     /**
