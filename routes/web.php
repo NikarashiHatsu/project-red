@@ -33,6 +33,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/pricing', [PricingController::class, 'index'])->name('pricing.index');
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
-        Route::resource('/user_request', UserRequestController::class);
+        Route::resource('/user_request', UserRequestController::class)->only(['index', 'show']);
     });
 });

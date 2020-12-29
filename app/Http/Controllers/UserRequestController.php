@@ -104,7 +104,7 @@ class UserRequestController extends Controller
      */
     private static function get_requested_orders()
     {
-        return FormOrder::where(['requested' => 1, 'confirmed' => null, 'rejected' => null])->with('user')->get();
+        return FormOrder::where(['requested' => 1, 'confirmed' => null, 'rejected' => null])->with('user')->orderBy('updated_at', 'DESC')->get();
     }
 
     /**
@@ -114,7 +114,7 @@ class UserRequestController extends Controller
      */
     private static function get_confirmed_orders()
     {
-        return FormOrder::where('confirmed', 1)->with('user')->get();
+        return FormOrder::where('confirmed', 1)->with('user')->orderBy('updated_at', 'DESC')->get();
     }
 
     /**
@@ -124,6 +124,6 @@ class UserRequestController extends Controller
      */
     private static function get_rejected_orders()
     {
-        return FormOrder::where('rejected', 1)->with('user')->get();
+        return FormOrder::where('rejected', 1)->with('user')->orderBy('updated_at', 'DESC')->get();
     }
 }
