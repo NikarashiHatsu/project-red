@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\FormOrder;
+
+use App\Http\Controllers\ProgressController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -93,6 +96,12 @@ class FormOrderController extends Controller
 
         // Cari formOrder
         $formOrder = FormOrder::find($request->id);
+
+        // Jika dikonfirmasi
+        if($request->confirmed) {
+            $progress = new ProgressController;
+            $progress->store($request);
+        }
 
         // Jika user request
         if($request->has('requested')) {
