@@ -17,6 +17,10 @@
                             <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                 Dashboard
                             </jet-nav-link>
+
+                            <jet-nav-link :href="route('admin.user_request.index')" :active="route().current('admin.user_request.index')">
+                                User Request
+                            </jet-nav-link>
                         </div>
                     </div>
 

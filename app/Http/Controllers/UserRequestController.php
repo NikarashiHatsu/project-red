@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FormOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,7 +16,15 @@ class UserRequestController extends Controller
      */
     public function index()
     {
-        //
+        $requested_orders = self::get_requested_orders();
+        $confirmed_orders = self::get_confirmed_orders();
+        $rejected_orders = self::get_rejected_orders();
+
+        return Inertia::render('Admin/UserRequest/Index', [
+            'requested_orders' => $requested_orders,
+            'confirmed_orders' => $confirmed_orders,
+            'rejected_orders' => $rejected_orders,
+        ]);
     }
 
     /**
@@ -86,5 +95,35 @@ class UserRequestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get requested orders
+     * 
+     * @return \App\Models\FormOrder
+     */
+    private static function get_requested_orders()
+    {
+        return FormOrder::where(['requested' => 1, 'confirmed' => null])->with('user')->get();
+    }
+
+    /**
+     * Get confirmed orders
+     * 
+     * @return \App\Models\FormOrder
+     */
+    private static function get_confirmed_orders()
+    {
+        return FormOrder::where('confirmed', 1)->with('user')->get();
+    }
+
+    /**
+     * Get rejected orders
+     * 
+     * @return \App\Models\FormOrder
+     */
+    private static function get_rejected_orders()
+    {
+        return FormOrder::where('rejected', 1)->with('user')->get();
     }
 }

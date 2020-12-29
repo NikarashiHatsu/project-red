@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +27,12 @@ class FormOrder extends Model
     public function getNl2brAlamatPerusahaanAttribute()
     {
         return nl2br($this->alamat_perusahaan);
+    }
+
+    // Get the user
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     // Set the casts
