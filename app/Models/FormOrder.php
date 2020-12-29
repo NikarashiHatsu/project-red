@@ -39,6 +39,7 @@ class FormOrder extends Model
     protected $casts = [
         'confirmed' => 'boolean',
         'requested' => 'boolean',
+        'rejected' => 'boolean',
     ];
 
     // Set the mass-assignable columns
