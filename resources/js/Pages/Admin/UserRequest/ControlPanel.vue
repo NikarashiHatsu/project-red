@@ -19,7 +19,8 @@
             </template>
 
             <template #content>
-                Apakah Anda yakin ingin menolak permintaan ini?
+                <p class="mb-4">Apakah Anda yakin ingin menolak permintaan ini? Jika iya, berikan alasan mengapa Anda menolak permintaan ini.</p>
+                <textarea rows="5" class="form-input rounded-md border block w-full" v-model="rejectionForm.rejected_reason"></textarea>
             </template>
 
             <template #footer>
@@ -65,6 +66,7 @@
                     _method: 'PUT',
                     id: this.formOrder.id,
                     rejected: 1,
+                    rejected_reason: '',
                 }),
             }
         },
