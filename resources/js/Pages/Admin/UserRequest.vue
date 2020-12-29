@@ -1,5 +1,5 @@
 <template>
-    <div class="flex cursor-pointer transition ease-in-out duration-300 hover:bg-gray-100">
+    <inertia-link :href="route('admin.user_request.show', user_id)" class="flex cursor-pointer transition ease-in-out duration-300 hover:bg-gray-100">
         <img class="h-10 w-10 rounded-full shadow-md mr-4" :src="logo_toko" :alt="nama_toko">
         <div class="flex flex-col">
             <p class="font-bold mb-1">
@@ -24,7 +24,7 @@
                 </span>
             </p>
         </div>
-    </div>
+    </inertia-link>
 </template>
 
 <script>
@@ -37,6 +37,7 @@
 
         data() {
             return {
+                user_id: this.userData.user_id,
                 logo_toko: this.userData.storage_logo_toko_path,
                 nama_pemilik: this.userData.nama_pemilik,
                 nama_toko: this.userData.nama_toko,
