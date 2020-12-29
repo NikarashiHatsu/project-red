@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Progress;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,12 @@ class FormOrder extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    // Get the progress status
+    public function progress()
+    {
+        return $this->hasOne(Progress::class);
     }
 
     // Set the casts
