@@ -61,7 +61,7 @@
                                     :userData="userData" />
                             </div>
 
-                            <div v-else class="flex flex-col items-center text-center">
+                            <div v-else class="flex flex-col items-center text-center p-6">
                                 <i class="fas fa-thumbs-up fa-2x mb-4 text-blue-400"></i>
                                 <h6 class="text-lg font-semibold">Semua bagus!</h6>
                                 <p>Belum ada permintaan yang diajukan.</p>
