@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LayoutPickerController;
 
 use App\Http\Controllers\UserRequestController;
+use App\Http\Controllers\ProgressController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::resource('/user_request', UserRequestController::class)->only(['index', 'show']);
+        Route::resource('/progress', ProgressController::class)->only(['index', 'show', 'update']);
     });
 });
