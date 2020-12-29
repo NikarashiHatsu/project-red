@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white border-l-4 p-6 rounded-lg shadow-lg mb-6">
+    <div class="bg-white border-l-4 p-6 rounded-none sm:rounded-lg shadow-lg mb-6">
         <h5 class="text-xl font-semibold mb-2">Layout dan Warna Dipilih</h5>
         <p>ID Layout: {{ layout.layout_id_used }}</p>
         <p>

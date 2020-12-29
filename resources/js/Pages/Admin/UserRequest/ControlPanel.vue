@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white p-6 mt-6 rounded-lg shadow-lg border-l-4">
+    <div class="bg-white p-6 mt-6 rounded-none sm:rounded-lg shadow-lg border-l-4">
         <h5 class="text-xl font-semibold mb-2">Panel Konfirmasi</h5>
         <p v-if="confirmed">Permintaan sudah diterima oleh Anda</p>
         <p v-else-if="rejected">Permintaan sudah ditolak</p>

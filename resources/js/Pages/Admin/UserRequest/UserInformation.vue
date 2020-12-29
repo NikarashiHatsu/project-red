@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white border-l-4 p-6 rounded-lg shadow-lg">
+    <div class="bg-white border-l-4 p-6 rounded-none sm:rounded-lg shadow-lg">
         <h5 class="text-xl font-semibold mb-2">Informasi User</h5>
         <div class="flex flex-col items-center mt-4">
             <img :src="user.profile_photo_url" :alt="user.name" class="h-20 w-20 rounded-full border border-gray-400 mb-2">
