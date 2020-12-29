@@ -60,6 +60,8 @@ class FormOrder extends Model
         'confirmed',
         'requested',
         'pricing_id',
+        'rejected',
+        'rejected_reason',
     ];
 
     // Append new property
