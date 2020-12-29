@@ -8,49 +8,81 @@
             <jet-button :disabled="confirmed || rejected" :class="{ 'opacity-25': (confirmed || rejected) }" @click.native="terimaPermintaan()">
                 Terima
             </jet-button>
-            <jet-secondary-button :disabled="confirmed || rejected" :class="{ 'opacity-25': (confirmed || rejected) }" class="mr-2">
+            <jet-secondary-button :disabled="confirmed || rejected" :class="{ 'opacity-25': (confirmed || rejected) }" @click.native="dialogShown = true" class="mr-2">
                 Batalkan
             </jet-secondary-button>
         </div>
+
+        <jet-dialog-modal :show="dialogShown">
+            <template #title>
+                Konfirmasi Penolakan
+            </template>
+
+            <template #content>
+                Apakah Anda yakin ingin menolak permintaan ini?
+            </template>
+
+            <template #footer>
+                <div class="flex flex-row-reverse">
+                    <jet-danger-button @click.native="tolakPermintaan">
+                        Tolak Permintaan
+                    </jet-danger-button>
+
+                    <jet-secondary-button class="mr-2" @click.native="dialogShown = false">
+                        Batalkan
+                    </jet-secondary-button>
+                </div>
+            </template>
+        </jet-dialog-modal>
     </div>
 </template>
 
 <script>
     import JetButton from '@/Jetstream/Button';
+    import JetDangerButton from '@/Jetstream/DangerButton';
+    import JetDialogModal from '@/Jetstream/DialogModal';
     import JetSecondaryButton from '@/Jetstream/SecondaryButton';
 
     export default {
         components: {
             JetButton,
+            JetDangerButton,
+            JetDialogModal,
             JetSecondaryButton,
         },
 
         props: ['formOrder', 'confirmed', 'rejected'],
 
-        methods: {
-            terimaPermintaan() {
-                let form = this.$inertia.form({
+        data() {
+            return {
+                dialogShown: false,
+                confirmationForm: this.$inertia.form({
                     _method: 'PUT',
                     id: this.formOrder.id,
                     confirmed: 1,
-                });
-                
-                form.post(route('form_order.update', this.formOrder), {
+                }),
+                rejectionForm: this.$inertia.form({
+                    _method: 'PUT',
+                    id: this.formOrder.id,
+                    rejected: 1,
+                }),
+            }
+        },
+
+        methods: {
+            terimaPermintaan() {
+                this.confirmationForm.post(route('form_order.update', this.formOrder), {
                     preserveScroll: true,
                 });
             },
 
             tolakPermintaan() {
-                let form = this.$inertia.form({
-                    _method: 'PUT',
-                    id: this.formOrder.id,
-                    rejected: 1,
-                });
-
-                form.post(route('form_order.update', this.formOrder), {
+                this.rejectionForm.post(route('form_order.update', this.formOrder), {
                     preserveScroll: true,
                 });
-            }
+
+                this.dialogShown = false;
+            },
         },
     }
 </script>
