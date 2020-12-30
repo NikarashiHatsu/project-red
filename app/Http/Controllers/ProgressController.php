@@ -15,10 +15,12 @@ class ProgressController extends Controller
      */
     public function index()
     {
-        $progresses = Progress::with('form_order')->get();
+        $uncleared = self::retrieve_uncleared_progress();
+        $cleared = self::retrieve_cleared_progress();
 
         return Inertia::render('Progress/Index', [
-            'data' => $progresses,
+            'uncleared' => $uncleared,
+            'cleared' => $cleared,
         ]);
     }
 
@@ -76,7 +78,17 @@ class ProgressController extends Controller
      */
     public function update(Request $request, Progress $progress)
     {
-        //
+        $request->validate([
+            'is_apk_created' => ['boolean', 'sometimes'],
+            'is_published_on_google_play' => ['boolean', 'sometimes'],
+            'google_play_url' => ['string', 'sometimes'],
+        ]);
+        
+        $progress->update(
+            $request->all(),
+        );
+
+        return redirect()->back();
     }
 
     /**
@@ -88,5 +100,21 @@ class ProgressController extends Controller
     public function destroy(Progress $progress)
     {
         //
+    }
+
+    /**
+     * Retrieve uncleared progress
+     */
+    private static function retrieve_uncleared_progress()
+    {
+        return Progress::where(['is_published_on_google_play' => null])->with('form_order')->get();
+    }
+
+    /**
+     * Retrieve cleared progress
+     */
+    private static function retrieve_cleared_progress()
+    {
+        return Progress::where(['is_apk_created' => true, 'is_published_on_google_play' => true])->with('form_order')->get();
     }
 }

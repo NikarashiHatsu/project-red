@@ -26,7 +26,6 @@ class Progress extends Model
     protected $fillable = [
         'form_order_id',
         'is_apk_created',
-        'apk_directory',
         'is_published_on_google_play',
         'google_play_url',
     ];
