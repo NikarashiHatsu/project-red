@@ -17,7 +17,6 @@ class CreateProgressTable extends Migration
             $table->id();
             $table->foreignId('form_order_id');
             $table->boolean('is_apk_created')->nullable();
-            $table->string('apk_directory')->nullable();
             $table->boolean('is_published_on_google_play')->nullable();
             $table->string('google_play_url')->nullable();
             $table->timestamps();
