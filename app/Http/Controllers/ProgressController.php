@@ -15,7 +15,11 @@ class ProgressController extends Controller
      */
     public function index()
     {
-        //
+        $progresses = Progress::with('form_order')->get();
+
+        return Inertia::render('Progress/Index', [
+            'data' => $progresses,
+        ]);
     }
 
     /**
