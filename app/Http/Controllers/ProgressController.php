@@ -107,7 +107,7 @@ class ProgressController extends Controller
      */
     private static function retrieve_uncleared_progress()
     {
-        return Progress::where(['is_published_on_google_play' => null])->with('form_order')->get();
+        return Progress::where(['is_published_on_google_play' => null])->orderBy('updated_at', 'DESC')->with('form_order')->get();
     }
 
     /**
@@ -115,6 +115,6 @@ class ProgressController extends Controller
      */
     private static function retrieve_cleared_progress()
     {
-        return Progress::where(['is_apk_created' => true, 'is_published_on_google_play' => true])->with('form_order')->get();
+        return Progress::where(['is_apk_created' => true, 'is_published_on_google_play' => true])->orderBy('updated_at', 'DESC')->with('form_order')->get();
     }
 }
