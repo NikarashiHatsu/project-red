@@ -12,12 +12,16 @@
                         <div class="bg-white border-l-4 border-yellow-400 rounded-none sm:rounded-lg shadow-lg">
                             <div class="flex justify-between items-center">
                                 <h5 class="text-xl inline-flex font-semibold p-4">Menunggu Persetujuan</h5>
-                                <button v-if="!requested_hidden" @click="requested_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button v-if="requested_hidden" @click="requested_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye-slash"></i>
-                                </button>
+                                <div v-show="!requested_hidden">
+                                    <button @click="requested_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div v-show="requested_hidden">
+                                    <button @click="requested_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div v-if="requested_orders.length > 0">
                                 <user-request
@@ -35,12 +39,16 @@
                         <div class="hidden sm:block md:hidden mt-6 bg-white border-l-4 border-red-400 rounded-none sm:rounded-lg shadow-lg">
                             <div class="flex justify-between items-center">
                                 <h5 class="text-xl inline-flex font-semibold p-4">Ditolak</h5>
-                                <button v-if="!rejected_hidden" @click="rejected_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button v-if="rejected_hidden" @click="rejected_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye-slash"></i>
-                                </button>
+                                <div v-show="!rejected_hidden">
+                                    <button v-if="!rejected_hidden" @click="rejected_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div v-show="rejected_hidden">
+                                    <button v-if="rejected_hidden" @click="rejected_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div v-if="rejected_orders.length > 0">
                                 <user-request
@@ -60,12 +68,16 @@
                         <div class="bg-white border-l-4 border-green-400 rounded-none sm:rounded-lg shadow-lg">
                             <div class="flex justify-between items-center">
                                 <h5 class="text-xl inline-flex font-semibold p-4">Diterima</h5>
-                                <button v-if="!confirmed_hidden" @click="confirmed_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button v-if="confirmed_hidden" @click="confirmed_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye-slash"></i>
-                                </button>
+                                <div v-show="!confirmed_hidden">
+                                    <button v-if="!confirmed_hidden" @click="confirmed_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div v-show="confirmed_hidden">
+                                    <button v-if="confirmed_hidden" @click="confirmed_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div v-if="confirmed_orders.length > 0">
                                 <user-request
@@ -85,12 +97,16 @@
                         <div class="block sm:hidden md:block bg-white border-l-4 border-red-400 rounded-none sm:rounded-lg shadow-lg">
                             <div class="flex justify-between items-center">
                                 <h5 class="text-xl inline-flex font-semibold p-4">Ditolak</h5>
-                                <button v-if="!rejected_hidden" @click="rejected_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button v-if="rejected_hidden" @click="rejected_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
-                                    <i class="fas fa-eye-slash"></i>
-                                </button>
+                                <div v-show="!rejected_hidden">
+                                    <button v-if="!rejected_hidden" @click="rejected_hidden = true" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div v-show="rejected_hidden">
+                                    <button v-if="rejected_hidden" @click="rejected_hidden = false" class="bg-white mr-4 inline-flex border border-gray-300 p-2 rounded-md">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div v-if="rejected_orders.length > 0">
                                 <user-request
