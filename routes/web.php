@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\WebAppController;
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormOrderController;
 use App\Http\Controllers\PricingController;
@@ -25,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/web_app/{user_id}', [WebAppController::class, 'user_app'])->name('web.app');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

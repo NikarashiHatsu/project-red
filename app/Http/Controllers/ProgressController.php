@@ -18,7 +18,7 @@ class ProgressController extends Controller
         $uncleared = self::retrieve_uncleared_progress();
         $cleared = self::retrieve_cleared_progress();
 
-        return Inertia::render('Progress/Index', [
+        return Inertia::render('Admin/Progress/Index', [
             'uncleared' => $uncleared,
             'cleared' => $cleared,
         ]);
