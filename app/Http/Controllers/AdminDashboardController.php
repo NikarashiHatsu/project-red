@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\FormOrder;
+use App\Models\Progress;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,7 +23,9 @@ class AdminDashboardController extends Controller
             'store_count' => self::get_stores_count(),
             'cashier_count' => self::get_cashiers_count(),
             'pending_requests' => self::get_pending_requests(),
+            'pending_progress' => self::get_pending_progress_count(),
             'user_requests' => self::get_user_requests(),
+            'user_progress' => self::get_pending_progress(),
         ];
         
         return Inertia::render('Admin/Dashboard', [
@@ -76,5 +79,21 @@ class AdminDashboardController extends Controller
     private static function get_user_requests()
     {
         return FormOrder::where(['requested' => 1, 'confirmed' => null])->get();
+    }
+
+    /**
+     * Retrieve pending progresses
+     */
+    private static function get_pending_progress_count()
+    {
+        return Progress::where('is_published_on_google_play', null)->with('form_order')->count();
+    }
+
+    /**
+     * Retrieve pending progresses
+     */
+    private static function get_pending_progress()
+    {
+        return Progress::where('is_published_on_google_play', null)->with('form_order')->get();
     }
 }

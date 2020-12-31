@@ -67,6 +67,27 @@
                                 <p>Belum ada permintaan yang diajukan.</p>
                             </div>
                         </div>
+
+                        <div class="bg-white sm:rounded-none lg:rounded-lg shadow-lg mt-6">
+                            <div v-if="pending_progress > 0" class="flex flex-col">
+                                <div class="items-center text-center p-4 pt-6">
+                                    <i class="fas fa-exclamation-triangle fa-2x mb-4 text-yellow-400"></i>
+                                    <h6 class="text-lg font-semibold mb-1">Hey, cek ini!</h6>
+                                    <p class="mb-2">Ada progress yang belum diselesaikan! (Klik untuk melihat informasi lebih detail)</p>
+                                </div>
+                                <user-progress
+                                    class="mt-2 p-4 border-t border-gray-300"
+                                    v-for="userData in user_progress"
+                                    :key="userData.id"
+                                    :userData="userData" />
+                            </div>
+
+                            <div v-else class="flex flex-col items-center text-center p-6">
+                                <i class="fas fa-thumbs-up fa-2x mb-4 text-blue-400"></i>
+                                <h6 class="text-lg font-semibold">Semua bagus!</h6>
+                                <p>Progress telah diselesaikan.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /Message -->
@@ -78,12 +99,14 @@
 <script>
     import AdminAppLayout from '@/Layouts/AdminAppLayout';
     import Counter from './Counter';
+    import UserProgress from './UserProgress';
     import UserRequest from './UserRequest';
 
     export default {
         components: {
             AdminAppLayout,
             Counter,
+            UserProgress,
             UserRequest
         },
 
@@ -94,7 +117,9 @@
                 store_count: this.$page.data.store_count,
                 cashier_count: this.$page.data.cashier_count,
                 pending_requests: this.$page.data.pending_requests,
+                pending_progress: this.$page.data.pending_progress,
                 user_requests: this.$page.data.user_requests,
+                user_progress: this.$page.data.user_progress,
             }
         }
     }
