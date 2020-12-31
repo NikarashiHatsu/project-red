@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Progress;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -28,10 +30,23 @@ class FormOrder extends Model
         return nl2br($this->alamat_perusahaan);
     }
 
+    // Get the user
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    // Get the progress status
+    public function progress()
+    {
+        return $this->hasOne(Progress::class);
+    }
+
     // Set the casts
     protected $casts = [
         'confirmed' => 'boolean',
         'requested' => 'boolean',
+        'rejected' => 'boolean',
     ];
 
     // Set the mass-assignable columns
@@ -53,6 +68,8 @@ class FormOrder extends Model
         'confirmed',
         'requested',
         'pricing_id',
+        'rejected',
+        'rejected_reason',
     ];
 
     // Append new property
