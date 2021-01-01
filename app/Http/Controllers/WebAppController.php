@@ -18,10 +18,10 @@ class WebAppController extends Controller
     {
         $user = User::where(['id' => $user_id, 'role' => 'owner'])->with(['form_order', 'products', 'layout_picker'])->firstOrFail();
 
-        $layout = "Layout{$user->layout_picker->layout_id}";
+        $layout = "WebApp/Layout{$user->layout_picker->layout_id_used}";
 
         return Inertia::render($layout, [
-            'color' => $user->layout_picker->color_scheme_used,
+            'data' => $user,
         ]);
     }
 }
