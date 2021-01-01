@@ -12,7 +12,76 @@
                     <div class="col-span-12 md:col-span-6 lg:col-span-8">
                         <div :class="borderColor" class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                             <h5 class="text-xl mb-4">Hai, {{ $page.user.name }}</h5>
-                            <p>Ini adalah overview Anda. Informasi lebih lanjut akan kami update di masa yang akan datang.</p>
+
+                            <div v-if="$page.data.form_order.requested">
+                                <div class="flex justify-between">
+                                    <div class="flex">
+                                        <div class="w-24 h-24 bg-cover border rounded-md mr-2" :style="'background-image: url(\'' + $page.data.form_order.storage_logo_toko_path + '\');'"></div>
+                                        <div class="flex flex-col">
+                                            <h6 class="font-semibold text-lg">{{ $page.data.form_order.nama_aplikasi }}</h6>
+                                            <p>{{ $page.data.form_order.deskripsi_aplikasi }}</p>
+                                            <p>
+                                                <i class="fas fa-box-open fa-sm"></i>
+                                                <span>{{ $page.data.products.length }} Produk</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end w-1/3">
+                                        <div v-if="$page.data.form_order.rejected">
+                                            <span class="bg-red-50 border border-red-400 text-red-800 rounded-md p-1">Permintaan Pengajuan Ditolak</span>
+                                            <p class="mt-2">Alasan: <b>{{ $page.data.form_order.rejected_reason }}</b></p>
+                                        </div>
+                                        <div v-else-if="$page.data.form_order.confirmed">
+                                            <span class="bg-green-50 border border-green-400 text-green-800 rounded-md p-1">Permintaan Pengajuan Diterima</span>
+                                        </div>
+                                        <div v-else>
+                                            <span class="bg-yellow-50 border border-yellow-400 text-yellow-800 rounded-md p-1">Permintaan Dalam Antrian</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <p>Informasi lebih lanjut akan ditampilkan saat Anda sudah mengajukan permintaan pembuatan aplikasi.</p>
+                            </div>
+
+                            <div class="border-t mt-6 pt-4" v-if="$page.data.form_order.confirmed">
+                                <h5 class="text-xl font-semibold">
+                                    Progress Pembuatan Aplikasi
+                                </h5>
+                                <div class="grid grid-cols-3 grid-flow-row mt-4">
+                                    <div class="col-span-1 flex flex-col border p-4 rounded-l bg-green-100 border-green-400">
+                                        <h6 class="text-lg font-semibold">
+                                            1. Penerimaan
+                                        </h6>
+                                        <p class="mt-2">
+                                            Permintaan pengajuan aplikasi diterima oleh admin.
+                                        </p>
+                                    </div>
+                                    <div :class="{ 'border-green-400 bg-green-100': $page.progress.is_apk_created }" class="col-span-1 flex flex-col border border-l-0 p-4">
+                                        <h6 class="text-lg font-semibold">
+                                            2. Pembuatan Aplikasi
+                                        </h6>
+                                        <p class="mt-2">
+                                            Pembuatan aplikasi oleh developer dari BWI App Store.
+                                        </p>
+                                    </div>
+                                    <div :class="{ 'border-green-400 bg-green-100': $page.progress.is_published_on_google_play }" class="col-span-1 flex flex-col border border-l-0 p-4 rounded-r">
+                                        <h6 class="text-lg font-semibold">
+                                            3. Pengunggahan Aplikasi
+                                        </h6>
+                                        <p class="mt-2">
+                                            Aplikasi yang sudah dibuat akan diunggah ke Google Play Store.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div v-if="$page.progress.is_published_on_google_play" class="flex flex-row-reverse mt-4">
+                                    <a class="inline-block bg-gray-600 hover:bg-gray-700 py-2 px-4 rounded-md transition duration-300 ease-in-out text-white" target="_blank" :href="$page.progress.google_play_url">
+                                        <i class="fab fa-google-play mr-2"></i>
+                                        <span>Google Play Store</span>
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-span-12 md:col-span-6 lg:col-span-4">
