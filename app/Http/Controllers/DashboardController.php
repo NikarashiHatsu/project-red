@@ -21,14 +21,16 @@ class DashboardController extends Controller
         }
         
         $user_id = Auth::user()->id;
-
+        
         $this->check_form_order($user_id);
         $this->check_layout_picker($user_id);
         
         $user = User::where('id', $user_id)->with(['form_order', 'products', 'layout_picker'])->first();
+        $progress = FormOrder::where('id', $user->form_order->id)->with('progress')->first();
 
         return Inertia::render('Dashboard', [
             'data' => $user,
+            'progress' => $progress->progress,
         ]);
     }
 
