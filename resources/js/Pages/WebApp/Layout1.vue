@@ -74,9 +74,10 @@
                 <!-- !Informasi list produk -->
                 
                 <div class="grid grid-cols-2 grid-flow-row gap-6 px-6">
-                    <div class="col-span-1 bg-white rounded-md shadow-md border transition ease-in-out duration-300" 
+                    <inertia-link class="col-span-1 bg-white rounded-md shadow-md border transition ease-in-out duration-300" 
                          v-for="(prod, index) in this.$page.data.products" 
                          v-show="index < batasProduk"
+                         :href="route('web.product', { user_id: prod.user_id, product_id: prod.id })"
                          :key="prod.id">
                         <div class="w-full aspect-w-1 aspect-h-1 rounded-t-md"
                             :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + prod.storage_foto_produk_path + '\');'"></div>
@@ -88,7 +89,7 @@
                                 {{ prod.formatted_harga_produk }}
                             </h6>
                         </div>
-                    </div>
+                    </inertia-link>
                 </div>
             </section>
             <!-- !Products Section -->
