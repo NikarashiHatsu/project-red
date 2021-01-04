@@ -2,67 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use iPaymu\iPaymu;
 
 class PaymentController extends Controller
-{
-    /**
-     * Ipaymu var
-     * 
-     * @var iPaymu\iPaymu
-     */
-    private $ipaymu;
-
-    /**
-     * uReturn URL
-     * 
-     * @var string
-     */
-    private $ureturn;
-
-    /**
-     * uNotify URL
-     * 
-     * @var string
-     */
-    private $unotify;
-
-    /**
-     * uCancel URL
-     * 
-     * @var string
-     */
-    private $ucancel;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $apiKey = env('IPAYMU_API');
-        $va = env('IPAYMU_VA');
-        $production = env('IPAYMU_PRODUCTION');
-
-        $this->ipaymu = new iPaymu($apiKey, $va, $production);
-        $this->ureturn = route('payment.thank_you');
-        $this->unotify = route('payment.unotify');
-        $this->ucancel = route('payment.ucancel');
-        
-        $this->ipaymu->setURL([
-            'ureturn' => $this->ureturn,
-            'unotify' => $this->unotify,
-            'ucancel' => $this->ucancel,
-        ]);
-    }
-    
+{   
     /**
      * Do the payment
      */
     public function index()
     {
-        $balance = $this->ipaymu->checkBalance();
+        $apiKey = env('IPAYMU_API');
+        $va = env('IPAYMU_VA');
+        $production = env('IPAYMU_PRODUCTION');
+        
+        $ipaymu = new iPaymu($apiKey, $va, $production);
 
-        return $balance;
+        $ipaymu->setURL([
+            'ureturn' => route('payment.ureturn'),
+            'unotify' => route('payment.unotify'),
+            'ucancel' => route('payment.ucancel'),
+        ]);
+
+        $ipaymu->setBuyer([
+            'name' => 'Aghits Nidallah',
+            'phone' => '081208120812',
+            'email' => 'yourlovelydev@gmail.com',
+        ]);
+
+        $ipaymu->setCOD([
+            'deliveryArea' => null,
+            'deliveryAddress' => null,
+        ]);
+
+        $ipaymu->addCart([
+            'product' => 'BWI App Store Paket Perintis',
+            'qty' => 1,
+            'price' => 500000,
+            'description' => 'Lorem',
+        ]);
+
+        $redirect_payment = $ipaymu->redirectPayment();
+
+        // dd($ipaymu);
+
+    }
+    
+    public function ureturn()
+    {
+        return "ureturn";
+    }
+
+    public function unotify()
+    {
+        return "unotify";
+    }
+
+    public function ucancel()
+    {
+        return "ucancel";
     }
 }
