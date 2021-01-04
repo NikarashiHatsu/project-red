@@ -31,6 +31,7 @@ Route::get('/', function () {
 
 Route::get('/web_app/{user_id}', [WebAppController::class, 'user_app'])->name('web.app');
 Route::get('/web_app/{user_id}/{product_id}', [WebAppController::class, 'user_product'])->name('web.product');
+Route::post('/payment/unotify', [PaymentController::class, 'unotify'])->name('payment.unotify');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -38,8 +39,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::group(['prefix' => 'payment', 'as' => 'payment.'], function() {
         Route::get('/', [PaymentController::class, 'index'])->name('index');
-        Route::post('/unotify', [PaymentController::class, 'unotify'])->name('unotify');
-        Route::post('/ucancel', [PaymentController::class, 'ucancel'])->name('ucancel');
     });
 
     Route::group(['middleware' => 'owner'], function() {

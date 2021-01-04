@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\FormOrder;
+use App\Http\Controllers\FormOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use iPaymu\iPaymu;
@@ -16,7 +18,6 @@ class PaymentController extends Controller
     {
         $user_id = Auth::user()->id;
         $user = User::where('id', $user_id)->with('form_order')->firstOrFail();
-        
         $apiKey = env('IPAYMU_API');
         $va = env('IPAYMU_VA');
         $production = env('IPAYMU_PRODUCTION');
@@ -26,7 +27,7 @@ class PaymentController extends Controller
         $ipaymu->setURL([
             'ureturn' => route('dashboard'),
             'unotify' => route('payment.unotify'),
-            'ucancel' => route('payment.ucancel'),
+            'ucancel' => route('dashboard'),
         ]);
 
         $ipaymu->setBuyer([
@@ -47,21 +48,22 @@ class PaymentController extends Controller
         if($redirect_payment['Status'] == 401) {
             return "Telah terjadi error pada Gateway Pembayaran. Coba beberapa saat lagi, atau hubungi pengembang aplikasi tentang hal ini.";
         } else {
+            FormOrder::where('user_id', $user->id)->update([
+                'sid' => $redirect_payment['Data']['SessionID']
+            ]);
+
             echo "<script>window.location.href = '" . $redirect_payment['Data']['Url'] . "';</script>";
         }
     }
 
     public function unotify()
     {
-        return response()->json([
-            'message' => 'Berhasil Notify',
+        $form_order = FormOrder::where('sid', $_POST['sid'])->update([
+            'requested' => 1,
         ]);
-    }
 
-    public function ucancel()
-    {
         return response()->json([
-            'message' => 'Berhasil Cancel',
+            'message' => 'Berhasil',
         ]);
     }
 }
