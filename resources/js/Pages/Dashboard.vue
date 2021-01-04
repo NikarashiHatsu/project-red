@@ -44,7 +44,7 @@
                                 <p>Informasi lebih lanjut akan ditampilkan saat Anda sudah mengajukan permintaan pembuatan aplikasi.</p>
                             </div>
 
-                            <div class="border-t mt-6 pt-4" v-if="$page.data.form_order.confirmed">
+                            <div class="border-t mt-6 pt-4" v-if="$page.data.form_order.confirmed && $page.progress != null">
                                 <h5 class="text-xl font-semibold">
                                     Progress Pembuatan Aplikasi
                                 </h5>
