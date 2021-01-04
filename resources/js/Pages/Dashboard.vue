@@ -116,13 +116,6 @@
                                     Tersimpan
                                 </jet-action-message>
                                 
-                                <!-- <jet-button 
-                                    @click.native="ajukanPermintaanAplikasi"
-                                    :disabled="!apakahSemuaSyaratTerpenuhi || apakahSudahDiajukan"
-                                    :class="buttonClasses">
-                                    Ajukan Pembuatan Aplikasi
-                                </jet-button> -->
-
                                 <inertia-link
                                     class="text-white uppercase text-xs font-bold inline-flex items-center px-4 py-2 tracking-widest rounded-md text-center"
                                     :href="route('payment.index')"

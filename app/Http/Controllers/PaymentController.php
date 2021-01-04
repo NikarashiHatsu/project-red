@@ -14,6 +14,9 @@ class PaymentController extends Controller
      */
     public function index()
     {
+        $user_id = Auth::user()->id;
+        $user = User::where('id', $user_id)->with('form_order')->firstOrFail();
+        
         $apiKey = env('IPAYMU_API');
         $va = env('IPAYMU_VA');
         $production = env('IPAYMU_PRODUCTION');
@@ -21,20 +24,15 @@ class PaymentController extends Controller
         $ipaymu = new iPaymu($apiKey, $va, $production);
 
         $ipaymu->setURL([
-            'ureturn' => route('payment.ureturn'),
+            'ureturn' => route('dashboard'),
             'unotify' => route('payment.unotify'),
             'ucancel' => route('payment.ucancel'),
         ]);
 
         $ipaymu->setBuyer([
-            'name' => 'Aghits Nidallah',
-            'phone' => '081208120812',
-            'email' => 'yourlovelydev@gmail.com',
-        ]);
-
-        $ipaymu->setCOD([
-            'deliveryArea' => null,
-            'deliveryAddress' => null,
+            'name' => $user->name,
+            'phone' => $user->form_order->whatsapp_number,
+            'email' => $user->email,
         ]);
 
         $ipaymu->addCart([
@@ -46,22 +44,17 @@ class PaymentController extends Controller
 
         $redirect_payment = $ipaymu->redirectPayment();
 
-        // dd($ipaymu);
-
-    }
-    
-    public function ureturn()
-    {
-        return "ureturn";
+        if($redirect_payment['Status'] == 401) {
+            return "Telah terjadi error pada Gateway Pembayaran. Coba beberapa saat lagi, atau hubungi pengembang aplikasi tentang hal ini.";
+        } else {
+            echo "<script>window.location.href = '" . $redirect_payment['Data']['Url'] . "';</script>";
+        }
     }
 
     public function unotify()
     {
-        return "unotify";
-    }
-
-    public function ucancel()
-    {
-        return "ucancel";
+        return response()->json([
+            'message' => 'Berhasil Notify',
+        ]);
     }
 }
