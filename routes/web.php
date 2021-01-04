@@ -7,6 +7,7 @@ use App\Http\Controllers\FormOrderController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LayoutPickerController;
+use App\Http\Controllers\PaymentController;
 
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\ProgressController;
@@ -34,6 +35,13 @@ Route::get('/web_app/{user_id}/{product_id}', [WebAppController::class, 'user_pr
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/form_order', FormOrderController::class)->except(['create', 'edit', 'show', 'destroy']);
+
+    Route::group(['prefix' => 'payment', 'as' => 'payment.'], function() {
+        Route::get('/', [PaymentController::class, 'index'])->name('index');
+        Route::get('/ureturn', [PaymentController::class, 'thank_you'])->name('thank_you');
+        Route::get('/unotify', [PaymentController::class, 'unotify'])->name('unotify');
+        Route::get('/ucancel', [PaymentController::class, 'ucancel'])->name('ucancel');
+    });
 
     Route::group(['middleware' => 'owner'], function() {
         Route::resource('/layout_picker', LayoutPickerController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
