@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class AddPaymentColumnsInFormOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->string('session_id');
-            $table->string('url');
-            $table->timestamps();
+        Schema::table('form_orders', function (Blueprint $table) {
+            $table->string('sid')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::table('form_orders', function (Blueprint $table) {
+            //
+        });
     }
 }
