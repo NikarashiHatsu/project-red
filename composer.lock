@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5b3f122379f99b542775898c8cc4b0f",
+    "content-hash": "e0a984323bb295bd7061de5efdea0a93",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1353,6 +1353,54 @@
                 }
             ],
             "time": "2020-10-02T12:53:20+00:00"
+        },
+        {
+            "name": "ipaymu/ipaymu-php-api",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ipaymu/ipaymu-php-api.git",
+                "reference": "1f4021b1d736291f5feceaad00321f1b3c235b1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ipaymu/ipaymu-php-api/zipball/1f4021b1d736291f5feceaad00321f1b3c235b1a",
+                "reference": "1f4021b1d736291f5feceaad00321f1b3c235b1a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.9@dev",
+                "mockery/mockery": "^1.2.3",
+                "phpunit/phpunit": "5.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "iPaymu\\": "iPaymu/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "iPaymu X Dev Fintech",
+                    "email": "support@ipaymu.com"
+                }
+            ],
+            "description": "iPaymu PHP API Package Library",
+            "homepage": "https://github.com/ipaymu/ipaymu-php-api",
+            "keywords": [
+                "indonesia",
+                "ipaymu",
+                "payment gateway"
+            ],
+            "time": "2020-03-02T20:11:24+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
