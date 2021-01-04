@@ -38,9 +38,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::group(['prefix' => 'payment', 'as' => 'payment.'], function() {
         Route::get('/', [PaymentController::class, 'index'])->name('index');
-        Route::get('/ureturn', [PaymentController::class, 'ureturn'])->name('ureturn');
-        Route::get('/unotify', [PaymentController::class, 'unotify'])->name('unotify');
-        Route::get('/ucancel', [PaymentController::class, 'ucancel'])->name('ucancel');
+        Route::post('/unotify', [PaymentController::class, 'unotify'])->name('unotify');
+        Route::post('/ucancel', [PaymentController::class, 'ucancel'])->name('ucancel');
     });
 
     Route::group(['middleware' => 'owner'], function() {
