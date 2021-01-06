@@ -50,6 +50,13 @@ class PaymentController extends Controller
             ],
         );
 
+        $ipaymu->setCOD([
+            'pickupArea' => "76111",
+            'pickupAddress' => "Denpasar",
+            'deliveryArea' => "76111",
+            'deliveryAddress' => "Denpasar",
+        ]);
+
         $redirect_payment = $ipaymu->redirectPayment();
 
         if($redirect_payment['Status'] == 401) {
