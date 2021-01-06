@@ -5,7 +5,7 @@
             <div class="flex items-center">
                 <span class="font-semibold">Toko {{ form_order.nama_toko }}</span>
             </div>
-            <inertia-link :href="route('web.cart')" class="flex items-center">
+            <inertia-link :href="route('web.cart', form_order.user_id)" class="flex items-center">
                 <i class="fas fa-shopping-cart"></i>
             </inertia-link>
         </div>
