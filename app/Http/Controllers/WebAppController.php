@@ -47,4 +47,14 @@ class WebAppController extends Controller
             abort(404);
         }
     }
+
+    /**
+     * Show the user's cart
+     * 
+     * @return Inertia\Inertia
+     */
+    public function cart()
+    {
+        return "Cart";
+    }
 }
