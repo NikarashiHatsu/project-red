@@ -5,6 +5,9 @@
             <div class="flex items-center">
                 <span class="font-semibold">Toko {{ form_order.nama_toko }}</span>
             </div>
+            <inertia-link :href="route('web.cart')" class="flex items-center">
+                <i class="fas fa-shopping-cart"></i>
+            </inertia-link>
         </div>
         <!-- !Navbar -->
         
@@ -110,6 +113,10 @@
     export default {
         created() {
             this.hitungBatasProduk();
+
+            if(!localStorage.getItem('cart')) {
+                this.populateStorage();
+            }
         },
         
         data() {
@@ -132,6 +139,13 @@
                 if(pricingId == 3) this.batasProduk = 52;
                 if(pricingId == 4) this.batasProduk = Infinity;
             },
+
+            populateStorage() {
+                let obj = [];
+                let s = JSON.stringify(obj);
+                
+                localStorage.setItem('cart', s);
+            }
         }
     }
 </script>
