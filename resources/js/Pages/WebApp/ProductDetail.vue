@@ -57,7 +57,7 @@
                 let cart = localStorage.getItem('cart');
                 let obj = JSON.parse(cart);
 
-                obj.push(this.$page.data.id);
+                obj.push(this.$page.data);
 
                 localStorage.setItem('cart', JSON.stringify(obj));
                 this.hasThisProduct = this.check();
@@ -68,8 +68,8 @@
                 let prodId = this.product.id;
                 let final = [];
 
-                obj.filter(function(data) {
-                    if(data !== prodId) final.push(data);
+                obj.filter(function(el, key) {
+                    if(el.id !== prodId) final.push(el);
                 });
 
                 localStorage.setItem('cart', JSON.stringify(final));
@@ -79,8 +79,13 @@
                 let cart = localStorage.getItem('cart');
                 let obj = JSON.parse(cart);
                 let prodId = this.product.id;
+                let bool;
 
-                return (obj.find(el => el === prodId)) ? true : false;
+                obj.filter(function(el) {
+                    if(!bool) bool = el.id === prodId;
+                });
+
+                return bool;
             }
         },
 
