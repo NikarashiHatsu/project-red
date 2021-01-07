@@ -28,12 +28,13 @@
                         {{ countSubtotal }}
                     </p>
                     <div class="flex justify-end mt-8 mb-4">
-                        <button class="transition duration-300 ease-in-out rounded-md text-white
-                                       px-2 py-1
-                                       border border-green-600 hover:border-green-700
-                                     bg-green-500 hover:bg-green-600 ">
+                        <a :href="whatsAppApi" 
+                            class="transition duration-300 ease-in-out rounded-md text-white
+                                    px-2 py-1
+                                    border border-green-600 hover:border-green-700
+                                    bg-green-500 hover:bg-green-600 ">
                             Beli VIA WhatsApp
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -109,6 +110,19 @@
 
                 return formatter.format(subtotal);
             },
+
+            whatsAppApi() {
+                let text = 'Halo, Saya ingin membeli produk berikut\n\n';
+                let waLink = `https://api.whatsapp.com/send?phone=${this.$page.data.form_order.whatsapp_number}&text=`;
+
+                this.product.forEach(function(el) {
+                    text += `- ${el.nama_produk} (${el.formatted_harga_produk} - x${el.quantity})\n`;
+                });
+
+                text += `\n\nSubtotal dari keseluruhan pembelanjaan ini adalah: *${this.countSubtotal}*`
+
+                return waLink + encodeURI(text);
+            }
         }
     }
 </script>
