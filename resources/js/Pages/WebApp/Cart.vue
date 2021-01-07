@@ -26,6 +26,14 @@
                     <p class="mt-1 text-sm">
                         {{ countSubtotal }}
                     </p>
+                    <div class="flex justify-end mt-4">
+                        <button class="transition duration-300 ease-in-out rounded-md text-white
+                                       px-2 py-1
+                                       border border-green-600 hover:border-green-700
+                                     bg-green-500 hover:bg-green-600 ">
+                            Beli VIA WhatsApp
+                        </button>
+                    </div>
                 </div>
             </div>
             <div v-else>
