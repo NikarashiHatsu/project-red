@@ -47,4 +47,23 @@ class WebAppController extends Controller
             abort(404);
         }
     }
+
+    /**
+     * Show the user's cart
+     * 
+     * @return Inertia\Inertia
+     */
+    public function cart($user_id)
+    {
+        $user = User::where('id', $user_id)->with(['layout_picker', 'form_order'])->first();
+
+        if($user->id == $user_id) {
+            return Inertia::render('WebApp/Cart', [
+                'data' => $user,
+                'color_choosen' => $user->layout_picker->color_scheme_used,
+            ]);
+        } else {
+            abort(404);
+        }
+    }
 }

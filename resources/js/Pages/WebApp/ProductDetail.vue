@@ -18,10 +18,12 @@
                 <jet-button>
                     Beli Langsung
                 </jet-button>
-
-                <jet-secondary-button class="mr-2">
+                <jet-secondary-button v-if="!haveThisItemOnCart" class="mr-2" @click.native="addToCart()">
                     Tambah ke Keranjang
                 </jet-secondary-button>
+                <jet-danger-button v-if="haveThisItemOnCart" class="mr-2" @click.native="removeFromCart()">
+                    Hapus dari Keranjang
+                </jet-danger-button>
             </div>
         </div>
     </div>
@@ -29,23 +31,72 @@
 
 <script>
     import JetButton from '@/Jetstream/Button';
+    import JetDangerButton from '@/Jetstream/DangerButton';
     import JetSecondaryButton from '@/Jetstream/SecondaryButton';
 
     export default {
         components: {
             JetButton,
+            JetDangerButton,
             JetSecondaryButton,
+        },
+
+        mounted() {
+            this.hasThisProduct = this.check();
         },
 
         data() {
             return {
                 product: this.$page.data,
+                hasThisProduct: false,
+            }
+        },
+
+        methods: {
+            addToCart() {
+                let cart = localStorage.getItem('cart');
+                let obj = JSON.parse(cart);
+
+                this.$page.data.quantity = 1;
+                obj.push(this.$page.data);
+
+                localStorage.setItem('cart', JSON.stringify(obj));
+                this.hasThisProduct = this.check();
+            },
+            removeFromCart() {
+                let cart = localStorage.getItem('cart');
+                let obj = JSON.parse(cart);
+                let prodId = this.product.id;
+                let final = [];
+
+                obj.filter(function(el, key) {
+                    if(el.id !== prodId) final.push(el);
+                });
+
+                localStorage.setItem('cart', JSON.stringify(final));
+                this.hasThisProduct = this.check();
+            },
+            check() {
+                let cart = localStorage.getItem('cart');
+                let obj = JSON.parse(cart);
+                let prodId = this.product.id;
+                let bool;
+
+                obj.filter(function(el) {
+                    if(!bool) bool = el.id === prodId;
+                });
+
+                return bool;
             }
         },
 
         computed: {
             navbarColorTheme() {
                 return `bg-${this.$page.color_choosen}-500 text-white`
+            },
+
+            haveThisItemOnCart() {
+                return this.hasThisProduct;
             }
         }
     }

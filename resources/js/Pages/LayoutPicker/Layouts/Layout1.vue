@@ -5,6 +5,9 @@
             <div class="flex items-center">
                 <span class="font-semibold">Toko {{ form_order.nama_toko }}</span>
             </div>
+            <div class="flex items-center">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
         </div>
         <!-- !Navbar -->
         

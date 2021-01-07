@@ -25,6 +25,7 @@
                                 <p class="text-gray-900 h-12 text-center px-4 flex items-center justify-start">Integrasi WhatsApp</p>
                                 <p class="bg-gray-100 text-gray-900 h-12 text-center px-4 flex items-center justify-start">Transaksi Penjualan</p>
                                 <p class="text-gray-900 h-12 text-center px-4 flex items-center justify-start">Integrasi Aposerba</p>
+                                <p class="bg-gray-100 text-gray-900 h-12 text-center px-4 flex items-center justify-start">Integrasi Ad Mob</p>
                             </div>
                         </div>
                         <div class="flex lg:w-4/5 w-full flex-wrap lg:border border-gray-300 rounded-t-lg rounded-r-lg">
@@ -80,6 +81,7 @@
                     WhatsApp: true,
                     transaksi_penjualan: false,
                     integrasi_aposerba: false,
+                    ad_mob: false,
                 },
 
                 paketB: {
@@ -94,6 +96,7 @@
                     WhatsApp: true,
                     transaksi_penjualan: false,
                     integrasi_aposerba: false,
+                    ad_mob: false,
                 },
 
                 paketC: {
@@ -108,6 +111,7 @@
                     WhatsApp: true,
                     transaksi_penjualan: false,
                     integrasi_aposerba: false,
+                    ad_mob: true,
                 },
 
                 paketD: {
@@ -122,6 +126,7 @@
                     WhatsApp: true,
                     transaksi_penjualan: true,
                     integrasi_aposerba: true,
+                    ad_mob: true,
                 },
             }
         }
