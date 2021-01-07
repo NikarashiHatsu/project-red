@@ -16,6 +16,7 @@
                     :key="index"
                     :cartKey="index"
                     :product="prod"
+                    @remove="remove"
                     @countChanged="recountSubtotal"
                     />
 
@@ -26,7 +27,7 @@
                     <p class="mt-1 text-sm">
                         {{ countSubtotal }}
                     </p>
-                    <div class="flex justify-end mt-4">
+                    <div class="flex justify-end mt-8 mb-4">
                         <button class="transition duration-300 ease-in-out rounded-md text-white
                                        px-2 py-1
                                        border border-green-600 hover:border-green-700
@@ -76,6 +77,14 @@
 
             recountSubtotal(key, quantity) {
                 this.product[key].quantity = quantity;
+            },
+            remove(key) {
+                let prods = JSON.parse(localStorage.getItem('cart'));
+                
+                prods.splice(0 + 1, 1);
+                this.product.splice(0 + 1, 1);
+
+                localStorage.setItem('cart', JSON.stringify(prods));
             }
         },
 
