@@ -57,6 +57,7 @@
                 let cart = localStorage.getItem('cart');
                 let obj = JSON.parse(cart);
 
+                this.$page.data.quantity = 1;
                 obj.push(this.$page.data);
 
                 localStorage.setItem('cart', JSON.stringify(obj));

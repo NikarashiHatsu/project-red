@@ -14,8 +14,19 @@
                 <CartProduct 
                     v-for="(prod, index) in product"
                     :key="index"
+                    :cartKey="index"
                     :product="prod"
+                    @countChanged="recountSubtotal"
                     />
+
+                <div class="mt-4">
+                    <h6 class="text-lg">
+                        Subtotal
+                    </h6>
+                    <p class="mt-1 text-sm">
+                        {{ countSubtotal }}
+                    </p>
+                </div>
             </div>
             <div v-else>
                 <span class="font-semibold">
@@ -53,13 +64,34 @@
                 let prods = localStorage.getItem('cart');
 
                 this.product = JSON.parse(prods);
+            },
+
+            recountSubtotal(key, quantity) {
+                this.product[key].quantity = quantity;
             }
         },
 
         computed: {
             navbarColorTheme() {
                 return `bg-${this.$page.color_choosen}-500 text-white`
-            }
+            },
+
+            countSubtotal() {
+                let subtotal = 0;
+                
+                this.product.forEach(function(el) {
+                    subtotal += el.harga_produk * el.quantity;
+                });
+
+                var formatter = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                });
+
+                return formatter.format(subtotal);
+            },
         }
     }
 </script>

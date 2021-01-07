@@ -24,7 +24,7 @@
 
 <script>
     export default {
-        props: ['product'],
+        props: ['product', 'cartKey'],
         data() {
             return {
                 quantity: 1,
@@ -33,13 +33,11 @@
         methods: {
             increase() {
                 this.quantity++;
+                this.$emit('countChanged', this.cartKey, this.quantity);
             },
             decrease() {
                 if(this.quantity > 1) this.quantity--;
             },
-            change(input) {
-                console.log(input);
-            }
         }
     }
 </script>
