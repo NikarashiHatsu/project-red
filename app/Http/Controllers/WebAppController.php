@@ -55,7 +55,7 @@ class WebAppController extends Controller
      */
     public function cart($user_id)
     {
-        $user = User::where('id', $user_id)->with('layout_picker')->first();
+        $user = User::where('id', $user_id)->with(['layout_picker', 'form_order'])->first();
 
         if($user->id == $user_id) {
             return Inertia::render('WebApp/Cart', [
