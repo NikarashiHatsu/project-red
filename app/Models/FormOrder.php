@@ -72,6 +72,16 @@ class FormOrder extends Model
         'rejected_reason',
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'trx_id',
+        'sid',
+    ];
+
     // Append new property
     protected $appends = [
         'storage_banner_toko_path',
