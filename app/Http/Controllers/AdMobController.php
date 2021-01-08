@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdMob;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Inertia\Inertia;
 
 class AdMobController extends Controller
 {
@@ -14,7 +18,12 @@ class AdMobController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::user()->id;
+        $user = User::where('id', $user_id)->with(['form_order', 'admob'])->firstOrFail();
+
+        return Inertia::render('Admob/Index', [
+            'data' => $user,
+        ]);
     }
 
     /**
@@ -69,7 +78,20 @@ class AdMobController extends Controller
      */
     public function update(Request $request, AdMob $adMob)
     {
-        //
+        $request->validate([
+            'application_id' => ['required', 'string'],
+            'ad_unit_id' => ['required', 'string'],
+        ]);
+
+        $enc_application_id = Crypt::encryptString($request->application_id);
+        $enc_ad_unit_id = Crypt::encryptString($request->ad_unit_id);
+
+        $adMob->find($request->id)->update([
+            'application_id' => $enc_application_id,
+            'ad_unit_id' => $enc_ad_unit_id,
+        ]);
+
+        return redirect()->back();
     }
 
     /**

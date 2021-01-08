@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('/layout_picker', LayoutPickerController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
         Route::resource('/produk', ProductController::class)->except(['index', 'create', 'show', 'edit']);
         Route::get('/pricing', [PricingController::class, 'index'])->name('pricing.index');
-        Route::resource('/admob', AdMobController::class)->only(['index', 'store', 'update']);
+        Route::resource('/admob', AdMobController::class)->only(['index', 'update']);
     });
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
