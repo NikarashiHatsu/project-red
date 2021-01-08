@@ -16,8 +16,8 @@ class CreateAdMobsTable extends Migration
         Schema::create('ad_mobs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('application_id')->nullable();
-            $table->string('ad_unit_id')->nullable();
+            $table->text('application_id')->nullable();
+            $table->text('ad_unit_id')->nullable();
             $table->timestamps();
         });
     }
