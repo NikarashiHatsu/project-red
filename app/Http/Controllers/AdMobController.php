@@ -79,8 +79,8 @@ class AdMobController extends Controller
     public function update(Request $request, AdMob $adMob)
     {
         $request->validate([
-            'application_id' => ['required', 'string'],
-            'ad_unit_id' => ['required', 'string'],
+            'application_id' => ['required', 'string', 'regex:(ca-app-pub|~)'],
+            'ad_unit_id' => ['required', 'string', 'regex:(ca-app-pub|/)'],
         ]);
 
         $enc_application_id = Crypt::encryptString($request->application_id);

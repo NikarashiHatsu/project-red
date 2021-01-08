@@ -19,13 +19,17 @@ class AdMob extends Model
      */
     public function getAppIdAttribute()
     {
+        if(!$this->application_id) {
+            return ''; 
+        }
+        
         try {
             $decrypted = Crypt::decryptString($this->application_id);
         } catch (DecryptException $e) {
             return $e;
         }
 
-        $arr = explode('/', $decrypted);
+        $arr = explode('~', $decrypted);
         $hidden = str_repeat("*", strlen($arr[0]) + 1);
 
         return $hidden . $arr[1];
@@ -38,13 +42,17 @@ class AdMob extends Model
      */
     public function getAdIdAttribute()
     {
+        if(!$this->ad_unit_id) {
+            return ''; 
+        }
+
         try {
             $decrypted = Crypt::decryptString($this->ad_unit_id);
         } catch (DecryptException $e) {
             return $e;
         }
 
-        $arr = explode('~', $decrypted);
+        $arr = explode('/', $decrypted);
         $hidden = str_repeat("*", strlen($arr[0]) + 1);
 
         return $hidden . $arr[1];
