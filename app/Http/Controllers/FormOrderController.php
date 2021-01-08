@@ -22,7 +22,7 @@ class FormOrderController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->with(['form_order', 'products'])->first();
+        $user = User::where('id', $user_id)->with(['form_order', 'products', 'admob'])->first();
         
         return \Inertia\Inertia::render('FormOrder/Index', [
             'data' => $user,

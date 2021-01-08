@@ -14,7 +14,7 @@ class PricingController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->with(['form_order'])->first();
+        $user = User::where('id', $user_id)->with(['form_order', 'admob'])->first();
 
         return Inertia::render('Pricing/Index', [
             'data' => $user,

@@ -36,6 +36,12 @@
                                 Layout Picker
                             </jet-nav-link>
                         </div>
+
+                        <div v-if="$page.data.admob != null && ($page.data.form_order.pricing_id == 3 || $page.data.form_order.pricing_id == 4)" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <jet-nav-link :href="route('admob.index')" :active="route().current('admob.index')">
+                                Ad Mob
+                            </jet-nav-link>
+                        </div>
                     </div>
 
                     <!-- Settings Dropdown -->

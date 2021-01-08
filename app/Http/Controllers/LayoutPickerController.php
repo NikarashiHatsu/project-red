@@ -18,7 +18,7 @@ class LayoutPickerController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->with(['form_order', 'products', 'layout_picker'])->first();
+        $user = User::where('id', $user_id)->with(['form_order', 'products', 'layout_picker', 'admob'])->first();
 
         return Inertia::render('LayoutPicker/Index', [
             'data' => $user,
