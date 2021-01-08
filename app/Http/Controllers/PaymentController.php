@@ -8,6 +8,7 @@ use App\Http\Controllers\FormOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use iPaymu\iPaymu;
+use Inertia\Inertia;
 
 class PaymentController extends Controller
 {   
@@ -17,10 +18,12 @@ class PaymentController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->with('form_order')->firstOrFail();
+        $user = User::where('id', $user_id)->with(['form_order', 'admob'])->firstOrFail();
 
         if($user->form_order->pricing_id == 4) {
-            return "Pembayaran Paket Pengusaha masih dalam pengembangan.";
+            return Inertia::render('Payment/BRI', [
+                'data' => $user,
+            ]);
         }
 
         $apiKey = env('IPAYMU_API');
