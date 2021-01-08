@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\WebAppController;
 
+use App\Http\Controllers\AdMobController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormOrderController;
 use App\Http\Controllers\PricingController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('/layout_picker', LayoutPickerController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
         Route::resource('/produk', ProductController::class)->except(['index', 'create', 'show', 'edit']);
         Route::get('/pricing', [PricingController::class, 'index'])->name('pricing.index');
+        Route::resource('/admob', AdMobController::class)->only(['store', 'update']);
     });
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {

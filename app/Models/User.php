@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\FormOrder;
 use App\Models\Product;
 use App\Models\LayoutPicker;
+use App\Models\AdMob;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,6 +44,14 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * Get the AdMob value
+     */
+    public function admob()
+    {
+        return $this->hasOne(AdMob::class);
     }
     
     /**
