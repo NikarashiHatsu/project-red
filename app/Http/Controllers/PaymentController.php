@@ -21,6 +21,10 @@ class PaymentController extends Controller
         $user = User::where('id', $user_id)->with(['form_order', 'admob'])->firstOrFail();
 
         if($user->form_order->pricing_id == 4) {
+            FormOrder::where('id', $user->form_order->id)->update([
+                'requested' => 1,
+            ]);
+            
             return Inertia::render('Payment/BRI', [
                 'data' => $user,
             ]);

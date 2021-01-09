@@ -120,6 +120,8 @@
                 pending_progress: this.$page.data.pending_progress,
                 user_requests: this.$page.data.user_requests,
                 user_progress: this.$page.data.user_progress,
+                special_requests: this.$page.data.special_requests,
+                special_progress: this.$page.data.special_progress,
             }
         }
     }

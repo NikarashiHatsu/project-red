@@ -26,6 +26,8 @@ class AdminDashboardController extends Controller
             'pending_progress' => self::get_pending_progress_count(),
             'user_requests' => self::get_user_requests(),
             'user_progress' => self::get_pending_progress(),
+            'special_request' => self::get_special_requests(),
+            'special_progress' => self::get_special_progress_count(),
         ];
         
         return Inertia::render('Admin/Dashboard', [
@@ -95,5 +97,21 @@ class AdminDashboardController extends Controller
     private static function get_pending_progress()
     {
         return Progress::where('is_published_on_google_play', null)->with('form_order')->get();
+    }
+
+    /**
+     * Get how many pending shops need to be approval
+     */
+    private static function get_special_requests()
+    {
+        return FormOrder::where(['requested' => 1, 'confirmed' => null, 'pricing_id' => 4])->count();
+    }
+
+    /**
+     * Retrieve the user requests
+     */
+    private static function get_special_progress_count()
+    {
+        return FormOrder::where(['requested' => 1, 'confirmed' => null, 'pricing_id' => 4])->get();
     }
 }

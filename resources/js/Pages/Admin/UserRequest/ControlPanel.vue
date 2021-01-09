@@ -4,6 +4,11 @@
         <p v-if="confirmed">Permintaan sudah diterima oleh Anda</p>
         <p v-else-if="rejected">Permintaan sudah ditolak</p>
         <p v-else>Terima permintaan toko ini?</p>
+
+        <p class="text-red-700 my-4" v-if="$page.data.form_order.pricing_id == 4">
+            Paket yang diajukan adalah Paket Pengusaha. Tolong cek kembali apakah pembayaran sudah diajukan atau belum.
+        </p> 
+        
         <div class="flex flex-row-reverse mt-4">
             <jet-button :disabled="confirmed || rejected" :class="{ 'opacity-25': (confirmed || rejected) }" @click.native="terimaPermintaan()">
                 Terima
