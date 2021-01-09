@@ -14,7 +14,7 @@
                     <div class="col-span-12 sm:col-span-6 lg:col-span-4">
                         <layout-information :class="'border-' + layout_picker.color_scheme_used + '-200'" :layout="layout_picker" />
                         <user-information :class="'border-' + layout_picker.color_scheme_used + '-200'" :user="user_data" />
-                        <admob v-if="user_data.admob && (user_data.form_order.pricing_id == 4 || user_data.form_order.pricing_id == 3)" :class="'border-' + layout_picker.color_scheme_used + '-200'" :user="user_data" />
+                        <admob v-if="(user_data.admob.app_id != '' && user_data.admob.ad_id != '') && (user_data.form_order.pricing_id == 4 || user_data.form_order.pricing_id == 3)" :class="'border-' + layout_picker.color_scheme_used + '-200'" :user="user_data" />
                         <control-panel :class="'border-' + layout_picker.color_scheme_used + '-200'" :formOrder="form_order" :confirmed="apakahDikonfirmasi" :rejected="apakahDitolak" />
                     </div>
                 </div>
