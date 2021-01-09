@@ -11,7 +11,23 @@
                 <div class="grid grid-cols-12 grid-flow-row gap-6">
                     <div class="col-span-12 md:col-span-6 lg:col-span-8">
                         <div :class="borderColor" class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                            <h5 class="text-xl mb-4">Hai, {{ $page.user.name }}</h5>
+                            <div class="flex justify-between mb-8">
+                                <h5 class="text-xl mb-4">
+                                    Hai, {{ $page.user.name }}
+                                </h5>
+                                <div class="flex flex-col items-end w-1/2">
+                                    <div v-if="$page.data.form_order.rejected && !$page.data.form_order.requested">
+                                        <span class="bg-red-50 border border-red-400 text-red-800 rounded-md p-1">Permintaan Pengajuan Ditolak</span>
+                                        <p class="mt-2">Alasan: <b>{{ $page.data.form_order.rejected_reason }}.</b> Anda bisa mengubah form permintaan Anda dan mengirimkannya lagi.</p>
+                                    </div>
+                                    <div v-else-if="$page.data.form_order.confirmed">
+                                        <span class="bg-green-50 border border-green-400 text-green-800 rounded-md p-1">Permintaan Pengajuan Diterima</span>
+                                    </div>
+                                    <div v-else>
+                                        <span class="bg-yellow-50 border border-yellow-400 text-yellow-800 rounded-md p-1">Permintaan Dalam Antrian</span>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div v-if="$page.data.form_order.requested">
                                 <div class="flex justify-between">
@@ -24,18 +40,6 @@
                                                 <i class="fas fa-box-open fa-sm"></i>
                                                 <span>{{ $page.data.products.length }} Produk</span>
                                             </p>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col items-end w-1/3">
-                                        <div v-if="$page.data.form_order.rejected">
-                                            <span class="bg-red-50 border border-red-400 text-red-800 rounded-md p-1">Permintaan Pengajuan Ditolak</span>
-                                            <p class="mt-2">Alasan: <b>{{ $page.data.form_order.rejected_reason }}</b></p>
-                                        </div>
-                                        <div v-else-if="$page.data.form_order.confirmed">
-                                            <span class="bg-green-50 border border-green-400 text-green-800 rounded-md p-1">Permintaan Pengajuan Diterima</span>
-                                        </div>
-                                        <div v-else>
-                                            <span class="bg-yellow-50 border border-yellow-400 text-yellow-800 rounded-md p-1">Permintaan Dalam Antrian</span>
                                         </div>
                                     </div>
                                 </div>
