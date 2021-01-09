@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-
 
 class AdMob extends Model
 {
@@ -27,6 +27,10 @@ class AdMob extends Model
             $decrypted = Crypt::decryptString($this->application_id);
         } catch (DecryptException $e) {
             return $e;
+        }
+
+        if(Auth::user()->role == 'admin') {
+            return $decrypted;
         }
 
         $arr = explode('~', $decrypted);
@@ -50,6 +54,10 @@ class AdMob extends Model
             $decrypted = Crypt::decryptString($this->ad_unit_id);
         } catch (DecryptException $e) {
             return $e;
+        }
+
+        if(Auth::user()->role == 'admin') {
+            return $decrypted;
         }
 
         $arr = explode('/', $decrypted);

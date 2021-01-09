@@ -56,7 +56,7 @@ class UserRequestController extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id', $id)->with(['form_order', 'products', 'layout_picker'])->firstOrFail();
+        $user = User::where('id', $id)->with(['form_order', 'products', 'layout_picker', 'admob'])->firstOrFail();
 
         return Inertia::render('Admin/UserRequest/Show', [
             'data' => $user,
