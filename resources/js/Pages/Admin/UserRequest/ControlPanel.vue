@@ -70,6 +70,7 @@
                 rejectionForm: this.$inertia.form({
                     _method: 'PUT',
                     id: this.formOrder.id,
+                    requested: null,
                     rejected: 1,
                     rejected_reason: '',
                 }),
