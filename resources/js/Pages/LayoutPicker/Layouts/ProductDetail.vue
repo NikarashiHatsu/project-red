@@ -6,14 +6,16 @@
                 <span class="font-semibold">Toko {{ form_order.nama_toko }}</span>
             </div>
         </div>
-        <div class="flex flex-col">
-            <div class="h-48 border-b">
-                <img :src="product.storage_foto_produk_path" :alt="product.nama_produk" class="w-full h-full object-contain">
-            </div>
-            <div class="p-4 mb-4">
-                <h5 class="text-xl font-bold mb-2">{{ product.nama_produk }}</h5>
-                <p class="text-sm mb-2">{{ product.formatted_harga_produk }}</p>
-                <p class="mb-2" v-html="product.nl2br_deskripsi"></p>
+        <div class="flex flex-col justify-between">
+            <div class="flex flex-col">
+                <div class="h-48 border-b">
+                    <img :src="product.storage_foto_produk_path" :alt="product.nama_produk" class="w-full h-full object-contain">
+                </div>
+                <div class="p-4 mb-4">
+                    <h5 class="text-xl font-bold mb-2">{{ product.nama_produk }}</h5>
+                    <p class="text-sm mb-2">{{ product.formatted_harga_produk }}</p>
+                    <p class="mb-2" v-html="product.nl2br_deskripsi"></p>
+                </div>
             </div>
             <div class="flex flex-row-reverse p-4">
                 <jet-button>
