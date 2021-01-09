@@ -11,11 +11,11 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') . '?v=7' }}">
+        <link rel="stylesheet" href="{{ mix('css/app.css') . '?v=8' }}">
 
         <!-- Scripts -->
         @routes
-        <script src="{{ mix('js/app.js') . '?v=7' }}" defer></script>
+        <script src="{{ mix('js/app.js') . '?v=8' }}" defer></script>
     </head>
     <body class="font-sans antialiased">
         @inertia
