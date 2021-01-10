@@ -30,6 +30,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/user_register', function() {
+    return view('auth.register_user');
+});
 Route::get('/web_app/cart/{user_id}', [WebAppController::class, 'cart'])->name('web.cart');
 Route::get('/web_app/{user_id}', [WebAppController::class, 'user_app'])->name('web.app');
 Route::get('/web_app/{user_id}/{product_id}', [WebAppController::class, 'user_product'])->name('web.product');
